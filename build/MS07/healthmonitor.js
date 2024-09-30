@@ -10,14 +10,14 @@ class cnt_heartbeat {
         this.action = "";
     }
     static fromBody(body) {
-        const certificado = {
-            id: body.id || "",
-            status: body.status || "",
-            timestamp: body.timestamp || new Date().toDateString(),
-            url: body.url || "",
-            action: body.certificado || ""
+        const heartbeat = {
+            id: (body === null || body === void 0 ? void 0 : body.id) || "",
+            status: (body === null || body === void 0 ? void 0 : body.status) || "",
+            timestamp: (body === null || body === void 0 ? void 0 : body.timestamp) || new Date().toDateString(),
+            url: (body === null || body === void 0 ? void 0 : body.url) || "",
+            action: (body === null || body === void 0 ? void 0 : body.certificado) || ""
         };
-        return certificado;
+        return heartbeat;
     }
 }
 exports.cnt_heartbeat = cnt_heartbeat;
