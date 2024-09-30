@@ -5,7 +5,7 @@ class cnt_heartbeat {
     constructor() {
         this.id = "";
         this.status = "";
-        this.timestamp = "";
+        this.fecha = "";
         this.url = "";
         this.action = "";
     }
@@ -13,7 +13,7 @@ class cnt_heartbeat {
         const heartbeat = {
             id: (body === null || body === void 0 ? void 0 : body.id) || "",
             status: (body === null || body === void 0 ? void 0 : body.status) || "",
-            timestamp: (body === null || body === void 0 ? void 0 : body.timestamp) || new Date().toDateString(),
+            fecha: (body === null || body === void 0 ? void 0 : body.fecha) || new Date(),
             url: (body === null || body === void 0 ? void 0 : body.url) || "",
             action: (body === null || body === void 0 ? void 0 : body.certificado) || ""
         };

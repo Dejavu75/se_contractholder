@@ -1,7 +1,7 @@
 export type sch_heartbeat = {
     id: string;
     status: string;
-    timestamp: string;
+    fecha: string;
     url: string;
     action: string;
 }
@@ -9,7 +9,7 @@ export type sch_heartbeat = {
 export class cnt_heartbeat implements sch_heartbeat {
     id: string="";
     status: string="";
-    timestamp: string="";
+    fecha: string="";
     url: string="";
     action: string="";
     static fromBody(body: any) {
@@ -17,7 +17,7 @@ export class cnt_heartbeat implements sch_heartbeat {
         const heartbeat: cnt_heartbeat = {
             id: body?.id || "",
             status: body?.status || "",
-            timestamp: body?.timestamp || new Date().toDateString(),
+            fecha: body?.fecha || new Date(),
             url: body?.url || "",
             action: body?.certificado || ""
         };
