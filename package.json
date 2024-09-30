@@ -2,7 +2,7 @@
   "name": "se_contractholder",
   "version": "1.0.0",
   "description": "Base package for inter API contracts",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "dev": "ts-node-dev index.ts",
     "tsc": "tsc",
