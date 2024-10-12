@@ -6,7 +6,7 @@ export type sch_heartbeat = {
     created_at?: Date;
     update_at?: Date;
     url?: string;
-    expected_intervar:number;
+    expectedInterval:number;
     action: string;
 }
 
@@ -18,7 +18,7 @@ export class cnt_heartbeat implements sch_heartbeat {
     created_at?: Date;
     update_at?: Date;
     url?: string = "";
-    expected_intervar: number = 0;
+    expectedInterval: number = 0;
     action: string = "";
 
     static fromBody(body: any): cnt_heartbeat {
@@ -30,7 +30,7 @@ export class cnt_heartbeat implements sch_heartbeat {
             created_at: body?.created_at ? new Date(body.created_at) : undefined,
             update_at: body?.update_at ? new Date(body.update_at) : undefined,
             url: body?.url || "",
-            expected_intervar: body?.expected_intervar || 0,
+            expectedInterval: body?.expected_intervar || 0,
             action: body.action || ""
         };
         return heartbeat;

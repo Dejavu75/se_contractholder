@@ -7,7 +7,7 @@ class cnt_heartbeat {
         this.instance = "";
         this.status = "";
         this.url = "";
-        this.expected_intervar = 0;
+        this.expectedInterval = 0;
         this.action = "";
     }
     static fromBody(body) {
@@ -19,7 +19,7 @@ class cnt_heartbeat {
             created_at: (body === null || body === void 0 ? void 0 : body.created_at) ? new Date(body.created_at) : undefined,
             update_at: (body === null || body === void 0 ? void 0 : body.update_at) ? new Date(body.update_at) : undefined,
             url: (body === null || body === void 0 ? void 0 : body.url) || "",
-            expected_intervar: (body === null || body === void 0 ? void 0 : body.expected_intervar) || 0,
+            expectedInterval: (body === null || body === void 0 ? void 0 : body.expected_intervar) || 0,
             action: body.action || ""
         };
         return heartbeat;
