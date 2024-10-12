@@ -3,19 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_heartbeat = void 0;
 class cnt_heartbeat {
     constructor() {
-        this.id = "";
+        this.mscode = "";
+        this.instance = "";
         this.status = "";
-        this.fecha = "";
         this.url = "";
+        this.expected_intervar = 0;
         this.action = "";
     }
     static fromBody(body) {
         const heartbeat = {
-            id: (body === null || body === void 0 ? void 0 : body.id) || "",
+            mscode: body.mscode || "",
+            instance: body.instance || "",
             status: (body === null || body === void 0 ? void 0 : body.status) || "",
-            fecha: (body === null || body === void 0 ? void 0 : body.fecha) || new Date(),
+            version: (body === null || body === void 0 ? void 0 : body.version) || undefined,
+            created_at: (body === null || body === void 0 ? void 0 : body.created_at) ? new Date(body.created_at) : undefined,
+            update_at: (body === null || body === void 0 ? void 0 : body.update_at) ? new Date(body.update_at) : undefined,
             url: (body === null || body === void 0 ? void 0 : body.url) || "",
-            action: (body === null || body === void 0 ? void 0 : body.certificado) || ""
+            expected_intervar: (body === null || body === void 0 ? void 0 : body.expected_intervar) || 0,
+            action: body.action || ""
         };
         return heartbeat;
     }

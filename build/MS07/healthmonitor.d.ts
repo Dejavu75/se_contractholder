@@ -1,15 +1,23 @@
 export type sch_heartbeat = {
-    id: string;
+    mscode: string;
+    instance: string;
     status: string;
-    fecha: string;
-    url: string;
+    version?: number;
+    created_at?: Date;
+    update_at?: Date;
+    url?: string;
+    expected_intervar: number;
     action: string;
 };
 export declare class cnt_heartbeat implements sch_heartbeat {
-    id: string;
+    mscode: string;
+    instance: string;
     status: string;
-    fecha: string;
-    url: string;
+    version?: number;
+    created_at?: Date;
+    update_at?: Date;
+    url?: string;
+    expected_intervar: number;
     action: string;
     static fromBody(body: any): cnt_heartbeat;
 }

@@ -1,25 +1,37 @@
 export type sch_heartbeat = {
-    id: string;
+    mscode: string;
+    instance: string;
     status: string;
-    fecha: string;
-    url: string;
+    version?:number;
+    created_at?: Date;
+    update_at?: Date;
+    url?: string;
+    expected_intervar:number;
     action: string;
 }
 
 export class cnt_heartbeat implements sch_heartbeat {
-    id: string="";
-    status: string="";
-    fecha: string="";
-    url: string="";
-    action: string="";
-    static fromBody(body: any) {
+    mscode: string = "";
+    instance: string = "";
+    status: string = "";
+    version?: number;
+    created_at?: Date;
+    update_at?: Date;
+    url?: string = "";
+    expected_intervar: number = 0;
+    action: string = "";
 
+    static fromBody(body: any): cnt_heartbeat {
         const heartbeat: cnt_heartbeat = {
-            id: body?.id || "",
+            mscode: body.mscode || "",
+            instance: body.instance || "",
             status: body?.status || "",
-            fecha: body?.fecha || new Date(),
+            version: body?.version || undefined,
+            created_at: body?.created_at ? new Date(body.created_at) : undefined,
+            update_at: body?.update_at ? new Date(body.update_at) : undefined,
             url: body?.url || "",
-            action: body?.certificado || ""
+            expected_intervar: body?.expected_intervar || 0,
+            action: body.action || ""
         };
         return heartbeat;
     }
