@@ -26,11 +26,11 @@ export class cnt_heartbeat implements sch_heartbeat {
             mscode: body.mscode || "",
             instance: body.instance || "",
             status: body?.status || "",
-            version: body?.version || undefined,
+            version: body?.version || 0,
             created_at: body?.created_at ? new Date(body.created_at) : undefined,
             update_at: body?.update_at ? new Date(body.update_at) : undefined,
             url: body?.url || "",
-            expectedInterval: body?.expected_intervar || 0,
+            expectedInterval: body?.expectedIntervar || 0,
             action: body.action || ""
         };
         return heartbeat;
