@@ -35,4 +35,5 @@ export class cnt_heartbeat implements sch_heartbeat {
         };
         return heartbeat;
     }
+    
 }
