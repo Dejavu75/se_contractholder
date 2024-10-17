@@ -20,4 +20,5 @@ export declare class cnt_heartbeat implements sch_heartbeat {
     expectedInterval: number;
     action: string;
     static fromBody(body: any): cnt_heartbeat;
+    static fromMSIdentity(msIdentity: any): cnt_heartbeat;
 }

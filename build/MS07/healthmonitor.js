@@ -24,5 +24,17 @@ class cnt_heartbeat {
         };
         return heartbeat;
     }
+    static fromMSIdentity(msIdentity) {
+        const heartbeat = {
+            mscode: msIdentity.mscode,
+            instance: msIdentity.msinstance,
+            version: msIdentity.version || 0,
+            url: msIdentity.url || "",
+            expectedInterval: msIdentity.expectedInterval || 0,
+            action: "",
+            status: ""
+        };
+        return heartbeat;
+    }
 }
 exports.cnt_heartbeat = cnt_heartbeat;
