@@ -5,14 +5,14 @@ class cnt_configbase {
     constructor() {
         this.mscode = "";
         this.instancia = "";
-        this.database = "";
+        this.msdb = "";
         this.version = 0;
     }
     static fromBody(body) {
         const configbase = {
             mscode: (body === null || body === void 0 ? void 0 : body.mscode) || "",
             instancia: (body === null || body === void 0 ? void 0 : body.instancia) || "",
-            database: (body === null || body === void 0 ? void 0 : body.database) || "",
+            msdb: (body === null || body === void 0 ? void 0 : body.msdb) || "",
             version: (body === null || body === void 0 ? void 0 : body.version) || 0
         };
         return configbase;
