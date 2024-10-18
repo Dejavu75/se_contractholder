@@ -8,6 +8,7 @@ export type sch_heartbeat = {
     url?: string;
     expectedInterval:number;
     action: string;
+    serviceType: string;
 }
 
 export class cnt_heartbeat implements sch_heartbeat {
@@ -20,7 +21,7 @@ export class cnt_heartbeat implements sch_heartbeat {
     url?: string = "";
     expectedInterval: number = 0;
     action: string = "";
-
+    serviceType: string = "";
     static fromBody(body: any): cnt_heartbeat {
         const heartbeat: cnt_heartbeat = {
             mscode: body.mscode || "",
@@ -31,7 +32,8 @@ export class cnt_heartbeat implements sch_heartbeat {
             update_at: body?.update_at ? new Date(body.update_at) : undefined,
             url: body?.url || "",
             expectedInterval: body?.expectedIntervar || 0,
-            action: body.action || ""
+            action: body.action || "",
+            serviceType: body.type || ""
         };
         return heartbeat;
     }
@@ -43,7 +45,8 @@ export class cnt_heartbeat implements sch_heartbeat {
             url:  msIdentity.url || "",
             expectedInterval: msIdentity.expectedInterval || 0,
             action: "",
-            status: ""
+            status: "",
+            serviceType: msIdentity.serviceType || ""
         };
         return heartbeat;
     }

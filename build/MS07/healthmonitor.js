@@ -9,6 +9,7 @@ class cnt_heartbeat {
         this.url = "";
         this.expectedInterval = 0;
         this.action = "";
+        this.serviceType = "";
     }
     static fromBody(body) {
         const heartbeat = {
@@ -20,7 +21,8 @@ class cnt_heartbeat {
             update_at: (body === null || body === void 0 ? void 0 : body.update_at) ? new Date(body.update_at) : undefined,
             url: (body === null || body === void 0 ? void 0 : body.url) || "",
             expectedInterval: (body === null || body === void 0 ? void 0 : body.expectedIntervar) || 0,
-            action: body.action || ""
+            action: body.action || "",
+            serviceType: body.type || ""
         };
         return heartbeat;
     }
@@ -32,7 +34,8 @@ class cnt_heartbeat {
             url: msIdentity.url || "",
             expectedInterval: msIdentity.expectedInterval || 0,
             action: "",
-            status: ""
+            status: "",
+            serviceType: msIdentity.serviceType || ""
         };
         return heartbeat;
     }

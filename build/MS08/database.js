@@ -7,13 +7,15 @@ class cnt_configbase {
         this.instancia = "";
         this.msdb = "";
         this.version = 0;
+        this.serviceType = "";
     }
     static fromBody(body) {
         const configbase = {
             mscode: (body === null || body === void 0 ? void 0 : body.mscode) || "",
             instancia: (body === null || body === void 0 ? void 0 : body.instancia) || "",
             msdb: (body === null || body === void 0 ? void 0 : body.msdb) || "",
-            version: (body === null || body === void 0 ? void 0 : body.version) || 0
+            version: (body === null || body === void 0 ? void 0 : body.version) || 0,
+            serviceType: (body === null || body === void 0 ? void 0 : body.serviceType) || ""
         };
         return configbase;
     }
