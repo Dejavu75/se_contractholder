@@ -22,16 +22,16 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/se_configbase": "github:Dejavu75/se_configbase",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "@types/se_configbase": "github:Dejavu75/se_configbase"
   },  
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.0",
     "http": "^0.0.1-security",
     "https": "^1.0.0",
-    "se_configbase": "github:Dejavu75/se_configbase",
     "ts-node-dev": "^2.0.0",
-    "tsc": "^2.0.4"
+    "tsc": "^2.0.4",
+    "se_configbase": "github:Dejavu75/se_configbase"
   }
 }
