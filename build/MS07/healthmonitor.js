@@ -20,9 +20,9 @@ class cnt_heartbeat {
             created_at: (body === null || body === void 0 ? void 0 : body.created_at) ? new Date(body.created_at) : undefined,
             update_at: (body === null || body === void 0 ? void 0 : body.update_at) ? new Date(body.update_at) : undefined,
             url: (body === null || body === void 0 ? void 0 : body.url) || "",
-            expectedInterval: (body === null || body === void 0 ? void 0 : body.expectedIntervar) || 0,
+            expectedInterval: (body === null || body === void 0 ? void 0 : body.expectedInterval) || 0,
             action: body.action || "",
-            serviceType: body.type || ""
+            serviceType: body.serviceType || ""
         };
         return heartbeat;
     }

@@ -31,9 +31,9 @@ export class cnt_heartbeat implements sch_heartbeat {
             created_at: body?.created_at ? new Date(body.created_at) : undefined,
             update_at: body?.update_at ? new Date(body.update_at) : undefined,
             url: body?.url || "",
-            expectedInterval: body?.expectedIntervar || 0,
+            expectedInterval: body?.expectedInterval || 0,
             action: body.action || "",
-            serviceType: body.type || ""
+            serviceType: body.serviceType || ""
         };
         return heartbeat;
     }
