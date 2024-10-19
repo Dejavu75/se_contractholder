@@ -10,7 +10,6 @@ export type sch_heartbeat = {
     action: string;
     serviceType: string;
 }
-
 export class cnt_heartbeat implements sch_heartbeat {
     mscode: string = "";
     instance: string = "";
@@ -27,7 +26,7 @@ export class cnt_heartbeat implements sch_heartbeat {
             mscode: body.mscode || "",
             instance: body.instance || "",
             status: body?.status || "",
-            version: body?.version || 0,
+            version: body?.version || 0, 
             created_at: body?.created_at ? new Date(body.created_at) : undefined,
             update_at: body?.update_at ? new Date(body.update_at) : undefined,
             url: body?.url || "",
@@ -52,3 +51,4 @@ export class cnt_heartbeat implements sch_heartbeat {
     }
     
 }
+type sch_heartbeat2 = {}

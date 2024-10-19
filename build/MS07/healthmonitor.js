@@ -22,7 +22,7 @@ class cnt_heartbeat {
             url: (body === null || body === void 0 ? void 0 : body.url) || "",
             expectedInterval: (body === null || body === void 0 ? void 0 : body.expectedInterval) || 0,
             action: body.action || "",
-            serviceType: body.serviceType || ""
+            serviceType: body.serviceType || "" 
         };
         return heartbeat;
     }
