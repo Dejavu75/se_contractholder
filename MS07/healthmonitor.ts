@@ -3,36 +3,39 @@ export type sch_heartbeat = {
     instance: string;
     status: string;
     version?:number;
-    created_at?: Date;
-    update_at?: Date;
+    createdAt?: Date;
+    updateAt?: Date;
     url?: string;
     expectedInterval:number;
     action: string;
     serviceType: string;
+    heartbeatAt?: Date;
 }
 export class cnt_heartbeat implements sch_heartbeat {
     mscode: string = "";
     instance: string = "";
     status: string = "";
     version?: number;
-    created_at?: Date;
-    update_at?: Date;
+    createdAt?: Date;
+    updateAt?: Date;
     url?: string = "";
     expectedInterval: number = 0;
     action: string = "";
     serviceType: string = "";
+    heartbeatAt?: Date;
     static fromBody(body: any): cnt_heartbeat {
         const heartbeat: cnt_heartbeat = {
             mscode: body.mscode || "",
             instance: body.instance || "",
             status: body?.status || "",
             version: body?.version || 0, 
-            created_at: body?.created_at ? new Date(body.created_at) : undefined,
-            update_at: body?.update_at ? new Date(body.update_at) : undefined,
+            createdAt: body?.createdAt ? new Date(body.createdAt) : undefined,
+            updateAt: body?.updateAt ? new Date(body.updateAt) : undefined,
             url: body?.url || "",
             expectedInterval: body?.expectedInterval || 0,
             action: body.action || "",
-            serviceType: body.serviceType || ""
+            serviceType: body.serviceType || "",
+            heartbeatAt: body?.heartbeatAt ? new Date(body.heartbeatAt) : undefined,
         };
         return heartbeat;
     }
@@ -49,6 +52,6 @@ export class cnt_heartbeat implements sch_heartbeat {
         };
         return heartbeat;
     }
+
     
 }
-type sch_heartbeat2 = {}
