@@ -10,6 +10,7 @@ export type sch_heartbeat = {
     action: string;
     serviceType: string;
     heartbeatAt?: Date;
+    extraData?: string;
 };
 export declare class cnt_heartbeat implements sch_heartbeat {
     mscode: string;
@@ -23,6 +24,7 @@ export declare class cnt_heartbeat implements sch_heartbeat {
     action: string;
     serviceType: string;
     heartbeatAt?: Date;
+    extraData?: string;
     static fromBody(body: any): cnt_heartbeat;
     static fromMSIdentity(msIdentity: any): cnt_heartbeat;
 }

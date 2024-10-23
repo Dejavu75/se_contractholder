@@ -10,6 +10,7 @@ export type sch_heartbeat = {
     action: string;
     serviceType: string;
     heartbeatAt?: Date;
+    extraData?: string;
 }
 export class cnt_heartbeat implements sch_heartbeat {
     mscode: string = "";
@@ -23,6 +24,7 @@ export class cnt_heartbeat implements sch_heartbeat {
     action: string = "";
     serviceType: string = "";
     heartbeatAt?: Date;
+    extraData?: string = "";
     static fromBody(body: any): cnt_heartbeat {
         const heartbeat: cnt_heartbeat = {
             mscode: body.mscode || "",
@@ -36,6 +38,7 @@ export class cnt_heartbeat implements sch_heartbeat {
             action: body.action || "",
             serviceType: body.serviceType || "",
             heartbeatAt: body?.heartbeatAt ? new Date(body.heartbeatAt) : undefined,
+            extraData: body?.extraData || ""
         };
         return heartbeat;
     }
@@ -48,7 +51,8 @@ export class cnt_heartbeat implements sch_heartbeat {
             expectedInterval: msIdentity.expectedInterval || 0,
             action: "",
             status: "",
-            serviceType: msIdentity.serviceType || ""
+            serviceType: msIdentity.serviceType || "",
+            extraData: msIdentity.extraData ||""
         };
         return heartbeat;
     }
