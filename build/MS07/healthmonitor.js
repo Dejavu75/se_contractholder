@@ -12,6 +12,22 @@ class cnt_heartbeat {
         this.serviceType = "";
         this.extraData = "";
     }
+    static fromMicroservices(oRow) {
+        const heartbeat = {
+            mscode: oRow.mscode,
+            instance: oRow.instance,
+            status: oRow.status,
+            version: oRow.version,
+            expectedInterval: oRow.expectedInterval,
+            url: oRow.url,
+            action: "reading",
+            serviceType: oRow.serviceType,
+            createdAt: oRow.createdAt,
+            updateAt: oRow.updatedAt,
+            heartbeatAt: oRow.heartbeatAt
+        };
+        return heartbeat;
+    }
     static fromBody(body) {
         const heartbeat = {
             mscode: body.mscode || "",

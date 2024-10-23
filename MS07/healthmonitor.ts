@@ -25,6 +25,24 @@ export class cnt_heartbeat implements sch_heartbeat {
     serviceType: string = "";
     heartbeatAt?: Date;
     extraData?: string = "";
+
+    static fromMicroservices(oRow: any): cnt_heartbeat {
+        const heartbeat: cnt_heartbeat = {
+            mscode: oRow.mscode,
+            instance: oRow.instance,
+            status: oRow.status,
+            version: oRow.version,
+            expectedInterval: oRow.expectedInterval,
+            url: oRow.url,
+            action: "reading",
+            serviceType: oRow.serviceType,
+            createdAt: oRow.createdAt,
+            updateAt: oRow.updatedAt,
+            heartbeatAt: oRow.heartbeatAt
+        };
+        return heartbeat;
+    }
+
     static fromBody(body: any): cnt_heartbeat {
         const heartbeat: cnt_heartbeat = {
             mscode: body.mscode || "",
