@@ -11,6 +11,10 @@ export type sch_heartbeat = {
     serviceType: string;
     heartbeatAt?: Date;
     extraData?: string;
+    downMissed?: number;
+    alertMissed?: number;
+    alert?: Date | null;
+    down?: Date | null;
 }
 export class cnt_heartbeat implements sch_heartbeat {
     mscode: string = "";

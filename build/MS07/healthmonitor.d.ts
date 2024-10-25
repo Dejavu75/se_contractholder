@@ -11,6 +11,10 @@ export type sch_heartbeat = {
     serviceType: string;
     heartbeatAt?: Date;
     extraData?: string;
+    downMissed?: number;
+    alertMissed?: number;
+    alert?: Date | null;
+    down?: Date | null;
 };
 export declare class cnt_heartbeat implements sch_heartbeat {
     mscode: string;
@@ -25,6 +29,11 @@ export declare class cnt_heartbeat implements sch_heartbeat {
     serviceType: string;
     heartbeatAt?: Date;
     extraData?: string;
+    downMissed: number;
+    alertMissed: number;
+    get alert(): Date | null;
+    get down(): Date | null;
+    constructor(mscode?: string, instance?: string, status?: string, version?: number, createdAt?: Date, updateAt?: Date, url?: string, expectedInterval?: number, action?: string, serviceType?: string, heartbeatAt?: Date, extraData?: string);
     static fromMicroservices(oRow: any): cnt_heartbeat;
     static fromBody(body: any): cnt_heartbeat;
     static fromMSIdentity(msIdentity: any): cnt_heartbeat;
