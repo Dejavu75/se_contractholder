@@ -7,7 +7,7 @@
     "dev": "ts-node-dev index.ts",
     "tsc": "tsc",
     "start": "node build/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-node-dev a_tests.ts"
   },
   "repository": {
     "type": "git",
