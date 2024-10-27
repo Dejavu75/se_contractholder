@@ -15,4 +15,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./MS07/healthmonitor.js"), exports);
+__exportStar(require("./MS07/errorlog.js"), exports);
 __exportStar(require("./MS08/database.js"), exports);
