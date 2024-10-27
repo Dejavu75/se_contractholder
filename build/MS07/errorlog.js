@@ -44,11 +44,11 @@ class cnt_errorLog {
         if (readerrorMessage)
             this.fillErrorLog(errorMessage);
     }
-    static fromRow(oRow) {
-        return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined);
+    static fromRow(oRow, readerrorMessage = true) {
+        return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined, readerrorMessage);
     }
-    static fromBody(body) {
-        return new cnt_errorLog(body.msCode || "", body.instance || "", body.userId || 0, body.type || 0, body.message || "", body.sessionId || "", body.transactionId || "", body.errorMessage || "", body.extraData || "", body.executableName || "", body.executableVersion || "", body.callStack || "", body.program || "", body.dataSession || 0, body.openFile || "", body.databasePath || "", body.defaultFolder || "", body.notes || "", body.createdAt ? new Date(body.createdAt) : undefined);
+    static fromBody(body, readerrorMessage = true) {
+        return new cnt_errorLog(body.msCode || "", body.instance || "", body.userId || 0, body.type || 0, body.message || "", body.sessionId || "", body.transactionId || "", body.errorMessage || "", body.extraData || "", body.executableName || "", body.executableVersion || "", body.callStack || "", body.program || "", body.dataSession || 0, body.openFile || "", body.databasePath || "", body.defaultFolder || "", body.notes || "", body.createdAt ? new Date(body.createdAt) : undefined, readerrorMessage);
     }
     fillErrorLog(errorText) {
         // Extraemos los datos del mensaje de error

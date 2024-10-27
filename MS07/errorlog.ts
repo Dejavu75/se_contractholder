@@ -86,7 +86,7 @@ export class cnt_errorLog implements sch_errorLog {
         if (readerrorMessage) this.fillErrorLog(errorMessage);
     }
 
-    static fromRow(oRow: any): cnt_errorLog {
+    static fromRow(oRow: any, readerrorMessage: boolean=true): cnt_errorLog {
         return new cnt_errorLog(
             oRow.mscode || "",
             oRow.instance || "",
@@ -106,11 +106,12 @@ export class cnt_errorLog implements sch_errorLog {
             oRow.databasePath || "",
             oRow.defaultFolder || "",
             oRow.notes || "",
-            oRow.createdAt ? new Date(oRow.createdAt) : undefined
+            oRow.createdAt ? new Date(oRow.createdAt) : undefined,
+            readerrorMessage
         );
     }
 
-    static fromBody(body: any): cnt_errorLog {
+    static fromBody(body: any, readerrorMessage: boolean=true): cnt_errorLog {
         return new cnt_errorLog(
             body.msCode || "",
             body.instance || "",
@@ -130,7 +131,8 @@ export class cnt_errorLog implements sch_errorLog {
             body.databasePath || "",
             body.defaultFolder || "",
             body.notes || "",
-            body.createdAt ? new Date(body.createdAt) : undefined
+            body.createdAt ? new Date(body.createdAt) : undefined,
+            readerrorMessage
 
         );
     }
