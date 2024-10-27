@@ -61,7 +61,8 @@ export class cnt_errorLog implements sch_errorLog {
         databasePath: string = "",
         defaultFolder: string = "",
         notes: string = "",
-        createdAt?: Date
+        createdAt?: Date, 
+        readerrorMessage: boolean = true
     ) {
         this.mscode = mscode;
         this.instance = instance;
@@ -82,6 +83,7 @@ export class cnt_errorLog implements sch_errorLog {
         this.defaultFolder = defaultFolder;
         this.notes = notes;
         this.createdAt = createdAt;
+        if (readerrorMessage) this.fillErrorLog(errorMessage);
     }
 
     static fromRow(oRow: any): cnt_errorLog {
@@ -129,6 +131,7 @@ export class cnt_errorLog implements sch_errorLog {
             body.defaultFolder || "",
             body.notes || "",
             body.createdAt ? new Date(body.createdAt) : undefined
+
         );
     }
     
@@ -146,7 +149,7 @@ export class cnt_errorLog implements sch_errorLog {
             this.databasePath=parsedError.databasePath;
             this.defaultFolder=parsedError.defaultFolder;
             this.notes=parsedError.notes;    
-        return this;
+                    return this;
     }
 }
 

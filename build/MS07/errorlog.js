@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_errorLog = void 0;
 class cnt_errorLog {
     // Constructor with default values
-    constructor(mscode = "", instance = "", userId = 0, type = 0, message = "", sessionId = "", transactionId = "", errorMessage = "", extraData = "", executableName = "", executableVersion, callStack = "", program = "", dataSession = 0, openFile = "", databasePath = "", defaultFolder = "", notes = "", createdAt) {
+    constructor(mscode = "", instance = "", userId = 0, type = 0, message = "", sessionId = "", transactionId = "", errorMessage = "", extraData = "", executableName = "", executableVersion, callStack = "", program = "", dataSession = 0, openFile = "", databasePath = "", defaultFolder = "", notes = "", createdAt, readerrorMessage = true) {
         this.mscode = "";
         this.instance = "";
         this.userId = 0;
@@ -41,6 +41,8 @@ class cnt_errorLog {
         this.defaultFolder = defaultFolder;
         this.notes = notes;
         this.createdAt = createdAt;
+        if (readerrorMessage)
+            this.fillErrorLog(errorMessage);
     }
     static fromRow(oRow) {
         return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined);
