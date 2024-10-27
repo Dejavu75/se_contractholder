@@ -1,0 +1,43 @@
+export type sch_errorLog = {
+    mscode: string;
+    instance: string;
+    userId: number;
+    type: number;
+    message: string;
+    sessionId: string;
+    transactionId: string;
+    errorMessage: string;
+    extraData: string;
+    executableName: string;
+    executableVersion: string;
+    programLine: string;
+    dataSession: number;
+    openFile: string;
+    databasePath: string;
+    defaultFolder: string;
+    notes: string;
+    createdAt?: Date;
+};
+export declare class cnt_errorLog implements sch_errorLog {
+    mscode: string;
+    instance: string;
+    userId: number;
+    type: number;
+    message: string;
+    sessionId: string;
+    transactionId: string;
+    errorMessage: string;
+    extraData: string;
+    executableName: string;
+    executableVersion: string;
+    programLine: string;
+    dataSession: number;
+    openFile: string;
+    databasePath: string;
+    defaultFolder: string;
+    notes: string;
+    createdAt?: Date;
+    constructor(mscode?: string, instance?: string, userId?: number, type?: number, message?: string, sessionId?: string, transactionId?: string, errorMessage?: string, extraData?: string, executableName?: string, executableVersion?: string, programLine?: string, dataSession?: number, openFile?: string, databasePath?: string, defaultFolder?: string, notes?: string, createdAt?: Date);
+    static fromRow(oRow: any): cnt_errorLog;
+    static fromBody(body: any): cnt_errorLog;
+}
