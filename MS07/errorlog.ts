@@ -113,7 +113,7 @@ export class cnt_errorLog implements sch_errorLog {
 
     static fromBody(body: any, readerrorMessage: boolean=true): cnt_errorLog {
         return new cnt_errorLog(
-            body.msCode || "",
+            body.mscode || "",
             body.instance || "",
             body.userId || 0,
             body.type || 0,
