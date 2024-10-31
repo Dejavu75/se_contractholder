@@ -140,7 +140,8 @@ export class cnt_errorLog implements sch_errorLog {
     fillErrorLog(errorText: string): cnt_errorLog {
         // Extraemos los datos del mensaje de error
         const parsedError = parseErrorMessage(errorText);   
-            this.errorMessage=parsedError.errorMessage;
+            this.errorMessage=errorText
+            this.message=parsedError.message;
             this.extraData=parsedError.extraData;
             this.executableName=parsedError.executableName;
             this.executableVersion  = parsedError.executableVersion;
@@ -160,6 +161,7 @@ export class cnt_errorLog implements sch_errorLog {
 type ParsedError = {
     user: string;
     errorMessage: string;
+    message: string;
     extraData: string;
     executableName: string;
     executableVersion: Date;
@@ -175,7 +177,7 @@ type ParsedError = {
 
 function parseErrorMessage(errorText: string): ParsedError {
     const userMatch = errorText.match(/Usuario:\s*:\s*(.+)/);
-    const errorMessageMatch = errorText.match(/Mensaje de Error\s*:\s*(.+)/);
+    const messageMatch = errorText.match(/Mensaje de Error\s*:\s*(.+)/);
     const extraDataMatch = errorText.match(/Extra data\s*:\s*(.+)/);
     const executableVersionMatch = errorText.match(/Version Ejecutable:\s*([^\s]+)\s*:\s*(.+)/);
     const callStackMatch = errorText.match(/Programa \/ Línea\s*:\s*(.+)/);
@@ -197,7 +199,8 @@ function parseErrorMessage(errorText: string): ParsedError {
        
     return {
         user: userMatch ? userMatch[1].trim() : "",
-        errorMessage: errorMessageMatch ? errorMessageMatch[1].trim() : "",
+        errorMessage: errorText,
+        message: messageMatch ? messageMatch[1].trim() : "",
         extraData: extraDataMatch ? extraDataMatch[1].trim() : "",
         executableName: executableName,
         executableVersion: executableVersion || new Date(1980,1,1),
