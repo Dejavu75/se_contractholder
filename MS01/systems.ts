@@ -1,4 +1,4 @@
-export type sch_systems = {
+export type sch_system = {
     systemUID: string;
     centralKey: string;
     systemKey: string;
@@ -9,7 +9,7 @@ export type sch_systems = {
     instanceType: string;
 };
 
-export class cnt_systems implements sch_systems {
+export class cnt_system implements sch_system {
     systemUID: string = "";
     centralKey: string = "";
     systemKey: string = "";
@@ -40,8 +40,8 @@ export class cnt_systems implements sch_systems {
         this.instanceType = instanceType;
     }
 
-    static fromSystemsData(oRow: any): cnt_systems {
-        const systems: cnt_systems = {
+    static fromSystemsData(oRow: any): cnt_system {
+        const systems: cnt_system = {
             systemUID: oRow.systemUID,
             centralKey: oRow.centralKey,
             systemKey: oRow.systemKey,
@@ -54,8 +54,8 @@ export class cnt_systems implements sch_systems {
         return systems;
     }
 
-    static fromBody(body: any): cnt_systems {
-        const systems: cnt_systems = {
+    static fromBody(body: any): cnt_system {
+        const systems: cnt_system = {
             systemUID: body.systemUID || "",
             centralKey: body.centralKey || "",
             systemKey: body.systemKey || "",

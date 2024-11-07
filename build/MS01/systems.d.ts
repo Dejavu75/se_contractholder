@@ -1,4 +1,4 @@
-export type sch_systems = {
+export type sch_system = {
     systemUID: string;
     centralKey: string;
     systemKey: string;
@@ -8,7 +8,7 @@ export type sch_systems = {
     systemType: string;
     instanceType: string;
 };
-export declare class cnt_systems implements sch_systems {
+export declare class cnt_system implements sch_system {
     systemUID: string;
     centralKey: string;
     systemKey: string;
@@ -18,6 +18,6 @@ export declare class cnt_systems implements sch_systems {
     systemType: string;
     instanceType: string;
     constructor(systemUID?: string, centralKey?: string, systemKey?: string, instance?: string, localization?: number, systemName?: string, systemType?: string, instanceType?: string);
-    static fromSystemsData(oRow: any): cnt_systems;
-    static fromBody(body: any): cnt_systems;
+    static fromSystemsData(oRow: any): cnt_system;
+    static fromBody(body: any): cnt_system;
 }

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cnt_systems = void 0;
-class cnt_systems {
+exports.cnt_system = void 0;
+class cnt_system {
     // Constructor with default values
     constructor(systemUID = "", centralKey = "", systemKey = "", instance = "", localization = 0, systemName = "", systemType = "", instanceType = "") {
         this.systemUID = "";
@@ -48,4 +48,4 @@ class cnt_systems {
         return systems;
     }
 }
-exports.cnt_systems = cnt_systems;
+exports.cnt_system = cnt_system;
