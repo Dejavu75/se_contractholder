@@ -14,6 +14,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+__exportStar(require("./MS01/systems.js"), exports);
+__exportStar(require("./MS06/backups.js"), exports);
 __exportStar(require("./MS07/healthmonitor.js"), exports);
 __exportStar(require("./MS07/errorlog.js"), exports);
 __exportStar(require("./MS08/database.js"), exports);
