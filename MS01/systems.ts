@@ -78,7 +78,7 @@ export class cnt_system implements sch_system {
             body.systemName || "",
             body.systemType || "",
             body.instanceType || "",
-            body.status || 0,
+            body.status || 1,
             body.devEnviroment || 0
         );
     }
@@ -93,7 +93,8 @@ export class cnt_system implements sch_system {
             oEG.nombre || "",
             "GES", // default systemType in fromEG
             "op",   // default instanceType in fromEG
-            oEG.status || 0,
+            oEG.status || 1,
+            oEG.dev || 0
         );
     }
     agesKeySistema(): string {

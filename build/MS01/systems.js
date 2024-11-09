@@ -30,13 +30,13 @@ class cnt_system {
         return new cnt_system(oRow.systemUUID, oRow.centralKey, oRow.systemKey, oRow.instance, oRow.localization, oRow.systemName, oRow.systemType, oRow.instanceType, oRow.status, oRow.devEnviroment);
     }
     static fromBody(body) {
-        return new cnt_system(body.systemUUID || "", body.centralKey || "", body.systemKey || "", body.instance || "", body.localization || 0, body.systemName || "", body.systemType || "", body.instanceType || "", body.status || 0, body.devEnviroment || 0);
+        return new cnt_system(body.systemUUID || "", body.centralKey || "", body.systemKey || "", body.instance || "", body.localization || 0, body.systemName || "", body.systemType || "", body.instanceType || "", body.status || 1, body.devEnviroment || 0);
     }
     static fromEG(oEG) {
         return new cnt_system("", "", // Assuming centralKey is empty in fromEG
         oEG.id_sistema || "", oEG.subsistema || "", oEG.localization || 1, oEG.nombre || "", "GES", // default systemType in fromEG
         "op", // default instanceType in fromEG
-        oEG.status || 0);
+        oEG.status || 1, oEG.dev || 0);
     }
     agesKeySistema() {
         return cnt_system.agesKeySistema(this.systemKey, this.instance, this.localization);
