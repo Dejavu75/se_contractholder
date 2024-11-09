@@ -1,4 +1,4 @@
-import { v1 as uuidv1, v3 as uuidv3, v4 as uuidv4, v5 as uuidv5 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export type sch_system = {
     systemUID: string;
@@ -98,7 +98,7 @@ export class cnt_system implements sch_system {
         return cnt_system.asignarUID(this.systemType, this.instanceType);
     }
     static asignarUID(systemType: string, instanceType:string): string {
-        return  uuidv3(systemType, instanceType)
+        return  uuidv4()
     }
 }
 

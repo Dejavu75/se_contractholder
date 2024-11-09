@@ -50,7 +50,7 @@ class cnt_system {
         return cnt_system.asignarUID(this.systemType, this.instanceType);
     }
     static asignarUID(systemType, instanceType) {
-        return (0, uuid_1.v3)(systemType, instanceType);
+        return (0, uuid_1.v4)();
     }
 }
 exports.cnt_system = cnt_system;
