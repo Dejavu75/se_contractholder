@@ -26,7 +26,14 @@ class cnt_system {
         this.status = status;
         this.devEnviroment = devEnviroment;
     }
-    static fromSystemsData(oRow) {
+    static fromResults(oRows) {
+        let arRes = [];
+        for (let i = 0; i < oRows.length; i++) {
+            arRes.push(cnt_system.fromRow(oRows[i]));
+        }
+        return arRes;
+    }
+    static fromRow(oRow) {
         return new cnt_system(oRow.systemUUID, oRow.centralKey, oRow.systemKey, oRow.instance, oRow.localization, oRow.systemName, oRow.systemType, oRow.instanceType, oRow.status, oRow.devEnviroment);
     }
     static fromBody(body) {

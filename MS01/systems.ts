@@ -52,8 +52,14 @@ export class cnt_system implements sch_system {
         this.devEnviroment = devEnviroment;
     }
 
-
-    static fromSystemsData(oRow: any): cnt_system {
+    static fromResults(oRows: any): cnt_system[] {
+        let arRes: cnt_system[] = [];
+        for (let i = 0; i < oRows.length; i++) {
+            arRes.push(cnt_system.fromRow(oRows[i]));
+        }
+        return arRes;
+    }
+    static fromRow(oRow: any): cnt_system {
         return new cnt_system(
             oRow.systemUUID,
             oRow.centralKey,
