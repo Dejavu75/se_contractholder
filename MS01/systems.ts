@@ -108,6 +108,7 @@ export class cnt_system implements sch_system {
         return this.centralKey;
     }
     static recrearcentraKey(centralKey: string, systemKey: string, instance: string, localization: number): string {
+        if (systemKey === "" || instance === "") return "";
         return centralKey === "" ? systemKey + " "+ instance + " " + (localization==0 ? "" : localization) : centralKey;
     }
     asignarUUID(): string {

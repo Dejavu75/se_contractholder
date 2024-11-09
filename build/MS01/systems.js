@@ -49,6 +49,8 @@ class cnt_system {
         return this.centralKey;
     }
     static recrearcentraKey(centralKey, systemKey, instance, localization) {
+        if (systemKey === "" || instance === "")
+            return "";
         return centralKey === "" ? systemKey + " " + instance + " " + (localization == 0 ? "" : localization) : centralKey;
     }
     asignarUUID() {
