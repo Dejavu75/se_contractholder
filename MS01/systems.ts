@@ -89,13 +89,15 @@ export class cnt_system implements sch_system {
         return systemKey.trim() + " " + localization + " " + instance.trim();
     }
     recrearcentraKey(): string {
-        return cnt_system.recrearcentraKey(this.centralKey, this.systemKey, this.instance, this.localization);
+        this.centralKey= cnt_system.recrearcentraKey(this.centralKey, this.systemKey, this.instance, this.localization);
+        return this.centralKey;
     }
     static recrearcentraKey(centralKey: string, systemKey: string, instance: string, localization: number): string {
         return centralKey === "" ? systemKey + " "+ instance + " " + (localization==0 ? "" : localization) : centralKey;
     }
     asignarUID(): string {
-        return cnt_system.asignarUID(this.systemType, this.instanceType);
+        this.systemUID= cnt_system.asignarUID(this.systemType, this.instanceType);
+        return this.systemUID
     }
     static asignarUID(systemType: string, instanceType:string): string {
         return  uuidv4()

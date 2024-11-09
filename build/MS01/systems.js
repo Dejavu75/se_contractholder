@@ -41,13 +41,15 @@ class cnt_system {
         return systemKey.trim() + " " + localization + " " + instance.trim();
     }
     recrearcentraKey() {
-        return cnt_system.recrearcentraKey(this.centralKey, this.systemKey, this.instance, this.localization);
+        this.centralKey = cnt_system.recrearcentraKey(this.centralKey, this.systemKey, this.instance, this.localization);
+        return this.centralKey;
     }
     static recrearcentraKey(centralKey, systemKey, instance, localization) {
         return centralKey === "" ? systemKey + " " + instance + " " + (localization == 0 ? "" : localization) : centralKey;
     }
     asignarUID() {
-        return cnt_system.asignarUID(this.systemType, this.instanceType);
+        this.systemUID = cnt_system.asignarUID(this.systemType, this.instanceType);
+        return this.systemUID;
     }
     static asignarUID(systemType, instanceType) {
         return (0, uuid_1.v4)();
