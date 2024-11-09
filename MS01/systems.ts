@@ -94,7 +94,7 @@ export class cnt_system implements sch_system {
             "GES", // default systemType in fromEG
             "op",   // default instanceType in fromEG
             oEG.status || 1,
-            oEG.dev || 0
+            oEG.dev_env || 0
         );
     }
     agesKeySistema(): string {
