@@ -9,6 +9,8 @@ export type sch_system = {
     systemName: string;
     systemType: string;
     instanceType: string;
+    status: number;
+    devEnviroment: number;
 };
 
 export class cnt_system implements sch_system {
@@ -20,6 +22,10 @@ export class cnt_system implements sch_system {
     systemName: string = "";
     systemType: string = "";
     instanceType: string = "";
+    status: number = 0;
+    devEnviroment: number = 0;
+    
+
 
     // Constructor with default values
     constructor(
@@ -30,7 +36,9 @@ export class cnt_system implements sch_system {
         localization: number = 0,
         systemName: string = "",
         systemType: string = "",
-        instanceType: string = ""
+        instanceType: string = "",
+        status: number = 0,
+        devEnviroment: number = 0
     ) {
         this.systemUID = systemUID;
         this.centralKey = cnt_system.recrearcentraKey(centralKey, systemKey, instance, localization);
@@ -40,7 +48,8 @@ export class cnt_system implements sch_system {
         this.systemName = systemName;
         this.systemType = systemType;
         this.instanceType = instanceType;
-
+        this.status = status;
+        this.devEnviroment = devEnviroment;
     }
 
 
@@ -53,7 +62,9 @@ export class cnt_system implements sch_system {
             oRow.localization,
             oRow.systemName,
             oRow.systemType,
-            oRow.instanceType
+            oRow.instanceType,
+            oRow.status,
+            oRow.devEnviroment
         );
     }
 
@@ -66,7 +77,9 @@ export class cnt_system implements sch_system {
             body.localization || 0,
             body.systemName || "",
             body.systemType || "",
-            body.instanceType || ""
+            body.instanceType || "",
+            body.status || 0,
+            body.devEnviroment || 0
         );
     }
 
@@ -76,10 +89,11 @@ export class cnt_system implements sch_system {
             "", // Assuming centralKey is empty in fromEG
             oEG.id_sistema || "",
             oEG.subsistema || "",
-            oEG.localization || 0,
+            oEG.localization || 1,
             oEG.nombre || "",
             "GES", // default systemType in fromEG
-            "op"   // default instanceType in fromEG
+            "op",   // default instanceType in fromEG
+            oEG.status || 0,
         );
     }
     agesKeySistema(): string {
