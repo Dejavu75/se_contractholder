@@ -29,6 +29,6 @@ export declare class cnt_system implements sch_system {
     static agesKeySistema(systemKey: string, instance: string, localization: number): string;
     recrearcentraKey(): string;
     static recrearcentraKey(centralKey: string, systemKey: string, instance: string, localization: number): string;
-    asignarUID(): string;
-    static asignarUID(systemType: string, instanceType: string): string;
+    asignarUUID(): string;
+    static asignarUUID(systemType: string, instanceType: string): string;
 }

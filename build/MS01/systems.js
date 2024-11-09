@@ -51,11 +51,11 @@ class cnt_system {
     static recrearcentraKey(centralKey, systemKey, instance, localization) {
         return centralKey === "" ? systemKey + " " + instance + " " + (localization == 0 ? "" : localization) : centralKey;
     }
-    asignarUID() {
-        this.systemUUID = cnt_system.asignarUID(this.systemType, this.instanceType);
+    asignarUUID() {
+        this.systemUUID = cnt_system.asignarUUID(this.systemType, this.instanceType);
         return this.systemUUID;
     }
-    static asignarUID(systemType, instanceType) {
+    static asignarUUID(systemType, instanceType) {
         return (0, uuid_1.v4)();
     }
 }

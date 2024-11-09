@@ -109,11 +109,11 @@ export class cnt_system implements sch_system {
     static recrearcentraKey(centralKey: string, systemKey: string, instance: string, localization: number): string {
         return centralKey === "" ? systemKey + " "+ instance + " " + (localization==0 ? "" : localization) : centralKey;
     }
-    asignarUID(): string {
-        this.systemUUID= cnt_system.asignarUID(this.systemType, this.instanceType);
+    asignarUUID(): string {
+        this.systemUUID= cnt_system.asignarUUID(this.systemType, this.instanceType);
         return this.systemUUID
     }
-    static asignarUID(systemType: string, instanceType:string): string {
+    static asignarUUID(systemType: string, instanceType:string): string {
         return  uuidv4()
     }
 }
