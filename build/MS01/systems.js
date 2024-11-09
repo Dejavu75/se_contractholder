@@ -4,8 +4,8 @@ exports.cnt_system = void 0;
 const uuid_1 = require("uuid");
 class cnt_system {
     // Constructor with default values
-    constructor(systemUID = "", centralKey = "", systemKey = "", instance = "", localization = 0, systemName = "", systemType = "", instanceType = "", status = 0, devEnviroment = 0) {
-        this.systemUID = "";
+    constructor(systemUUID = "", centralKey = "", systemKey = "", instance = "", localization = 0, systemName = "", systemType = "", instanceType = "", status = 0, devEnviroment = 0) {
+        this.systemUUID = "";
         this.centralKey = "";
         this.systemKey = "";
         this.instance = "";
@@ -15,7 +15,7 @@ class cnt_system {
         this.instanceType = "";
         this.status = 0;
         this.devEnviroment = 0;
-        this.systemUID = systemUID;
+        this.systemUUID = systemUUID;
         this.centralKey = cnt_system.recrearcentraKey(centralKey, systemKey, instance, localization);
         this.systemKey = systemKey;
         this.instance = instance;
@@ -27,10 +27,10 @@ class cnt_system {
         this.devEnviroment = devEnviroment;
     }
     static fromSystemsData(oRow) {
-        return new cnt_system(oRow.systemUID, oRow.centralKey, oRow.systemKey, oRow.instance, oRow.localization, oRow.systemName, oRow.systemType, oRow.instanceType, oRow.status, oRow.devEnviroment);
+        return new cnt_system(oRow.systemUUID, oRow.centralKey, oRow.systemKey, oRow.instance, oRow.localization, oRow.systemName, oRow.systemType, oRow.instanceType, oRow.status, oRow.devEnviroment);
     }
     static fromBody(body) {
-        return new cnt_system(body.systemUID || "", body.centralKey || "", body.systemKey || "", body.instance || "", body.localization || 0, body.systemName || "", body.systemType || "", body.instanceType || "", body.status || 0, body.devEnviroment || 0);
+        return new cnt_system(body.systemUUID || "", body.centralKey || "", body.systemKey || "", body.instance || "", body.localization || 0, body.systemName || "", body.systemType || "", body.instanceType || "", body.status || 0, body.devEnviroment || 0);
     }
     static fromEG(oEG) {
         return new cnt_system("", "", // Assuming centralKey is empty in fromEG
@@ -52,8 +52,8 @@ class cnt_system {
         return centralKey === "" ? systemKey + " " + instance + " " + (localization == 0 ? "" : localization) : centralKey;
     }
     asignarUID() {
-        this.systemUID = cnt_system.asignarUID(this.systemType, this.instanceType);
-        return this.systemUID;
+        this.systemUUID = cnt_system.asignarUID(this.systemType, this.instanceType);
+        return this.systemUUID;
     }
     static asignarUID(systemType, instanceType) {
         return (0, uuid_1.v4)();

@@ -1,5 +1,5 @@
 export type sch_system = {
-    systemUID: string;
+    systemUUID: string;
     centralKey: string;
     systemKey: string;
     instance: string;
@@ -11,7 +11,7 @@ export type sch_system = {
     devEnviroment: number;
 };
 export declare class cnt_system implements sch_system {
-    systemUID: string;
+    systemUUID: string;
     centralKey: string;
     systemKey: string;
     instance: string;
@@ -21,7 +21,7 @@ export declare class cnt_system implements sch_system {
     instanceType: string;
     status: number;
     devEnviroment: number;
-    constructor(systemUID?: string, centralKey?: string, systemKey?: string, instance?: string, localization?: number, systemName?: string, systemType?: string, instanceType?: string, status?: number, devEnviroment?: number);
+    constructor(systemUUID?: string, centralKey?: string, systemKey?: string, instance?: string, localization?: number, systemName?: string, systemType?: string, instanceType?: string, status?: number, devEnviroment?: number);
     static fromSystemsData(oRow: any): cnt_system;
     static fromBody(body: any): cnt_system;
     static fromEG(oEG: any): cnt_system;

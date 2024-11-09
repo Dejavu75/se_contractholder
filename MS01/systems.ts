@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export type sch_system = {
-    systemUID: string;
+    systemUUID: string;
     centralKey: string;
     systemKey: string;
     instance: string;
@@ -14,7 +14,7 @@ export type sch_system = {
 };
 
 export class cnt_system implements sch_system {
-    systemUID: string = "";
+    systemUUID: string = "";
     centralKey: string = "";
     systemKey: string = "";
     instance: string = "";
@@ -29,7 +29,7 @@ export class cnt_system implements sch_system {
 
     // Constructor with default values
     constructor(
-        systemUID: string = "",
+        systemUUID: string = "",
         centralKey: string = "",
         systemKey: string = "",
         instance: string = "",
@@ -40,7 +40,7 @@ export class cnt_system implements sch_system {
         status: number = 0,
         devEnviroment: number = 0
     ) {
-        this.systemUID = systemUID;
+        this.systemUUID = systemUUID;
         this.centralKey = cnt_system.recrearcentraKey(centralKey, systemKey, instance, localization);
         this.systemKey = systemKey;
         this.instance = instance;
@@ -55,7 +55,7 @@ export class cnt_system implements sch_system {
 
     static fromSystemsData(oRow: any): cnt_system {
         return new cnt_system(
-            oRow.systemUID,
+            oRow.systemUUID,
             oRow.centralKey,
             oRow.systemKey,
             oRow.instance,
@@ -70,7 +70,7 @@ export class cnt_system implements sch_system {
 
     static fromBody(body: any): cnt_system {
         return new cnt_system(
-            body.systemUID || "",
+            body.systemUUID || "",
             body.centralKey || "",
             body.systemKey || "",
             body.instance || "",
@@ -110,8 +110,8 @@ export class cnt_system implements sch_system {
         return centralKey === "" ? systemKey + " "+ instance + " " + (localization==0 ? "" : localization) : centralKey;
     }
     asignarUID(): string {
-        this.systemUID= cnt_system.asignarUID(this.systemType, this.instanceType);
-        return this.systemUID
+        this.systemUUID= cnt_system.asignarUID(this.systemType, this.instanceType);
+        return this.systemUUID
     }
     static asignarUID(systemType: string, instanceType:string): string {
         return  uuidv4()
