@@ -56,7 +56,7 @@ class cnt_system {
         return this.centralKey;
     }
     static recrearcentraKey(centralKey, systemKey, instance, localization) {
-        if (systemKey == "" || instance == "")
+        if (centralKey == "" && systemKey == "")
             return "";
         return centralKey == "" ? systemKey + " " + instance + " " + (localization == 0 ? "" : localization) : centralKey;
     }
