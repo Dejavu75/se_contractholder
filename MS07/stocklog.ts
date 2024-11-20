@@ -35,7 +35,7 @@ export class cnt_mantenimientoHolder implements sch_mantenimientoHolder {
         return new cnt_mantenimientoHolder(
             body.mscode || "",
             body.instance || "",
-            body.mantId || body.mant_id || "",
+            body.mantId || body.mantid || "",
             errores,
             new Date(body.date || new Date())
         );
@@ -47,7 +47,7 @@ export class cnt_mantenimientoHolder implements sch_mantenimientoHolder {
         return new cnt_mantenimientoHolder(
             json.mscode || "",
             json.instance || "",
-            json.mantId || json.mant_id || "",
+            json.mantId || json.mantid || "",
             errores,
             new Date(json.date || new Date())
         );
@@ -83,6 +83,8 @@ export class cnt_mantErrorHolder implements sch_mantErrorHolder {
     type: number = 0;
 
     constructor(
+        mantId: string = "",
+        errorId: string = "",
         origin: string = "",
         type: number = 0,
         code: string = "",
@@ -94,6 +96,8 @@ export class cnt_mantErrorHolder implements sch_mantErrorHolder {
         quantityRequested: number = 0,
         errorid: string = ""
     ) {
+        this.mantId = mantId || this.mantId;
+        this.errorId = errorId || this.errorId;
         this.type = type || this.type;
         this.origin = origin || this.origin;
         this.code = code || this.code;
@@ -108,6 +112,8 @@ export class cnt_mantErrorHolder implements sch_mantErrorHolder {
 
     static fromRow(row: any): cnt_mantErrorHolder {
         return new cnt_mantErrorHolder(
+            row.mantId || "",
+            row.errorId || "",
             row.origin || "",
             row.type || 0,
             row.code || "",
@@ -132,7 +138,8 @@ export class cnt_mantErrorHolder implements sch_mantErrorHolder {
             body.lot || body.lote || "",
             body.quantity || body.cantidad || 0,
             body.quantityRequested || body.quantityrequested || body.cant_ped || 0,
-            body.errorid || body.errorId || ""
+            body.errorid || body.errorId || "",
+            body.mantId || body.mantid || ""
         );
     }
 

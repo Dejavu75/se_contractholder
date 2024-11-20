@@ -22,18 +22,18 @@ class cnt_mantenimientoHolder {
         if (Array.isArray((_a = body === null || body === void 0 ? void 0 : body.errores_kl_collection) === null || _a === void 0 ? void 0 : _a.collectionitems)) {
             errores = (_b = body === null || body === void 0 ? void 0 : body.errores_kl_collection) === null || _b === void 0 ? void 0 : _b.collectionitems.map((error) => cnt_mantErrorHolder.fromBody(error));
         }
-        return new cnt_mantenimientoHolder(body.mscode || "", body.instance || "", body.mantId || body.mant_id || "", errores, new Date(body.date || new Date()));
+        return new cnt_mantenimientoHolder(body.mscode || "", body.instance || "", body.mantId || body.mantid || "", errores, new Date(body.date || new Date()));
     }
     static fromJson(json) {
         const errores = Array.isArray(json.errores)
             ? json.errores.map((error) => cnt_mantErrorHolder.fromBody(error))
             : [];
-        return new cnt_mantenimientoHolder(json.mscode || "", json.instance || "", json.mantId || json.mant_id || "", errores, new Date(json.date || new Date()));
+        return new cnt_mantenimientoHolder(json.mscode || "", json.instance || "", json.mantId || json.mantid || "", errores, new Date(json.date || new Date()));
     }
 }
 exports.cnt_mantenimientoHolder = cnt_mantenimientoHolder;
 class cnt_mantErrorHolder {
-    constructor(origin = "", type = 0, code = "", bul = "", atr = "", deposit = "", lot = "", quantity = 0, quantityRequested = 0, errorid = "") {
+    constructor(mantId = "", errorId = "", origin = "", type = 0, code = "", bul = "", atr = "", deposit = "", lot = "", quantity = 0, quantityRequested = 0, errorid = "") {
         this.mantId = "";
         this.errorId = "";
         this.origin = "";
@@ -45,6 +45,8 @@ class cnt_mantErrorHolder {
         this.quantity = 0;
         this.quantityRequested = 0;
         this.type = 0;
+        this.mantId = mantId || this.mantId;
+        this.errorId = errorId || this.errorId;
         this.type = type || this.type;
         this.origin = origin || this.origin;
         this.code = code || this.code;
@@ -57,10 +59,10 @@ class cnt_mantErrorHolder {
         this.errorId = errorid || this.errorId;
     }
     static fromRow(row) {
-        return new cnt_mantErrorHolder(row.origin || "", row.type || 0, row.code || "", row.bul || "", row.atr || "", row.deposit || "", row.lot || "", row.quantity || 0, row.quantityRequested || 0, row.errorid || "");
+        return new cnt_mantErrorHolder(row.mantId || "", row.errorId || "", row.origin || "", row.type || 0, row.code || "", row.bul || "", row.atr || "", row.deposit || "", row.lot || "", row.quantity || 0, row.quantityRequested || 0, row.errorid || "");
     }
     static fromBody(body) {
-        return new cnt_mantErrorHolder(body.origin || body.origen || "", body.type || body.tipo || 0, body.code || body.codigo || "", body.bul || "", body.atr || "", body.deposit || body.deposito || "", body.lot || body.lote || "", body.quantity || body.cantidad || 0, body.quantityRequested || body.quantityrequested || body.cant_ped || 0, body.errorid || body.errorId || "");
+        return new cnt_mantErrorHolder(body.origin || body.origen || "", body.type || body.tipo || 0, body.code || body.codigo || "", body.bul || "", body.atr || "", body.deposit || body.deposito || "", body.lot || body.lote || "", body.quantity || body.cantidad || 0, body.quantityRequested || body.quantityrequested || body.cant_ped || 0, body.errorid || body.errorId || "", body.mantId || body.mantid || "");
     }
 }
 exports.cnt_mantErrorHolder = cnt_mantErrorHolder;
