@@ -59,6 +59,7 @@ export type sch_mantErrorHolder = {
     mantId: string;
     errorId: string;
     origin: string;
+    type: number;
     code: string;
     bul: string;
     atr: string;
@@ -66,7 +67,6 @@ export type sch_mantErrorHolder = {
     lot: string;
     quantity: number;
     quantityRequested: number;
-    type: number;
 };
 
 export class cnt_mantErrorHolder implements sch_mantErrorHolder {
@@ -93,13 +93,12 @@ export class cnt_mantErrorHolder implements sch_mantErrorHolder {
         deposit: string = "",
         lot: string = "",
         quantity: number = 0,
-        quantityRequested: number = 0,
-        errorid: string = ""
+        quantityRequested: number = 0
     ) {
         this.mantId = mantId || this.mantId;
         this.errorId = errorId || this.errorId;
-        this.type = type || this.type;
         this.origin = origin || this.origin;
+        this.type = type || this.type;        
         this.code = code || this.code;
         this.bul = bul || this.bul;
         this.atr = atr || this.atr;
@@ -107,7 +106,6 @@ export class cnt_mantErrorHolder implements sch_mantErrorHolder {
         this.lot = lot || this.lot;
         this.quantity = quantity || this.quantity;
         this.quantityRequested = quantityRequested || this.quantityRequested;
-        this.errorId = errorid || this.errorId;
     }
 
     static fromRow(row: any): cnt_mantErrorHolder {
@@ -122,13 +120,14 @@ export class cnt_mantErrorHolder implements sch_mantErrorHolder {
             row.deposit || "",
             row.lot || "",
             row.quantity || 0,
-            row.quantityRequested || 0,
-            row.errorid || ""
+            row.quantityRequested || 0
         );
     }
 
     static fromBody(body: any): cnt_mantErrorHolder {
         return new cnt_mantErrorHolder(
+            body.mantId || body.mantid || "",
+            body.errorid || body.errorId || "",
             body.origin || body.origen || "",
             body.type || body.tipo || 0,
             body.code || body.codigo || "",
@@ -137,9 +136,7 @@ export class cnt_mantErrorHolder implements sch_mantErrorHolder {
             body.deposit || body.deposito || "",
             body.lot || body.lote || "",
             body.quantity || body.cantidad || 0,
-            body.quantityRequested || body.quantityrequested || body.cant_ped || 0,
-            body.errorid || body.errorId || "",
-            body.mantId || body.mantid || ""
+            body.quantityRequested || body.quantityrequested || body.cant_ped || 0         
         );
     }
 

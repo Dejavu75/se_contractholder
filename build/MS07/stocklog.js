@@ -33,7 +33,7 @@ class cnt_mantenimientoHolder {
 }
 exports.cnt_mantenimientoHolder = cnt_mantenimientoHolder;
 class cnt_mantErrorHolder {
-    constructor(mantId = "", errorId = "", origin = "", type = 0, code = "", bul = "", atr = "", deposit = "", lot = "", quantity = 0, quantityRequested = 0, errorid = "") {
+    constructor(mantId = "", errorId = "", origin = "", type = 0, code = "", bul = "", atr = "", deposit = "", lot = "", quantity = 0, quantityRequested = 0) {
         this.mantId = "";
         this.errorId = "";
         this.origin = "";
@@ -47,8 +47,8 @@ class cnt_mantErrorHolder {
         this.type = 0;
         this.mantId = mantId || this.mantId;
         this.errorId = errorId || this.errorId;
-        this.type = type || this.type;
         this.origin = origin || this.origin;
+        this.type = type || this.type;
         this.code = code || this.code;
         this.bul = bul || this.bul;
         this.atr = atr || this.atr;
@@ -56,13 +56,12 @@ class cnt_mantErrorHolder {
         this.lot = lot || this.lot;
         this.quantity = quantity || this.quantity;
         this.quantityRequested = quantityRequested || this.quantityRequested;
-        this.errorId = errorid || this.errorId;
     }
     static fromRow(row) {
-        return new cnt_mantErrorHolder(row.mantId || "", row.errorId || "", row.origin || "", row.type || 0, row.code || "", row.bul || "", row.atr || "", row.deposit || "", row.lot || "", row.quantity || 0, row.quantityRequested || 0, row.errorid || "");
+        return new cnt_mantErrorHolder(row.mantId || "", row.errorId || "", row.origin || "", row.type || 0, row.code || "", row.bul || "", row.atr || "", row.deposit || "", row.lot || "", row.quantity || 0, row.quantityRequested || 0);
     }
     static fromBody(body) {
-        return new cnt_mantErrorHolder(body.origin || body.origen || "", body.type || body.tipo || 0, body.code || body.codigo || "", body.bul || "", body.atr || "", body.deposit || body.deposito || "", body.lot || body.lote || "", body.quantity || body.cantidad || 0, body.quantityRequested || body.quantityrequested || body.cant_ped || 0, body.errorid || body.errorId || "", body.mantId || body.mantid || "");
+        return new cnt_mantErrorHolder(body.mantId || body.mantid || "", body.errorid || body.errorId || "", body.origin || body.origen || "", body.type || body.tipo || 0, body.code || body.codigo || "", body.bul || "", body.atr || "", body.deposit || body.deposito || "", body.lot || body.lote || "", body.quantity || body.cantidad || 0, body.quantityRequested || body.quantityrequested || body.cant_ped || 0);
     }
 }
 exports.cnt_mantErrorHolder = cnt_mantErrorHolder;
