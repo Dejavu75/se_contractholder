@@ -12,6 +12,7 @@ export declare class cnt_mantenimientoHolder implements sch_mantenimientoHolder 
     errores: sch_mantErrorHolder[];
     date: Date;
     constructor(mscode?: string, instance?: string, mantId?: string, errores?: sch_mantErrorHolder[], date?: Date);
+    static fromBody(body: any): cnt_mantenimientoHolder;
     static fromJson(json: any): cnt_mantenimientoHolder;
 }
 export type sch_mantErrorHolder = {

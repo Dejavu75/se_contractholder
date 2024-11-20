@@ -14,6 +14,12 @@ class cnt_mantenimientoHolder {
         this.errores = errores;
         this.date = date;
     }
+    static fromBody(body) {
+        const errores = Array.isArray(body.errores)
+            ? body.errores.map((error) => cnt_mantErrorHolder.fromBody(error))
+            : [];
+        return new cnt_mantenimientoHolder(body.mscode || "", body.instance || "", body.mantId || body.mant_id || "", errores, new Date(body.date || new Date()));
+    }
     static fromJson(json) {
         const errores = Array.isArray(json.errores)
             ? json.errores.map((error) => cnt_mantErrorHolder.fromBody(error))
