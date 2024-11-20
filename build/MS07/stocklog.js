@@ -15,9 +15,12 @@ class cnt_mantenimientoHolder {
         this.date = date;
     }
     static fromBody(body) {
-        const errores = Array.isArray(body.errores)
-            ? body.errores.map((error) => cnt_mantErrorHolder.fromBody(error))
-            : [];
+        var _a, _b, _c;
+        let errores = [];
+        if (Array.isArray(body === null || body === void 0 ? void 0 : body.errores))
+            errores = body.errores.map((error) => cnt_mantErrorHolder.fromBody(error));
+        if (Array.isArray((_a = body === null || body === void 0 ? void 0 : body.errores_kl_collection) === null || _a === void 0 ? void 0 : _a.collectionitems))
+            errores = (_c = (_b = body.body) === null || _b === void 0 ? void 0 : _b.errores_kl_collection) === null || _c === void 0 ? void 0 : _c.collectionitems.map((error) => cnt_mantErrorHolder.fromBody(error));
         return new cnt_mantenimientoHolder(body.mscode || "", body.instance || "", body.mantId || body.mant_id || "", errores, new Date(body.date || new Date()));
     }
     static fromJson(json) {

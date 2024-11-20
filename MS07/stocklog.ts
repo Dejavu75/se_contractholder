@@ -25,11 +25,11 @@ export class cnt_mantenimientoHolder implements sch_mantenimientoHolder {
         this.errores = errores;
         this.date = date;
     }
-    
+
     static fromBody(body: any): cnt_mantenimientoHolder {
-        const errores = Array.isArray(body.errores)
-            ? body.errores.map((error: any) => cnt_mantErrorHolder.fromBody(error))
-            : [];
+        let errores: sch_mantErrorHolder[] = [];
+        if (Array.isArray(body?.errores)) errores=body.errores.map((error: any) => cnt_mantErrorHolder.fromBody(error))
+        if (Array.isArray(body?.errores_kl_collection?.collectionitems)) errores=body.body?.errores_kl_collection?.collectionitems.map((error: any) => cnt_mantErrorHolder.fromBody(error))
         return new cnt_mantenimientoHolder(
             body.mscode || "",
             body.instance || "",
