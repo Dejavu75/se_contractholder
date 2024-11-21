@@ -152,19 +152,19 @@ export class cnt_errorLog implements sch_errorLog {
     fillErrorLog(errorText: string): cnt_errorLog {
         // Extraemos los datos del mensaje de error
         const parsedError = parseErrorMessage(errorText);   
-            this.errorMessage=errorText
-            this.message=parsedError.message;
-            this.extraData=parsedError.extraData;
-            this.executableName=parsedError.executableName;
-            this.executableVersion  = parsedError.executableVersion;
-            this.callStack=parsedError.callStack;
-            this.program=parsedError.program;
-            this.dataSession=parsedError.dataSession;
-            this.openFile=parsedError.openFile;
-            this.databasePath=parsedError.databasePath;
-            this.defaultFolder=parsedError.defaultFolder;
-            this.notes=parsedError.notes;    
-                    return this;
+        this.errorMessage=errorText== "" ? this.errorMessage:errorText;
+        this.message=parsedError.message== "" ? this.message:parsedError.message;
+        this.extraData=parsedError.extraData== "" ? this.extraData:parsedError.extraData;
+        this.executableName=parsedError.executableName== "" ? this.executableName:parsedError.executableName;
+        this.executableVersion  = parsedError.executableVersion== null ? this.executableVersion:parsedError.executableVersion;
+        this.callStack=parsedError.callStack== "" ? this.callStack:parsedError.callStack;
+        this.program=parsedError.program== "" ? this.program:parsedError.program;
+        this.dataSession=parsedError.dataSession;
+        this.openFile=parsedError.openFile== "" ? this.openFile:parsedError.openFile;
+        this.databasePath=parsedError.databasePath== "" ? this.databasePath:parsedError.databasePath;
+        this.defaultFolder=parsedError.defaultFolder== "" ? this.defaultFolder:parsedError.defaultFolder;
+        this.notes=parsedError.notes== "" ? this.notes:parsedError.notes;    
+        return this;
     }
 }
 
