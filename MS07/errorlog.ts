@@ -152,8 +152,8 @@ export class cnt_errorLog implements sch_errorLog {
     fillErrorLog(errorText: string): cnt_errorLog {
         // Extraemos los datos del mensaje de error
         const parsedError = parseErrorMessage(errorText);   
-        this.errorMessage=errorText== "" ? this.errorMessage:errorText;
-        this.message=parsedError.message== "" ? this.message:parsedError.message;
+        this.errorMessage=errorText== "" ? this.errorMessage: errorText;
+        this.message=parsedError.message== "" ? this.errorMessage:parsedError.message;
         this.extraData=parsedError.extraData== "" ? this.extraData:parsedError.extraData;
         this.executableName=parsedError.executableName== "" ? this.executableName:parsedError.executableName;
         this.executableVersion  = parsedError.executableVersion== null ? this.executableVersion:parsedError.executableVersion;
