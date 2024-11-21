@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_errorLog = void 0;
 class cnt_errorLog {
     // Constructor with default values
-    constructor(mscode = "", instance = "", userId = 0, type = 0, message = "", sessionId = "", transactionId = "", errorMessage = "", extraData = "", executableName = "", executableVersion, callStack = "", program = "", dataSession = 0, openFile = "", databasePath = "", defaultFolder = "", notes = "", createdAt, readerrorMessage = true) {
+    constructor(mscode = "", instance = "", userId = 0, type = 0, message = "", sessionId = "", transactionId = "", errorMessage = "", extraData = "", executableName = "", executableVersion, callStack = "", program = "", dataSession = 0, openFile = "", databasePath = "", defaultFolder = "", notes = "", createdAt, readerrorMessage = true, origin = "", status = "") {
         this.mscode = "";
         this.instance = "";
         this.userId = 0;
@@ -43,12 +43,14 @@ class cnt_errorLog {
         this.createdAt = createdAt;
         if (readerrorMessage)
             this.fillErrorLog(errorMessage);
+        this.origin = origin;
+        this.status = status;
     }
     static fromRow(oRow, readerrorMessage = true) {
-        return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined, readerrorMessage);
+        return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined, readerrorMessage, oRow.origin || "", oRow.status || "");
     }
     static fromBody(body, readerrorMessage = true) {
-        return new cnt_errorLog(body.mscode || "", body.instance || "", body.userId || body.userid || 0, body.type || 0, body.message || "", body.sessionId || body.sessionid || "", body.transactionId || body.transactionid || "", body.errorMessage || body.errormessage || "", body.extraData || body.extradata || "", body.executableName || body.executablename || "", body.executableVersion || body.executableversion || "", body.callStack || body.callstack || "", body.program || "", body.dataSession || body.datasession || 0, body.openFile || body.openfile || "", body.databasePath || body.databasepath || "", body.defaultFolder || body.defaultfolder || "", body.notes || "", body.createdAt ? new Date(body.createdAt) : undefined, readerrorMessage);
+        return new cnt_errorLog(body.mscode || "", body.instance || "", body.userId || body.userid || 0, body.type || 0, body.message || "", body.sessionId || body.sessionid || "", body.transactionId || body.transactionid || "", body.errorMessage || body.errormessage || "", body.extraData || body.extradata || "", body.executableName || body.executablename || "", body.executableVersion || body.executableversion || "", body.callStack || body.callstack || "", body.program || "", body.dataSession || body.datasession || 0, body.openFile || body.openfile || "", body.databasePath || body.databasepath || "", body.defaultFolder || body.defaultfolder || "", body.notes || "", body.createdAt ? new Date(body.createdAt) : undefined, readerrorMessage, body.origin || "", body.status || "");
     }
     fillErrorLog(errorText) {
         // Extraemos los datos del mensaje de error
