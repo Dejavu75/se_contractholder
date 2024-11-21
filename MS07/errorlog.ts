@@ -18,6 +18,9 @@ export type sch_errorLog = {
     defaultFolder: string;
     notes: string;
     createdAt?: Date;
+    origin: string;
+    status: string;
+
 };
 
 export class cnt_errorLog implements sch_errorLog {
@@ -40,6 +43,8 @@ export class cnt_errorLog implements sch_errorLog {
     defaultFolder: string = "";
     notes: string = "";
     createdAt?: Date;
+    origin: string;
+    status: string;
 
     // Constructor with default values
     constructor(
@@ -62,7 +67,9 @@ export class cnt_errorLog implements sch_errorLog {
         defaultFolder: string = "",
         notes: string = "",
         createdAt?: Date, 
-        readerrorMessage: boolean = true
+        readerrorMessage: boolean = true,
+        origin: string = "",
+        status: string = ""
     ) {
         this.mscode = mscode;
         this.instance = instance;
@@ -84,6 +91,8 @@ export class cnt_errorLog implements sch_errorLog {
         this.notes = notes;
         this.createdAt = createdAt;
         if (readerrorMessage) this.fillErrorLog(errorMessage);
+        this.origin = origin;
+        this.status = status;
     }
 
     static fromRow(oRow: any, readerrorMessage: boolean=true): cnt_errorLog {
@@ -107,7 +116,9 @@ export class cnt_errorLog implements sch_errorLog {
             oRow.defaultFolder || "",
             oRow.notes || "",
             oRow.createdAt ? new Date(oRow.createdAt) : undefined,
-            readerrorMessage
+            readerrorMessage,
+            oRow.origin || "",
+            oRow.status || ""
         );
     }
 
@@ -132,8 +143,9 @@ export class cnt_errorLog implements sch_errorLog {
             body.defaultFolder || body.defaultfolder || "",
             body.notes || "",
             body.createdAt ? new Date(body.createdAt) : undefined,
-            readerrorMessage
-
+            readerrorMessage,
+            body.origin || "",
+            body.status || ""
         );
     }
     
