@@ -84,7 +84,8 @@ function parseErrorMessage(errorText) {
     const messageMatch = errorText.match(/Mensaje de Error\s*:\s*(.+)/);
     const extraDataMatch = errorText.match(/Extra data\s*:\s*(.+)/);
     const executableVersionMatch = errorText.match(/Version Ejecutable:\s*([^\s]+)\s*:\s*(.+)/);
-    const callStackMatch = errorText.match(/Programa \/ L.nea\s*:\s*(.+)/);
+    const callStackMatch = errorText.match(/Stack\s*:\s*(.+)/);
+    const programMatch = errorText.match(/Programa \/ L.nea\s*:\s*(.+)/);
     const dataSessionMatch = errorText.match(/Datasession\s*:\s*(\d+)/);
     const openFileMatch = errorText.match(/Archivo Abierto\s*:\s*(.+)/);
     const databasePathMatch = errorText.match(/Database\s*:\s*(.+)/);
@@ -94,12 +95,9 @@ function parseErrorMessage(errorText) {
     const executableName = executableVersionMatch ? executableVersionMatch[1].trim() : "";
     const exever = executableVersionMatch ? executableVersionMatch[2].trim() : "";
     const executableVersion = parseDTFox(exever);
-    // Extraer callStack y program
-    let callStack = callStackMatch ? callStackMatch[1].trim() : "";
-    callStack = callStack.replace("ON...  ERR_HAND DISP_ERROR REPORTAR", "").trim();
-    callStack = callStack.replace(/\s+/g, " | ");
-    const program = callStack ? callStack.split(" | ").pop() || "" : "";
-    const hashtext = obtenerHash(callStack, messageMatch ? messageMatch[1].trim() : "");
+    const program = programMatch ? programMatch[1].trim() : "";
+    const callStack = callStackMatch ? callStackMatch[1].trim() : "";
+    const hashtext = obtenerHash(callStack, messageMatch ? messageMatch[1].trim() : "", program);
     return {
         user: userMatch ? userMatch[1].trim() : "",
         errorMessage: errorText,
@@ -133,7 +131,7 @@ function parseDTFox(dateString) {
     utcDate.setHours(utcDate.getHours() - 3);
     return utcDate;
 }
-function obtenerHash(callStack, message) {
+function obtenerHash(callStack, message, program) {
     const hash = CryptoJS.SHA256(callStack + message).toString(CryptoJS.enc.Hex);
     const hashText = hash.slice(-16);
     return hashText;
