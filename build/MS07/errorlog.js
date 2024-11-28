@@ -4,7 +4,7 @@ exports.cnt_errorLog = void 0;
 const CryptoJS = require("crypto-js");
 class cnt_errorLog {
     // Constructor with default values
-    constructor(mscode = "", instance = "", userId = 0, type = 0, message = "", sessionId = "", transactionId = "", errorMessage = "", extraData = "", executableName = "", executableVersion, callStack = "", program = "", dataSession = 0, openFile = "", databasePath = "", defaultFolder = "", notes = "", createdAt, readerrorMessage = true, origin = "", status = "", hash = "") {
+    constructor(mscode = "", instance = "", userId = 0, type = 0, message = "", sessionId = "", transactionId = "", errorMessage = "", extraData = "", executableName = "", executableVersion, callStack = "", program = "", dataSession = 0, openFile = "", databasePath = "", defaultFolder = "", notes = "", createdAt, readerrorMessage = true, origin = "", status = "", hash = "", erridu = "") {
         this.mscode = "";
         this.instance = "";
         this.userId = 0;
@@ -24,6 +24,7 @@ class cnt_errorLog {
         this.defaultFolder = "";
         this.notes = "";
         this.hash = "";
+        this.erridu = "";
         this.mscode = mscode;
         this.instance = instance;
         this.userId = userId;
@@ -43,17 +44,17 @@ class cnt_errorLog {
         this.defaultFolder = defaultFolder;
         this.notes = notes;
         this.createdAt = createdAt;
+        this.hash = hash;
         if (readerrorMessage)
             this.fillErrorLog(errorMessage);
         this.origin = origin;
         this.status = status;
-        this.hash = hash;
     }
     static fromRow(oRow, readerrorMessage = true) {
-        return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined, readerrorMessage, oRow.origin || "", oRow.status || "", oRow.hash || "");
+        return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined, readerrorMessage, oRow.origin || "", oRow.status || "", oRow.hash || "", oRow.erridu || "");
     }
     static fromBody(body, readerrorMessage = true) {
-        return new cnt_errorLog(body.mscode || "", body.instance || "", body.userId || body.userid || 0, body.type || 0, body.message || "", body.sessionId || body.sessionid || "", body.transactionId || body.transactionid || "", body.errorMessage || body.errormessage || "", body.extraData || body.extradata || "", body.executableName || body.executablename || "", body.executableVersion || body.executableversion || "", body.callStack || body.callstack || "", body.program || "", body.dataSession || body.datasession || 0, body.openFile || body.openfile || "", body.databasePath || body.databasepath || "", body.defaultFolder || body.defaultfolder || "", body.notes || "", body.createdAt ? new Date(body.createdAt) : undefined, readerrorMessage, body.origin || "", body.status || "", body.hash || "");
+        return new cnt_errorLog(body.mscode || "", body.instance || "", body.userId || body.userid || 0, body.type || 0, body.message || "", body.sessionId || body.sessionid || "", body.transactionId || body.transactionid || "", body.errorMessage || body.errormessage || "", body.extraData || body.extradata || "", body.executableName || body.executablename || "", body.executableVersion || body.executableversion || "", body.callStack || body.callstack || "", body.program || "", body.dataSession || body.datasession || 0, body.openFile || body.openfile || "", body.databasePath || body.databasepath || "", body.defaultFolder || body.defaultfolder || "", body.notes || "", body.createdAt ? new Date(body.createdAt) : undefined, readerrorMessage, body.origin || "", body.status || "", body.hash || "", body.erridu || "");
     }
     fillErrorLog(errorText) {
         // Extraemos los datos del mensaje de error

@@ -22,6 +22,7 @@ export type sch_errorLog = {
     origin: string;
     status: string;
     hash: string;
+    erridu:string;
 };
 
 export class cnt_errorLog implements sch_errorLog {
@@ -47,6 +48,7 @@ export class cnt_errorLog implements sch_errorLog {
     origin: string;
     status: string;
     hash: string = "";
+    erridu:string = "";
 
     // Constructor with default values
     constructor(
@@ -72,7 +74,8 @@ export class cnt_errorLog implements sch_errorLog {
         readerrorMessage: boolean = true,
         origin: string = "",
         status: string = "",
-        hash: string = ""
+        hash: string = "", 
+        erridu:string = ""
     ) {
         this.mscode = mscode;
         this.instance = instance;
@@ -93,10 +96,11 @@ export class cnt_errorLog implements sch_errorLog {
         this.defaultFolder = defaultFolder;
         this.notes = notes;
         this.createdAt = createdAt;
+        this.hash = hash;
         if (readerrorMessage) this.fillErrorLog(errorMessage);
         this.origin = origin;
         this.status = status;
-        this.hash = hash;
+        
     }
 
     static fromRow(oRow: any, readerrorMessage: boolean=true): cnt_errorLog {
@@ -123,7 +127,8 @@ export class cnt_errorLog implements sch_errorLog {
             readerrorMessage,
             oRow.origin || "",
             oRow.status || "",
-            oRow.hash || ""
+            oRow.hash || "", 
+            oRow.erridu || ""
         );
     }
 
@@ -151,7 +156,8 @@ export class cnt_errorLog implements sch_errorLog {
             readerrorMessage,
             body.origin || "",
             body.status || "",
-            body.hash || ""
+            body.hash || "",
+            body.erridu || ""
         );
     }
     
@@ -193,6 +199,7 @@ type ParsedError = {
     transactionId: string;
     notes: string;
     hash: string;
+    
 };
 
 function parseErrorMessage(errorText: string): ParsedError {
