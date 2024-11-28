@@ -49,6 +49,7 @@ class cnt_errorLog {
             this.fillErrorLog(errorMessage);
         this.origin = origin;
         this.status = status;
+        this.erridu = erridu;
     }
     static fromRow(oRow, readerrorMessage = true) {
         return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined, readerrorMessage, oRow.origin || "", oRow.status || "", oRow.hash || "", oRow.erridu || "");
@@ -132,5 +133,6 @@ function parseDTFox(dateString) {
 }
 function obtenerHash(callStack, message) {
     const hash = CryptoJS.SHA256(callStack + message).toString(CryptoJS.enc.Hex);
-    return hash.slice(-16);
+    const hashText = hash.slice(-16);
+    return hashText;
 }

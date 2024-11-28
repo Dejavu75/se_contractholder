@@ -100,7 +100,7 @@ export class cnt_errorLog implements sch_errorLog {
         if (readerrorMessage) this.fillErrorLog(errorMessage);
         this.origin = origin;
         this.status = status;
-        
+        this.erridu = erridu;        
     }
 
     static fromRow(oRow: any, readerrorMessage: boolean=true): cnt_errorLog {
@@ -264,5 +264,6 @@ function parseDTFox(dateString: string): Date | null {
 
 function obtenerHash(callStack: string, message: string): string {
     const hash = CryptoJS.SHA256(callStack + message).toString(CryptoJS.enc.Hex);
-    return hash.slice(-16);
+    const hashText = hash.slice(-16);
+    return hashText
 }
