@@ -115,7 +115,7 @@ function parseErrorMessage(errorText) {
         defaultFolder: defaultFolderMatch ? defaultFolderMatch[1].trim() : "",
         transactionId: transactionIdMatch ? transactionIdMatch[1].trim() : "",
         notes: notesMatch ? notesMatch[1].trim() : "",
-        hash: hashtext ? hashtext[1].trim() : ""
+        hash: hashtext ? hashtext : ""
     };
 }
 function parseDTFox(dateString) {
