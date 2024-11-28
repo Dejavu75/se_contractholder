@@ -1,3 +1,4 @@
+const CryptoJS = require("crypto-js");
 export type sch_errorLog = {
     mscode: string;
     instance: string;
@@ -20,7 +21,7 @@ export type sch_errorLog = {
     createdAt?: Date;
     origin: string;
     status: string;
-
+    hash: string;
 };
 
 export class cnt_errorLog implements sch_errorLog {
@@ -45,6 +46,7 @@ export class cnt_errorLog implements sch_errorLog {
     createdAt?: Date;
     origin: string;
     status: string;
+    hash: string = "";
 
     // Constructor with default values
     constructor(
@@ -69,7 +71,8 @@ export class cnt_errorLog implements sch_errorLog {
         createdAt?: Date, 
         readerrorMessage: boolean = true,
         origin: string = "",
-        status: string = ""
+        status: string = "",
+        hash: string = ""
     ) {
         this.mscode = mscode;
         this.instance = instance;
@@ -93,6 +96,7 @@ export class cnt_errorLog implements sch_errorLog {
         if (readerrorMessage) this.fillErrorLog(errorMessage);
         this.origin = origin;
         this.status = status;
+        this.hash = hash;
     }
 
     static fromRow(oRow: any, readerrorMessage: boolean=true): cnt_errorLog {
@@ -118,7 +122,8 @@ export class cnt_errorLog implements sch_errorLog {
             oRow.createdAt ? new Date(oRow.createdAt) : undefined,
             readerrorMessage,
             oRow.origin || "",
-            oRow.status || ""
+            oRow.status || "",
+            oRow.hash || ""
         );
     }
 
@@ -145,7 +150,8 @@ export class cnt_errorLog implements sch_errorLog {
             body.createdAt ? new Date(body.createdAt) : undefined,
             readerrorMessage,
             body.origin || "",
-            body.status || ""
+            body.status || "",
+            body.hash || ""
         );
     }
     
@@ -163,7 +169,8 @@ export class cnt_errorLog implements sch_errorLog {
         this.openFile=parsedError.openFile== "" ? this.openFile:parsedError.openFile;
         this.databasePath=parsedError.databasePath== "" ? this.databasePath:parsedError.databasePath;
         this.defaultFolder=parsedError.defaultFolder== "" ? this.defaultFolder:parsedError.defaultFolder;
-        this.notes=parsedError.notes== "" ? this.notes:parsedError.notes;    
+        this.notes=parsedError.notes== "" ? this.notes:parsedError.notes;   
+        this.hash = parsedError.hash == "" ? this.hash : parsedError.hash; 
         return this;
     }
 }
@@ -185,6 +192,7 @@ type ParsedError = {
     defaultFolder: string;
     transactionId: string;
     notes: string;
+    hash: string;
 };
 
 function parseErrorMessage(errorText: string): ParsedError {
@@ -192,7 +200,7 @@ function parseErrorMessage(errorText: string): ParsedError {
     const messageMatch = errorText.match(/Mensaje de Error\s*:\s*(.+)/);
     const extraDataMatch = errorText.match(/Extra data\s*:\s*(.+)/);
     const executableVersionMatch = errorText.match(/Version Ejecutable:\s*([^\s]+)\s*:\s*(.+)/);
-    const callStackMatch = errorText.match(/Programa \/ Línea\s*:\s*(.+)/);
+    const callStackMatch = errorText.match(/Programa \/ L.nea\s*:\s*(.+)/);
     const dataSessionMatch = errorText.match(/Datasession\s*:\s*(\d+)/);
     const openFileMatch = errorText.match(/Archivo Abierto\s*:\s*(.+)/);
     const databasePathMatch = errorText.match(/Database\s*:\s*(.+)/);
@@ -202,13 +210,14 @@ function parseErrorMessage(errorText: string): ParsedError {
     const executableName = executableVersionMatch ? executableVersionMatch[1].trim() : "";
     const exever: string=executableVersionMatch ? executableVersionMatch[2].trim() : ""
     const executableVersion:Date | null = parseDTFox(exever)
-
+    
        // Extraer callStack y program
        let callStack = callStackMatch ? callStackMatch[1].trim() : "";
        callStack = callStack.replace("ON...  ERR_HAND DISP_ERROR REPORTAR", "").trim();     
        callStack = callStack.replace(/\s+/g, " | ");  
        const program = callStack ? callStack.split(" | ").pop() || "" : "";
-       
+       const hashtext = obtenerHash(callStack, messageMatch ? messageMatch[1].trim() : "" );
+
     return {
         user: userMatch ? userMatch[1].trim() : "",
         errorMessage: errorText,
@@ -223,7 +232,8 @@ function parseErrorMessage(errorText: string): ParsedError {
         databasePath: databasePathMatch ? databasePathMatch[1].trim() : "",
         defaultFolder: defaultFolderMatch ? defaultFolderMatch[1].trim() : "",
         transactionId: transactionIdMatch ? transactionIdMatch[1].trim() : "",
-        notes: notesMatch ? notesMatch[1].trim() : ""
+        notes: notesMatch ? notesMatch[1].trim() : "",
+        hash: hashtext ? hashtext[1].trim() : ""
     };
 }
 function parseDTFox(dateString: string): Date | null {
@@ -243,4 +253,9 @@ function parseDTFox(dateString: string): Date | null {
     utcDate.setHours(utcDate.getHours() - 3);
 
     return utcDate;
+}
+
+function obtenerHash(callStack: string, message: string): string {
+    const hash = CryptoJS.SHA256(callStack + message).toString(CryptoJS.enc.Hex);
+    return hash.slice(-16);
 }

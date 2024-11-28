@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_errorLog = void 0;
+const CryptoJS = require("crypto-js");
 class cnt_errorLog {
     // Constructor with default values
-    constructor(mscode = "", instance = "", userId = 0, type = 0, message = "", sessionId = "", transactionId = "", errorMessage = "", extraData = "", executableName = "", executableVersion, callStack = "", program = "", dataSession = 0, openFile = "", databasePath = "", defaultFolder = "", notes = "", createdAt, readerrorMessage = true, origin = "", status = "") {
+    constructor(mscode = "", instance = "", userId = 0, type = 0, message = "", sessionId = "", transactionId = "", errorMessage = "", extraData = "", executableName = "", executableVersion, callStack = "", program = "", dataSession = 0, openFile = "", databasePath = "", defaultFolder = "", notes = "", createdAt, readerrorMessage = true, origin = "", status = "", hash = "") {
         this.mscode = "";
         this.instance = "";
         this.userId = 0;
@@ -22,6 +23,7 @@ class cnt_errorLog {
         this.databasePath = "";
         this.defaultFolder = "";
         this.notes = "";
+        this.hash = "";
         this.mscode = mscode;
         this.instance = instance;
         this.userId = userId;
@@ -45,12 +47,13 @@ class cnt_errorLog {
             this.fillErrorLog(errorMessage);
         this.origin = origin;
         this.status = status;
+        this.hash = hash;
     }
     static fromRow(oRow, readerrorMessage = true) {
-        return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined, readerrorMessage, oRow.origin || "", oRow.status || "");
+        return new cnt_errorLog(oRow.mscode || "", oRow.instance || "", oRow.userId || 0, oRow.type || 0, oRow.message || "", oRow.sessionId || "", oRow.transactionId || "", oRow.errorMessage || "", oRow.extraData || "", oRow.executableName || "", oRow.executableVersion || "", oRow.callStack || "", oRow.program || "", oRow.dataSession || 0, oRow.openFile || "", oRow.databasePath || "", oRow.defaultFolder || "", oRow.notes || "", oRow.createdAt ? new Date(oRow.createdAt) : undefined, readerrorMessage, oRow.origin || "", oRow.status || "", oRow.hash || "");
     }
     static fromBody(body, readerrorMessage = true) {
-        return new cnt_errorLog(body.mscode || "", body.instance || "", body.userId || body.userid || 0, body.type || 0, body.message || "", body.sessionId || body.sessionid || "", body.transactionId || body.transactionid || "", body.errorMessage || body.errormessage || "", body.extraData || body.extradata || "", body.executableName || body.executablename || "", body.executableVersion || body.executableversion || "", body.callStack || body.callstack || "", body.program || "", body.dataSession || body.datasession || 0, body.openFile || body.openfile || "", body.databasePath || body.databasepath || "", body.defaultFolder || body.defaultfolder || "", body.notes || "", body.createdAt ? new Date(body.createdAt) : undefined, readerrorMessage, body.origin || "", body.status || "");
+        return new cnt_errorLog(body.mscode || "", body.instance || "", body.userId || body.userid || 0, body.type || 0, body.message || "", body.sessionId || body.sessionid || "", body.transactionId || body.transactionid || "", body.errorMessage || body.errormessage || "", body.extraData || body.extradata || "", body.executableName || body.executablename || "", body.executableVersion || body.executableversion || "", body.callStack || body.callstack || "", body.program || "", body.dataSession || body.datasession || 0, body.openFile || body.openfile || "", body.databasePath || body.databasepath || "", body.defaultFolder || body.defaultfolder || "", body.notes || "", body.createdAt ? new Date(body.createdAt) : undefined, readerrorMessage, body.origin || "", body.status || "", body.hash || "");
     }
     fillErrorLog(errorText) {
         // Extraemos los datos del mensaje de error
@@ -67,6 +70,7 @@ class cnt_errorLog {
         this.databasePath = parsedError.databasePath == "" ? this.databasePath : parsedError.databasePath;
         this.defaultFolder = parsedError.defaultFolder == "" ? this.defaultFolder : parsedError.defaultFolder;
         this.notes = parsedError.notes == "" ? this.notes : parsedError.notes;
+        this.hash = parsedError.hash == "" ? this.hash : parsedError.hash;
         return this;
     }
 }
@@ -76,7 +80,7 @@ function parseErrorMessage(errorText) {
     const messageMatch = errorText.match(/Mensaje de Error\s*:\s*(.+)/);
     const extraDataMatch = errorText.match(/Extra data\s*:\s*(.+)/);
     const executableVersionMatch = errorText.match(/Version Ejecutable:\s*([^\s]+)\s*:\s*(.+)/);
-    const callStackMatch = errorText.match(/Programa \/ Línea\s*:\s*(.+)/);
+    const callStackMatch = errorText.match(/Programa \/ L.nea\s*:\s*(.+)/);
     const dataSessionMatch = errorText.match(/Datasession\s*:\s*(\d+)/);
     const openFileMatch = errorText.match(/Archivo Abierto\s*:\s*(.+)/);
     const databasePathMatch = errorText.match(/Database\s*:\s*(.+)/);
@@ -91,6 +95,7 @@ function parseErrorMessage(errorText) {
     callStack = callStack.replace("ON...  ERR_HAND DISP_ERROR REPORTAR", "").trim();
     callStack = callStack.replace(/\s+/g, " | ");
     const program = callStack ? callStack.split(" | ").pop() || "" : "";
+    const hashtext = obtenerHash(callStack, messageMatch ? messageMatch[1].trim() : "");
     return {
         user: userMatch ? userMatch[1].trim() : "",
         errorMessage: errorText,
@@ -105,7 +110,8 @@ function parseErrorMessage(errorText) {
         databasePath: databasePathMatch ? databasePathMatch[1].trim() : "",
         defaultFolder: defaultFolderMatch ? defaultFolderMatch[1].trim() : "",
         transactionId: transactionIdMatch ? transactionIdMatch[1].trim() : "",
-        notes: notesMatch ? notesMatch[1].trim() : ""
+        notes: notesMatch ? notesMatch[1].trim() : "",
+        hash: hashtext ? hashtext[1].trim() : ""
     };
 }
 function parseDTFox(dateString) {
@@ -122,4 +128,8 @@ function parseDTFox(dateString) {
     const utcDate = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
     utcDate.setHours(utcDate.getHours() - 3);
     return utcDate;
+}
+function obtenerHash(callStack, message) {
+    const hash = CryptoJS.SHA256(callStack + message).toString(CryptoJS.enc.Hex);
+    return hash.slice(-16);
 }
