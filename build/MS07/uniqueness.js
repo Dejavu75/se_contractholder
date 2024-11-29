@@ -24,7 +24,7 @@ class cnt_uniquenessHolder {
         if (Array.isArray((_a = body === null || body === void 0 ? void 0 : body.errors_kv_collection) === null || _a === void 0 ? void 0 : _a.collectionitems)) {
             errors = (_b = body === null || body === void 0 ? void 0 : body.errors_kv_collection) === null || _b === void 0 ? void 0 : _b.collectionitems.map((error) => cnt_uniquenessErrorHolder.fromBody(error));
         }
-        return new cnt_uniquenessHolder((body === null || body === void 0 ? void 0 : body.mscode) || "", (body === null || body === void 0 ? void 0 : body.instance) || "", (body === null || body === void 0 ? void 0 : body.uniqueId) || "", (body === null || body === void 0 ? void 0 : body.verificationId) || "", errors, new Date((body === null || body === void 0 ? void 0 : body.timestamp) || Date.now()));
+        return new cnt_uniquenessHolder((body === null || body === void 0 ? void 0 : body.mscode) || "", (body === null || body === void 0 ? void 0 : body.instance) || "", (body === null || body === void 0 ? void 0 : body.uniqueId) || (body === null || body === void 0 ? void 0 : body.uniqueid) || "", (body === null || body === void 0 ? void 0 : body.verificationId) || (body === null || body === void 0 ? void 0 : body.verificationid) || "", errors, new Date((body === null || body === void 0 ? void 0 : body.timestamp) || Date.now()));
     }
 }
 exports.cnt_uniquenessHolder = cnt_uniquenessHolder;
