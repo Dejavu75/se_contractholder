@@ -34,8 +34,8 @@ export class cnt_uniquenessHolder implements sch_uniquenessHolder {
     static fromBody(body: any): cnt_uniquenessHolder {
         let errors: sch_uniquenessErrorHolder[] = [];
             if (Array.isArray(body?.errors)) errors=body.errors.map((error: any) => cnt_uniquenessErrorHolder.fromBody(error))
-            if (Array.isArray(body?.errors_kl_collection?.collectionitems)) {
-                errors=body?.errors_kl_collection?.collectionitems.map((error: any) => cnt_uniquenessErrorHolder.fromBody(error))
+            if (Array.isArray(body?.errors_kv_collection?.collectionitems)) {
+                errors=body?.errors_kv_collection?.collectionitems.map((error: any) => cnt_uniquenessErrorHolder.fromBody(error))
             }            
         return new cnt_uniquenessHolder(
             body?.mscode || "",
