@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./MS01/systems.js"), exports);
 __exportStar(require("./MS06/backups.js"), exports);
 __exportStar(require("./MS07/healthmonitor.js"), exports);
+__exportStar(require("./MS07/uniqueness.js"), exports);
 __exportStar(require("./MS07/errorlog.js"), exports);
 __exportStar(require("./MS07/stocklog.js"), exports);
 __exportStar(require("./MS08/database.js"), exports);
