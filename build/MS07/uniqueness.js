@@ -42,7 +42,7 @@ class cnt_uniquenessErrorHolder {
         this.duplicates = duplicates;
     }
     static fromBody(body) {
-        return new cnt_uniquenessErrorHolder((body === null || body === void 0 ? void 0 : body.uniqueId) || "", (body === null || body === void 0 ? void 0 : body.errorId) || "", (body === null || body === void 0 ? void 0 : body.origin) || "", (body === null || body === void 0 ? void 0 : body.code) || "", (body === null || body === void 0 ? void 0 : body.duplicates) || 0);
+        return new cnt_uniquenessErrorHolder((body === null || body === void 0 ? void 0 : body.uniqueId) || (body === null || body === void 0 ? void 0 : body.uniqueid) || "", (body === null || body === void 0 ? void 0 : body.errorId) || (body === null || body === void 0 ? void 0 : body.errorid) || "", (body === null || body === void 0 ? void 0 : body.origin) || "", (body === null || body === void 0 ? void 0 : body.code) || "", (body === null || body === void 0 ? void 0 : body.duplicates) || 0);
     }
 }
 exports.cnt_uniquenessErrorHolder = cnt_uniquenessErrorHolder;
