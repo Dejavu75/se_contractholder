@@ -42,6 +42,8 @@ class cnt_uniquenessErrorHolder {
         this.duplicates = duplicates;
     }
     static fromBody(body) {
+        if (body === null || body === void 0 ? void 0 : body.value)
+            body = body.value;
         return new cnt_uniquenessErrorHolder((body === null || body === void 0 ? void 0 : body.uniqueId) || (body === null || body === void 0 ? void 0 : body.uniqueid) || "", (body === null || body === void 0 ? void 0 : body.errorId) || (body === null || body === void 0 ? void 0 : body.errorid) || "", (body === null || body === void 0 ? void 0 : body.origin) || "", (body === null || body === void 0 ? void 0 : body.code) || "", (body === null || body === void 0 ? void 0 : body.duplicates) || 0);
     }
 }

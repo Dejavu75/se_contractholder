@@ -78,6 +78,7 @@ export class cnt_uniquenessErrorHolder implements sch_uniquenessErrorHolder {
     }
 
     static fromBody(body: any): cnt_uniquenessErrorHolder {
+        if (body?.value) body = body.value;
         return new cnt_uniquenessErrorHolder(
             body?.uniqueId || body?.uniqueid || "",
             body?.errorId || body?.errorid || "",
