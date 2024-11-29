@@ -23,6 +23,8 @@ export type sch_errorLog = {
     hash: string;
     erridu: string;
     errcount: number;
+    user: string;
+    company: string;
 };
 export declare class cnt_errorLog implements sch_errorLog {
     mscode: string;
@@ -49,7 +51,9 @@ export declare class cnt_errorLog implements sch_errorLog {
     hash: string;
     erridu: string;
     errcount: number;
-    constructor(mscode: string | undefined, instance: string | undefined, userId: number | undefined, type: number | undefined, message: string | undefined, sessionId: string | undefined, transactionId: string | undefined, errorMessage: string | undefined, extraData: string | undefined, executableName: string | undefined, executableVersion: Date, callStack?: string, program?: string, dataSession?: number, openFile?: string, databasePath?: string, defaultFolder?: string, notes?: string, createdAt?: Date, readerrorMessage?: boolean, origin?: string, status?: string, hash?: string, erridu?: string, errcount?: number);
+    user: string;
+    company: string;
+    constructor(mscode: string | undefined, instance: string | undefined, userId: number | undefined, type: number | undefined, message: string | undefined, sessionId: string | undefined, transactionId: string | undefined, errorMessage: string | undefined, extraData: string | undefined, executableName: string | undefined, executableVersion: Date, callStack?: string, program?: string, dataSession?: number, openFile?: string, databasePath?: string, defaultFolder?: string, notes?: string, createdAt?: Date, readerrorMessage?: boolean, origin?: string, status?: string, hash?: string, erridu?: string, errcount?: number, user?: string, company?: string);
     static fromRow(oRow: any, readerrorMessage?: boolean): cnt_errorLog;
     static fromBody(body: any, readerrorMessage?: boolean): cnt_errorLog;
     fillErrorLog(errorText: string): cnt_errorLog;

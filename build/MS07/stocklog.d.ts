@@ -4,6 +4,8 @@ export type sch_mantenimientoHolder = {
     mantId: string;
     errores: sch_mantErrorHolder[];
     date: Date;
+    user: string;
+    company: string;
 };
 export declare class cnt_mantenimientoHolder implements sch_mantenimientoHolder {
     mscode: string;
@@ -11,7 +13,9 @@ export declare class cnt_mantenimientoHolder implements sch_mantenimientoHolder 
     mantId: string;
     errores: sch_mantErrorHolder[];
     date: Date;
-    constructor(mscode?: string, instance?: string, mantId?: string, errores?: sch_mantErrorHolder[], date?: Date);
+    user: string;
+    company: string;
+    constructor(mscode?: string, instance?: string, mantId?: string, errores?: sch_mantErrorHolder[], date?: Date, user?: string, company?: string);
     static fromBody(body: any): cnt_mantenimientoHolder;
     static fromJson(json: any): cnt_mantenimientoHolder;
 }

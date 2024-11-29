@@ -2,17 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_mantErrorHolder = exports.cnt_mantenimientoHolder = void 0;
 class cnt_mantenimientoHolder {
-    constructor(mscode = "", instance = "", mantId = "", errores = [], date = new Date()) {
+    constructor(mscode = "", instance = "", mantId = "", errores = [], date = new Date(), user = "", company = "") {
         this.mscode = "";
         this.instance = "";
         this.mantId = "";
         this.errores = [];
         this.date = new Date();
+        this.user = "";
+        this.company = "";
         this.mscode = mscode;
         this.instance = instance;
         this.mantId = mantId;
         this.errores = errores;
         this.date = date;
+        this.user = user;
+        this.company = company;
     }
     static fromBody(body) {
         var _a, _b;
@@ -22,13 +26,13 @@ class cnt_mantenimientoHolder {
         if (Array.isArray((_a = body === null || body === void 0 ? void 0 : body.errores_kl_collection) === null || _a === void 0 ? void 0 : _a.collectionitems)) {
             errores = (_b = body === null || body === void 0 ? void 0 : body.errores_kl_collection) === null || _b === void 0 ? void 0 : _b.collectionitems.map((error) => cnt_mantErrorHolder.fromBody(error));
         }
-        return new cnt_mantenimientoHolder(body.mscode || "", body.instance || "", body.mantId || body.mantid || "", errores, new Date(body.date || new Date()));
+        return new cnt_mantenimientoHolder(body.mscode || "", body.instance || "", body.mantId || body.mantid || "", errores, new Date(body.date || new Date()), body.user || "", body.company || "");
     }
     static fromJson(json) {
         const errores = Array.isArray(json.errores)
             ? json.errores.map((error) => cnt_mantErrorHolder.fromBody(error))
             : [];
-        return new cnt_mantenimientoHolder(json.mscode || "", json.instance || "", json.mantId || json.mantid || "", errores, new Date(json.date || new Date()));
+        return new cnt_mantenimientoHolder(json.mscode || "", json.instance || "", json.mantId || json.mantid || "", errores, new Date(json.date || new Date()), json.user || "", json.company || "");
     }
 }
 exports.cnt_mantenimientoHolder = cnt_mantenimientoHolder;

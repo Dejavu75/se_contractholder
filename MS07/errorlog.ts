@@ -24,6 +24,8 @@ export type sch_errorLog = {
     hash: string;
     erridu:string;
     errcount: number;
+    user: string;
+    company: string;
 };
 
 export class cnt_errorLog implements sch_errorLog {
@@ -51,6 +53,8 @@ export class cnt_errorLog implements sch_errorLog {
     hash: string = "";
     erridu:string = "";
     errcount: number=0;
+    user: string = "";
+    company: string = "";
 
     // Constructor with default values
     constructor(
@@ -78,7 +82,9 @@ export class cnt_errorLog implements sch_errorLog {
         status: string = "",
         hash: string = "", 
         erridu:string = "",
-        errcount: number=0
+        errcount: number=0,
+        user: string = "",
+        company: string = ""
     ) {
         this.mscode = mscode;
         this.instance = instance;
@@ -104,7 +110,9 @@ export class cnt_errorLog implements sch_errorLog {
         this.origin = origin;
         this.status = status;
         this.erridu = erridu;  
-        this.errcount = errcount;      
+        this.errcount = errcount;  
+        this.user = user;
+        this.company = company;    
     }
 
     static fromRow(oRow: any, readerrorMessage: boolean=true): cnt_errorLog {
@@ -133,7 +141,10 @@ export class cnt_errorLog implements sch_errorLog {
             oRow.status || "",
             oRow.hash || "", 
             oRow.erridu || "",
-            oRow.errcount || 0
+            oRow.errcount || 0,
+            oRow.user || "",
+            oRow.company || ""
+
         );
     }
 
@@ -163,7 +174,9 @@ export class cnt_errorLog implements sch_errorLog {
             body.status || "",
             body.hash || "",
             body.erridu || "",
-            body.errcount || 0
+            body.errcount || 0,
+            body.user || "",
+            body.company || ""
         );
     }
     

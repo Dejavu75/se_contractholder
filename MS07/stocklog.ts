@@ -4,6 +4,8 @@ export type sch_mantenimientoHolder = {
     mantId: string;
     errores: sch_mantErrorHolder[];
     date: Date;
+    user: string;
+    company: string;
 };
 
 export class cnt_mantenimientoHolder implements sch_mantenimientoHolder {
@@ -12,18 +14,24 @@ export class cnt_mantenimientoHolder implements sch_mantenimientoHolder {
     mantId: string = "";
     errores: sch_mantErrorHolder[] = [];
     date: Date = new Date();
+    user: string = "";
+    company: string = "";    
     constructor(
         mscode: string = "",
         instance: string = "",
         mantId: string = "",
         errores: sch_mantErrorHolder[] = [],
-        date: Date = new Date()
+        date: Date = new Date(),
+        user: string = "",
+        company: string = ""
     ) {
         this.mscode = mscode;
         this.instance = instance;
         this.mantId = mantId;
         this.errores = errores;
         this.date = date;
+        this.user = user;
+        this.company = company;
     }
 
     static fromBody(body: any): cnt_mantenimientoHolder {
@@ -37,7 +45,9 @@ export class cnt_mantenimientoHolder implements sch_mantenimientoHolder {
             body.instance || "",
             body.mantId || body.mantid || "",
             errores,
-            new Date(body.date || new Date())
+            new Date(body.date || new Date()),
+            body.user || "",
+            body.company || ""
         );
     }
     static fromJson(json: any): cnt_mantenimientoHolder {
@@ -49,7 +59,9 @@ export class cnt_mantenimientoHolder implements sch_mantenimientoHolder {
             json.instance || "",
             json.mantId || json.mantid || "",
             errores,
-            new Date(json.date || new Date())
+            new Date(json.date || new Date()),
+            json.user || "",
+            json.company || ""
         );
     }
 

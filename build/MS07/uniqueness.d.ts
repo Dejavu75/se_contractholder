@@ -5,6 +5,8 @@ export type sch_uniquenessHolder = {
     verificationId: string;
     errors: sch_uniquenessErrorHolder[];
     timestamp: Date;
+    user: string;
+    company: string;
 };
 export declare class cnt_uniquenessHolder implements sch_uniquenessHolder {
     mscode: string;
@@ -13,7 +15,9 @@ export declare class cnt_uniquenessHolder implements sch_uniquenessHolder {
     verificationId: string;
     errors: sch_uniquenessErrorHolder[];
     timestamp: Date;
-    constructor(mscode?: string, instance?: string, uniqueId?: string, verificationId?: string, errors?: sch_uniquenessErrorHolder[], timestamp?: Date);
+    user: string;
+    company: string;
+    constructor(mscode?: string, instance?: string, uniqueId?: string, verificationId?: string, errors?: sch_uniquenessErrorHolder[], timestamp?: Date, user?: string, company?: string);
     static fromBody(body: any): cnt_uniquenessHolder;
 }
 export type sch_uniquenessErrorHolder = {

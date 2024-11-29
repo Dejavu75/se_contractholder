@@ -2,19 +2,23 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_uniquenessErrorHolder = exports.cnt_uniquenessHolder = void 0;
 class cnt_uniquenessHolder {
-    constructor(mscode = "", instance = "", uniqueId = "", verificationId = "", errors = [], timestamp = new Date()) {
+    constructor(mscode = "", instance = "", uniqueId = "", verificationId = "", errors = [], timestamp = new Date(), user = "", company = "") {
         this.mscode = "";
         this.instance = "";
         this.uniqueId = "";
         this.verificationId = "";
         this.errors = [];
         this.timestamp = new Date();
+        this.user = "";
+        this.company = "";
         this.mscode = mscode;
         this.instance = instance;
         this.uniqueId = uniqueId;
         this.verificationId = verificationId;
         this.errors = errors;
         this.timestamp = timestamp;
+        this.user = user;
+        this.company = company;
     }
     static fromBody(body) {
         var _a, _b;
@@ -24,7 +28,7 @@ class cnt_uniquenessHolder {
         if (Array.isArray((_a = body === null || body === void 0 ? void 0 : body.errors_kv_collection) === null || _a === void 0 ? void 0 : _a.collectionitems)) {
             errors = (_b = body === null || body === void 0 ? void 0 : body.errors_kv_collection) === null || _b === void 0 ? void 0 : _b.collectionitems.map((error) => cnt_uniquenessErrorHolder.fromBody(error));
         }
-        return new cnt_uniquenessHolder((body === null || body === void 0 ? void 0 : body.mscode) || "", (body === null || body === void 0 ? void 0 : body.instance) || "", (body === null || body === void 0 ? void 0 : body.uniqueId) || (body === null || body === void 0 ? void 0 : body.uniqueid) || "", (body === null || body === void 0 ? void 0 : body.verificationId) || (body === null || body === void 0 ? void 0 : body.verificationid) || "", errors, new Date((body === null || body === void 0 ? void 0 : body.timestamp) || Date.now()));
+        return new cnt_uniquenessHolder((body === null || body === void 0 ? void 0 : body.mscode) || "", (body === null || body === void 0 ? void 0 : body.instance) || "", (body === null || body === void 0 ? void 0 : body.uniqueId) || (body === null || body === void 0 ? void 0 : body.uniqueid) || "", (body === null || body === void 0 ? void 0 : body.verificationId) || (body === null || body === void 0 ? void 0 : body.verificationid) || "", errors, new Date((body === null || body === void 0 ? void 0 : body.timestamp) || Date.now()), (body === null || body === void 0 ? void 0 : body.user) || "", (body === null || body === void 0 ? void 0 : body.company) || "");
     }
 }
 exports.cnt_uniquenessHolder = cnt_uniquenessHolder;
