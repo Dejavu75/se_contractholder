@@ -1,4 +1,4 @@
-export type sch_UniquenessHolder = {
+export type sch_uniquenessHolder = {
     mscode: string;
     instance: string;
     uniqueId: string;
@@ -7,7 +7,7 @@ export type sch_UniquenessHolder = {
     timestamp: Date;
 };
 
-export class cnt_UniquenessHolder implements sch_UniquenessHolder {
+export class cnt_uniquenessHolder implements sch_uniquenessHolder {
     mscode: string = "";
     instance: string = "";
     uniqueId: string = "";
@@ -31,13 +31,13 @@ export class cnt_UniquenessHolder implements sch_UniquenessHolder {
         this.timestamp = timestamp;
     }
 
-    static fromBody(body: any): cnt_UniquenessHolder {
+    static fromBody(body: any): cnt_uniquenessHolder {
         let errors: sch_uniquenessErrorHolder[] = [];
             if (Array.isArray(body?.errors)) errors=body.errors.map((error: any) => cnt_uniquenessErrorHolder.fromBody(error))
             if (Array.isArray(body?.errors_kl_collection?.collectionitems)) {
                 errors=body?.errors_kl_collection?.collectionitems.map((error: any) => cnt_uniquenessErrorHolder.fromBody(error))
             }            
-        return new cnt_UniquenessHolder(
+        return new cnt_uniquenessHolder(
             body?.mscode || "",
             body?.instance || "",
             body?.uniqueId || "",
