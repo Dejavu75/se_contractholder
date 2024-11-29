@@ -40,8 +40,8 @@ export class cnt_uniquenessHolder implements sch_uniquenessHolder {
         return new cnt_uniquenessHolder(
             body?.mscode || "",
             body?.instance || "",
-            body?.uniqueId || "",
-            body?.verificationId || "",
+            body?.uniqueId || body?.uniqueid || "",
+            body?.verificationId ||  body?.verificationid || "",
             errors,
             new Date(body?.timestamp || Date.now())
         );
