@@ -38,16 +38,18 @@ class cnt_Permission {
 }
 exports.cnt_Permission = cnt_Permission;
 class cnt_AccountHolder {
-    constructor(id, username, email, password, permissions) {
+    constructor(id, idges, username, email, password, permissions, password_ges) {
         this.id = id;
+        this.idges = idges;
         this.username = username;
         this.email = email;
         this.password = password;
         this.passwordHash = this.generatePasswordHash(password);
         this.permissions = permissions;
+        this.password_ges = password_ges;
     }
     static defaultAccountHolder() {
-        return new cnt_AccountHolder(0, "", "", "", []);
+        return new cnt_AccountHolder(0, 0, "", "", "", [], "");
     }
     generatePasswordHash(password) {
         const salt = "solges";

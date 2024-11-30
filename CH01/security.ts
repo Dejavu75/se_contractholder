@@ -9,9 +9,11 @@ export type sch_Permission = {
 
 export type sch_AccountHolder = {
   id: number;
+  idges: number;
   username: string;
   email: string;
   permissions: sch_Permission[];
+  password_ges: string;
 };
 
 export type sch_SessionHolder = {
@@ -44,24 +46,29 @@ export class cnt_AccountHolder implements sch_AccountHolder {
   private password: string; // Original password (private)
   private passwordHash: string; // Hashed password
   permissions: cnt_Permission[];
-
+  idges: number;
+  password_ges: string;
   constructor(
     id: number,
+    idges: number,
     username: string,
     email: string,
     password: string,
-    permissions: cnt_Permission[]
+    permissions: cnt_Permission[],
+    password_ges: string
   ) {
     this.id = id;
+    this.idges = idges;
     this.username = username;
     this.email = email;
     this.password = password;
     this.passwordHash = this.generatePasswordHash(password);
     this.permissions = permissions;
+    this.password_ges = password_ges;
   }
 
   static defaultAccountHolder(): cnt_AccountHolder {
-    return new cnt_AccountHolder(0, "", "", "", []);
+    return new cnt_AccountHolder(0, 0,"", "", "", [],"");
   }
 
   private generatePasswordHash(password: string): string {
