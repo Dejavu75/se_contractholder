@@ -1,0 +1,119 @@
+import * as crypto from "crypto";
+
+// Define types with sch_ prefix
+export type sch_Permission = {
+  id: number;
+  description: string;
+  status: "hide" | "disabled" | "enabled";
+};
+
+export type sch_AccountHolder = {
+  id: number;
+  username: string;
+  email: string;
+  permissions: sch_Permission[];
+};
+
+export type sch_SessionHolder = {
+  token: string;
+  expirationTime: Date;
+  accountHolder: sch_AccountHolder;
+};
+
+// Classes implementing the types with cnt_ prefix
+export class cnt_Permission implements sch_Permission {
+  id: number;
+  description: string;
+  status: "hide" | "disabled" | "enabled";
+
+  constructor(id: number, description: string, status: "hide" | "disabled" | "enabled") {
+    this.id = id;
+    this.description = description;
+    this.status = status;
+  }
+
+  toString(): string {
+    return `Permission{id: ${this.id}, description: ${this.description}, status: ${this.status}}`;
+  }
+}
+
+export class cnt_AccountHolder implements sch_AccountHolder {
+  id: number;
+  username: string;
+  email: string;
+  private password: string; // Original password (private)
+  private passwordHash: string; // Hashed password
+  permissions: cnt_Permission[];
+
+  constructor(
+    id: number,
+    username: string,
+    email: string,
+    password: string,
+    permissions: cnt_Permission[]
+  ) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.passwordHash = this.generatePasswordHash(password);
+    this.permissions = permissions;
+  }
+
+  static defaultAccountHolder(): cnt_AccountHolder {
+    return new cnt_AccountHolder(0, "", "", "", []);
+  }
+
+  private generatePasswordHash(password: string): string {
+    const salt = "solges";
+    return crypto.createHash("sha256").update(password + salt).digest("base64");
+  }
+
+  getPasswordHash(): string {
+    return this.passwordHash;
+  }
+
+  updatePassword(newPassword: string): void {
+    this.password = newPassword;
+    this.passwordHash = this.generatePasswordHash(newPassword);
+  }
+
+  verifyPassword(password: string): boolean {
+    const hash = this.generatePasswordHash(password);
+    return hash === this.passwordHash;
+  }
+
+  toString(): string {
+    return `AccountHolder{id: ${this.id}, username: ${this.username}, email: ${this.email}, permissions: ${JSON.stringify(
+      this.permissions
+    )}}`;
+  }
+}
+
+export class cnt_SessionHolder implements sch_SessionHolder {
+  token: string;
+  expirationTime: Date;
+  accountHolder: cnt_AccountHolder;
+
+  constructor(token: string, expirationTime: Date, accountHolder: cnt_AccountHolder) {
+    this.token = token;
+    this.expirationTime = expirationTime;
+    this.accountHolder = accountHolder;
+  }
+
+  static defaultSession(): cnt_SessionHolder {
+    return new cnt_SessionHolder(
+      "defaultToken",
+      new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
+      cnt_AccountHolder.defaultAccountHolder()
+    );
+  }
+
+  isSessionValid(): boolean {
+    return new Date() < this.expirationTime;
+  }
+
+  toString(): string {
+    return `SessionHolder{token: ${this.token}, expirationTime: ${this.expirationTime.toISOString()}, accountHolder: ${this.accountHolder}}`;
+  }
+}
