@@ -22,6 +22,7 @@ export declare class cnt_Permission implements sch_Permission {
     status: "hide" | "disabled" | "enabled";
     constructor(id: number, description: string, status: "hide" | "disabled" | "enabled");
     toString(): string;
+    static fromMap(map: sch_Permission): cnt_Permission;
 }
 export declare class cnt_AccountHolder implements sch_AccountHolder {
     id: number;
@@ -33,6 +34,7 @@ export declare class cnt_AccountHolder implements sch_AccountHolder {
     idges: number;
     password_ges: string;
     constructor(id: number, idges: number, username: string, email: string, password: string, permissions: cnt_Permission[], password_ges: string);
+    static fromMap(map: cnt_AccountHolder): cnt_AccountHolder;
     static defaultAccountHolder(): cnt_AccountHolder;
     private generatePasswordHash;
     getPasswordHash(): string;

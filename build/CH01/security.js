@@ -35,6 +35,9 @@ class cnt_Permission {
     toString() {
         return `Permission{id: ${this.id}, description: ${this.description}, status: ${this.status}}`;
     }
+    static fromMap(map) {
+        return new cnt_Permission(map.id, map.description, map.status);
+    }
 }
 exports.cnt_Permission = cnt_Permission;
 class cnt_AccountHolder {
@@ -47,6 +50,9 @@ class cnt_AccountHolder {
         this.passwordHash = this.generatePasswordHash(password);
         this.permissions = permissions;
         this.password_ges = password_ges;
+    }
+    static fromMap(map) {
+        return new cnt_AccountHolder(map.id, map.idges, map.username, map.email, "", map.permissions.map((p) => cnt_Permission.fromMap(p)), map.password_ges);
     }
     static defaultAccountHolder() {
         return new cnt_AccountHolder(0, 0, "", "", "", [], "");

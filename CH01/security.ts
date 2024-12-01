@@ -37,6 +37,9 @@ export class cnt_Permission implements sch_Permission {
   toString(): string {
     return `Permission{id: ${this.id}, description: ${this.description}, status: ${this.status}}`;
   }
+  static fromMap(map: sch_Permission): cnt_Permission {
+    return new cnt_Permission(map.id, map.description, map.status);
+  }
 }
 
 export class cnt_AccountHolder implements sch_AccountHolder {
@@ -66,7 +69,17 @@ export class cnt_AccountHolder implements sch_AccountHolder {
     this.permissions = permissions;
     this.password_ges = password_ges;
   }
-
+  static fromMap(map: cnt_AccountHolder): cnt_AccountHolder {
+    return new cnt_AccountHolder(
+      map.id,
+      map.idges,
+      map.username,
+      map.email,
+      "",
+      map.permissions.map((p) => cnt_Permission.fromMap(p)),
+      map.password_ges
+    );
+  }
   static defaultAccountHolder(): cnt_AccountHolder {
     return new cnt_AccountHolder(0, 0,"", "", "", [],"");
   }
