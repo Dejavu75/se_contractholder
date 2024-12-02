@@ -38,7 +38,7 @@ export declare class cnt_AccountHolder implements sch_AccountHolder {
     static defaultAccountHolder(): cnt_AccountHolder;
     private generatePasswordHash;
     getPasswordHash(): string;
-    updatePassword(newPassword: string): void;
+    updatePassword(newPassword: string): string;
     verifyPassword(password: string): boolean;
     toString(): string;
 }

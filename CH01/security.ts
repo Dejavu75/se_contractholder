@@ -93,9 +93,10 @@ export class cnt_AccountHolder implements sch_AccountHolder {
     return this.passwordHash;
   }
 
-  updatePassword(newPassword: string): void {
+  updatePassword(newPassword: string): string {
     this.password = newPassword;
     this.passwordHash = this.generatePasswordHash(newPassword);
+    return this.passwordHash;
   }
 
   verifyPassword(password: string): boolean {

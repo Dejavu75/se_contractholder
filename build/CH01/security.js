@@ -67,6 +67,7 @@ class cnt_AccountHolder {
     updatePassword(newPassword) {
         this.password = newPassword;
         this.passwordHash = this.generatePasswordHash(newPassword);
+        return this.passwordHash;
     }
     verifyPassword(password) {
         const hash = this.generatePasswordHash(password);
