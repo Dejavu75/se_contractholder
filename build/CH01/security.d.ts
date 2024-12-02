@@ -34,6 +34,7 @@ export declare class cnt_AccountHolder implements sch_AccountHolder {
     idges: number;
     password_ges: string;
     constructor(id: number, idges: number, username: string, email: string, password: string, permissions: cnt_Permission[], password_ges: string);
+    static fromBody(body: any): cnt_AccountHolder;
     static fromMap(map: cnt_AccountHolder): cnt_AccountHolder;
     static defaultAccountHolder(): cnt_AccountHolder;
     private generatePasswordHash;

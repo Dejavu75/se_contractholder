@@ -69,6 +69,17 @@ export class cnt_AccountHolder implements sch_AccountHolder {
     this.permissions = permissions;
     this.password_ges = password_ges;
   }
+  static fromBody(body: any): cnt_AccountHolder { 
+    return new cnt_AccountHolder(
+      body.id ||0,
+      body.idges||0,
+      body.username,
+      body.email||"",
+      body.password||"",
+      body.permissions?.map((p: any) => cnt_Permission.fromMap(p)),
+      body.password_ges||""
+    );
+  }
   static fromMap(map: cnt_AccountHolder): cnt_AccountHolder {
     return new cnt_AccountHolder(
       map.id,
@@ -76,7 +87,7 @@ export class cnt_AccountHolder implements sch_AccountHolder {
       map.username,
       map.email,
       "",
-      map.permissions.map((p) => cnt_Permission.fromMap(p)),
+      map.permissions?.map((p) => cnt_Permission.fromMap(p)),
       map.password_ges
     );
   }

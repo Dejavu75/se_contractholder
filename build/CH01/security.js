@@ -51,8 +51,13 @@ class cnt_AccountHolder {
         this.permissions = permissions;
         this.password_ges = password_ges;
     }
+    static fromBody(body) {
+        var _a;
+        return new cnt_AccountHolder(body.id || 0, body.idges || 0, body.username, body.email || "", body.password || "", (_a = body.permissions) === null || _a === void 0 ? void 0 : _a.map((p) => cnt_Permission.fromMap(p)), body.password_ges || "");
+    }
     static fromMap(map) {
-        return new cnt_AccountHolder(map.id, map.idges, map.username, map.email, "", map.permissions.map((p) => cnt_Permission.fromMap(p)), map.password_ges);
+        var _a;
+        return new cnt_AccountHolder(map.id, map.idges, map.username, map.email, "", (_a = map.permissions) === null || _a === void 0 ? void 0 : _a.map((p) => cnt_Permission.fromMap(p)), map.password_ges);
     }
     static defaultAccountHolder() {
         return new cnt_AccountHolder(0, 0, "", "", "", [], "");
