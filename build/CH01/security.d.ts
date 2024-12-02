@@ -1,7 +1,10 @@
 export type sch_Permission = {
     id: number;
+    name: string;
     description: string;
-    status: "hide" | "disabled" | "enabled";
+    status: "hide" | "disabled" | "enabled" | "default";
+    type: "permissive" | "restrictive";
+    domain: string;
 };
 export type sch_AccountHolder = {
     id: number;
@@ -18,9 +21,12 @@ export type sch_SessionHolder = {
 };
 export declare class cnt_Permission implements sch_Permission {
     id: number;
+    name: string;
     description: string;
-    status: "hide" | "disabled" | "enabled";
-    constructor(id: number, description: string, status: "hide" | "disabled" | "enabled");
+    status: "hide" | "disabled" | "enabled" | "default";
+    type: "permissive" | "restrictive";
+    domain: string;
+    constructor(id: number, name: string, description: string, status: ("hide" | "disabled" | "enabled" | "default") | undefined, type: ("permissive" | "restrictive") | undefined, domain: string);
     toString(): string;
     static fromMap(map: sch_Permission): cnt_Permission;
 }

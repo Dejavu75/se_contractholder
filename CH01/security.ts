@@ -3,8 +3,11 @@ import * as crypto from "crypto";
 // Define types with sch_ prefix
 export type sch_Permission = {
   id: number;
+  name: string;
   description: string;
-  status: "hide" | "disabled" | "enabled";
+  status: "hide" | "disabled" | "enabled" | "default";
+  type: "permissive" | "restrictive";
+  domain: string;   
 };
 
 export type sch_AccountHolder = {
@@ -25,20 +28,42 @@ export type sch_SessionHolder = {
 // Classes implementing the types with cnt_ prefix
 export class cnt_Permission implements sch_Permission {
   id: number;
+  name: string;
   description: string;
-  status: "hide" | "disabled" | "enabled";
+  status: "hide" | "disabled" | "enabled" | "default";
+  type: "permissive" | "restrictive";
+  domain: string;
 
-  constructor(id: number, description: string, status: "hide" | "disabled" | "enabled") {
-    this.id = id;
-    this.description = description;
-    this.status = status;
+
+  constructor(
+    id: number,
+    name: string,
+    description: string,
+    status: "hide" | "disabled" | "enabled" | "default" = "default" ,
+    type: "permissive" | "restrictive" = "permissive",
+    domain: string
+  )
+  {
+    this.id = id || 0;
+    this.name = name || "";
+    this.description = description || "";
+    this.status = status || "enabled";
+    this.type = type;
+    this.domain = domain;
   }
 
   toString(): string {
     return `Permission{id: ${this.id}, description: ${this.description}, status: ${this.status}}`;
   }
   static fromMap(map: sch_Permission): cnt_Permission {
-    return new cnt_Permission(map.id, map.description, map.status);
+    return new cnt_Permission(
+      map?.id ||0,
+      map?.name ||"",
+      map?.description ||"",
+      map?.status || "default",
+      map?.type || "permissive",
+      map?.domain ||""
+    );
   }
 }
 

@@ -27,16 +27,19 @@ exports.cnt_SessionHolder = exports.cnt_AccountHolder = exports.cnt_Permission =
 const crypto = __importStar(require("crypto"));
 // Classes implementing the types with cnt_ prefix
 class cnt_Permission {
-    constructor(id, description, status) {
-        this.id = id;
-        this.description = description;
-        this.status = status;
+    constructor(id, name, description, status = "default", type = "permissive", domain) {
+        this.id = id || 0;
+        this.name = name || "";
+        this.description = description || "";
+        this.status = status || "enabled";
+        this.type = type;
+        this.domain = domain;
     }
     toString() {
         return `Permission{id: ${this.id}, description: ${this.description}, status: ${this.status}}`;
     }
     static fromMap(map) {
-        return new cnt_Permission(map.id, map.description, map.status);
+        return new cnt_Permission((map === null || map === void 0 ? void 0 : map.id) || 0, (map === null || map === void 0 ? void 0 : map.name) || "", (map === null || map === void 0 ? void 0 : map.description) || "", (map === null || map === void 0 ? void 0 : map.status) || "default", (map === null || map === void 0 ? void 0 : map.type) || "permissive", (map === null || map === void 0 ? void 0 : map.domain) || "");
     }
 }
 exports.cnt_Permission = cnt_Permission;
