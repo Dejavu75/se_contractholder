@@ -162,6 +162,7 @@ export type sch_SessionHolder = {
   accountHolder: cnt_AccountHolder;
   domain: string;
   status: sessionStatus
+  devicehash: string;
 };
 export class cnt_SessionHolder implements sch_SessionHolder {
   token: string;
@@ -170,6 +171,7 @@ export class cnt_SessionHolder implements sch_SessionHolder {
   accountHolder: cnt_AccountHolder;
   domain: string
   status: sessionStatus
+  devicehash: string;
 
 
   constructor(
@@ -178,7 +180,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     expirationTime: Date,
     accountHolder: cnt_AccountHolder,
     domain: string = "",
-    status: sessionStatus=sessionStatus.unknow
+    status: sessionStatus=sessionStatus.unknow,
+    devicehash: string =""
   )
   {
     this.token = token;
@@ -187,6 +190,7 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     this.accountHolder = accountHolder;
     this.domain = domain || "global";
     this.status = status || sessionStatus.unknow;
+    this.devicehash = devicehash || "";
   }
 
   static defaultSession(): cnt_SessionHolder {
@@ -196,7 +200,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
       cnt_AccountHolder.defaultAccountHolder(),
       "global",
-      sessionStatus.unknow
+      sessionStatus.unknow,
+      ""
     );
   }
 
@@ -207,7 +212,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       map.expirationTime,
       cnt_AccountHolder.fromMap(map.accountHolder),
       map.domain,
-      map.status
+      map.status,
+      map.devicehash
     );
   }
   static fromBody(body: any): cnt_SessionHolder {
@@ -217,7 +223,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       body.expirationTime,
       cnt_AccountHolder.fromBody(body?.accountHolder),
       body.domain,
-      body.status
+      body.status,
+      body.devicehash
     );
   }
   static fromRow(row: any): cnt_SessionHolder {
@@ -227,7 +234,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       row.expirationTime,
       cnt_AccountHolder.defaultAccountHolder(),
       row.domain,
-      row.status
+      row.status,
+      row.devicehash
       )
     };
 

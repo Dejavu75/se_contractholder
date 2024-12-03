@@ -57,6 +57,7 @@ export type sch_SessionHolder = {
     accountHolder: cnt_AccountHolder;
     domain: string;
     status: sessionStatus;
+    devicehash: string;
 };
 export declare class cnt_SessionHolder implements sch_SessionHolder {
     token: string;
@@ -65,7 +66,8 @@ export declare class cnt_SessionHolder implements sch_SessionHolder {
     accountHolder: cnt_AccountHolder;
     domain: string;
     status: sessionStatus;
-    constructor(token: string, ages_token: string, expirationTime: Date, accountHolder: cnt_AccountHolder, domain?: string, status?: sessionStatus);
+    devicehash: string;
+    constructor(token: string, ages_token: string, expirationTime: Date, accountHolder: cnt_AccountHolder, domain?: string, status?: sessionStatus, devicehash?: string);
     static defaultSession(): cnt_SessionHolder;
     static fromMap(map: cnt_SessionHolder): cnt_SessionHolder;
     static fromBody(body: any): cnt_SessionHolder;

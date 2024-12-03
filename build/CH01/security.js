@@ -98,26 +98,27 @@ var sessionStatus;
     sessionStatus["unknow"] = "unknow";
 })(sessionStatus || (exports.sessionStatus = sessionStatus = {}));
 class cnt_SessionHolder {
-    constructor(token, ages_token, expirationTime, accountHolder, domain = "", status = sessionStatus.unknow) {
+    constructor(token, ages_token, expirationTime, accountHolder, domain = "", status = sessionStatus.unknow, devicehash = "") {
         this.token = token;
         this.ages_token = ages_token;
         this.expirationTime = expirationTime;
         this.accountHolder = accountHolder;
         this.domain = domain || "global";
         this.status = status || sessionStatus.unknow;
+        this.devicehash = devicehash || "";
     }
     static defaultSession() {
         return new cnt_SessionHolder("", "", new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
-        cnt_AccountHolder.defaultAccountHolder(), "global", sessionStatus.unknow);
+        cnt_AccountHolder.defaultAccountHolder(), "global", sessionStatus.unknow, "");
     }
     static fromMap(map) {
-        return new cnt_SessionHolder(map.token, map.ages_token, map.expirationTime, cnt_AccountHolder.fromMap(map.accountHolder), map.domain, map.status);
+        return new cnt_SessionHolder(map.token, map.ages_token, map.expirationTime, cnt_AccountHolder.fromMap(map.accountHolder), map.domain, map.status, map.devicehash);
     }
     static fromBody(body) {
-        return new cnt_SessionHolder(body.token, body.ages_token, body.expirationTime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder), body.domain, body.status);
+        return new cnt_SessionHolder(body.token, body.ages_token, body.expirationTime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder), body.domain, body.status, body.devicehash);
     }
     static fromRow(row) {
-        return new cnt_SessionHolder(row.token, row.ages_token, row.expirationTime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status);
+        return new cnt_SessionHolder(row.token, row.ages_token, row.expirationTime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, row.devicehash);
     }
     ;
     isSessionValid() {
