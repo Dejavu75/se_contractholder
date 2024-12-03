@@ -240,16 +240,16 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     };
   static fromHeader(req: any): cnt_SessionHolder {
     let session = cnt_SessionHolder.defaultSession();
-    session.token = req.headers["x_session_token"] || "";
-    session.devicehash = req.headers["x_session_device_hash"] || "";
-    session.domain = req.headers["x_session_domain"] || "";   
+    session.token = req.headers?.["x_session_token"] || session.token;
+    session.devicehash = req.headers?.["x_session_device_hash"] || session.devicehash;
+    session.domain = req.headers?.["x_session_domain"] || session.domain;
     return session;
   }
   static fromCookie(req: any): cnt_SessionHolder {
     let session = cnt_SessionHolder.defaultSession();
-    session.token = req.cookies["session_token"] || "";
-    session.devicehash = req.cookies["session_device_hash"] || "";
-    session.domain = req.cookies["session_domain"] || "";   
+    session.token = req.cookies?.["session_token"] || session.token;
+    session.devicehash = req.cookies?.["session_device_hash"] || session.devicehash;
+    session.domain = req.cookies?.["session_domain"] || session.domain;   
     return session;
   }
   static toHeader(res: any, session: cnt_SessionHolder): any {

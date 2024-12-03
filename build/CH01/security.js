@@ -122,17 +122,19 @@ class cnt_SessionHolder {
     }
     ;
     static fromHeader(req) {
+        var _a, _b, _c;
         let session = cnt_SessionHolder.defaultSession();
-        session.token = req.headers["x_session_token"] || "";
-        session.devicehash = req.headers["x_session_device_hash"] || "";
-        session.domain = req.headers["x_session_domain"] || "";
+        session.token = ((_a = req.headers) === null || _a === void 0 ? void 0 : _a["x_session_token"]) || session.token;
+        session.devicehash = ((_b = req.headers) === null || _b === void 0 ? void 0 : _b["x_session_device_hash"]) || session.devicehash;
+        session.domain = ((_c = req.headers) === null || _c === void 0 ? void 0 : _c["x_session_domain"]) || session.domain;
         return session;
     }
     static fromCookie(req) {
+        var _a, _b, _c;
         let session = cnt_SessionHolder.defaultSession();
-        session.token = req.cookies["session_token"] || "";
-        session.devicehash = req.cookies["session_device_hash"] || "";
-        session.domain = req.cookies["session_domain"] || "";
+        session.token = ((_a = req.cookies) === null || _a === void 0 ? void 0 : _a["session_token"]) || session.token;
+        session.devicehash = ((_b = req.cookies) === null || _b === void 0 ? void 0 : _b["session_device_hash"]) || session.devicehash;
+        session.domain = ((_c = req.cookies) === null || _c === void 0 ? void 0 : _c["session_domain"]) || session.domain;
         return session;
     }
     static toHeader(res, session) {
