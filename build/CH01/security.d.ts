@@ -6,19 +6,6 @@ export type sch_Permission = {
     type: "permissive" | "restrictive";
     domain: string;
 };
-export type sch_AccountHolder = {
-    id: number;
-    idges: number;
-    username: string;
-    email: string;
-    permissions: sch_Permission[];
-    password_ges: string;
-};
-export type sch_SessionHolder = {
-    token: string;
-    expirationTime: Date;
-    accountHolder: sch_AccountHolder;
-};
 export declare class cnt_Permission implements sch_Permission {
     id: number;
     name: string;
@@ -30,6 +17,14 @@ export declare class cnt_Permission implements sch_Permission {
     toString(): string;
     static fromMap(map: sch_Permission): cnt_Permission;
 }
+export type sch_AccountHolder = {
+    id: number;
+    idges: number;
+    username: string;
+    email: string;
+    permissions: sch_Permission[];
+    password_ges: string;
+};
 export declare class cnt_AccountHolder implements sch_AccountHolder {
     id: number;
     username: string;
@@ -49,12 +44,20 @@ export declare class cnt_AccountHolder implements sch_AccountHolder {
     verifyPassword(password: string): boolean;
     toString(): string;
 }
+export type sch_SessionHolder = {
+    token: string;
+    expirationTime: Date;
+    accountHolder: cnt_AccountHolder;
+};
 export declare class cnt_SessionHolder implements sch_SessionHolder {
     token: string;
     expirationTime: Date;
     accountHolder: cnt_AccountHolder;
     constructor(token: string, expirationTime: Date, accountHolder: cnt_AccountHolder);
     static defaultSession(): cnt_SessionHolder;
+    static fromMap(map: cnt_SessionHolder): cnt_SessionHolder;
+    static fromBody(body: any): cnt_SessionHolder;
+    static fromRow(row: any): cnt_SessionHolder;
     isSessionValid(): boolean;
     toString(): string;
 }

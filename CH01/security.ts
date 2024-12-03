@@ -1,5 +1,6 @@
 import * as crypto from "crypto";
 
+//#region "Permission"
 // Define types with sch_ prefix
 export type sch_Permission = {
   id: number;
@@ -9,23 +10,6 @@ export type sch_Permission = {
   type: "permissive" | "restrictive";
   domain: string;   
 };
-
-export type sch_AccountHolder = {
-  id: number;
-  idges: number;
-  username: string;
-  email: string;
-  permissions: sch_Permission[];
-  password_ges: string;
-};
-
-export type sch_SessionHolder = {
-  token: string;
-  expirationTime: Date;
-  accountHolder: sch_AccountHolder;
-};
-
-// Classes implementing the types with cnt_ prefix
 export class cnt_Permission implements sch_Permission {
   id: number;
   name: string;
@@ -66,6 +50,17 @@ export class cnt_Permission implements sch_Permission {
     );
   }
 }
+//#endregion "Permission"
+
+//#region "AccountHolder"
+export type sch_AccountHolder = {
+  id: number;
+  idges: number;
+  username: string;
+  email: string;
+  permissions: sch_Permission[];
+  password_ges: string;
+};
 
 export class cnt_AccountHolder implements sch_AccountHolder {
   id: number;
@@ -146,7 +141,14 @@ export class cnt_AccountHolder implements sch_AccountHolder {
     )}}`;
   }
 }
+//#endregion "AccountHolder"
 
+//#region "SessionHolder"
+export type sch_SessionHolder = {
+  token: string;
+  expirationTime: Date;
+  accountHolder: cnt_AccountHolder;
+};
 export class cnt_SessionHolder implements sch_SessionHolder {
   token: string;
   expirationTime: Date;
@@ -166,6 +168,28 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     );
   }
 
+  static fromMap(map: cnt_SessionHolder): cnt_SessionHolder {
+    return new cnt_SessionHolder(
+      map.token,
+      map.expirationTime,
+      cnt_AccountHolder.fromMap(map.accountHolder)
+    );
+  }
+  static fromBody(body: any): cnt_SessionHolder {
+    return new cnt_SessionHolder(
+      body.token,
+      body.expirationTime,
+      cnt_AccountHolder.fromBody(body?.accountHolder)
+    );
+  }
+  static fromRow(row: any): cnt_SessionHolder {
+    return new cnt_SessionHolder(
+      row.token,
+      row.expirationTime,
+      cnt_AccountHolder.defaultAccountHolder()
+      )
+    };
+
   isSessionValid(): boolean {
     return new Date() < this.expirationTime;
   }
@@ -174,3 +198,4 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     return `SessionHolder{token: ${this.token}, expirationTime: ${this.expirationTime.toISOString()}, accountHolder: ${this.accountHolder}}`;
   }
 }
+//#endregion "SessionHolder"

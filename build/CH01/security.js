@@ -25,7 +25,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_SessionHolder = exports.cnt_AccountHolder = exports.cnt_Permission = void 0;
 const crypto = __importStar(require("crypto"));
-// Classes implementing the types with cnt_ prefix
 class cnt_Permission {
     constructor(id, name, description, status = "default", type = "permissive", domain) {
         this.id = id || 0;
@@ -96,6 +95,16 @@ class cnt_SessionHolder {
         return new cnt_SessionHolder("defaultToken", new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
         cnt_AccountHolder.defaultAccountHolder());
     }
+    static fromMap(map) {
+        return new cnt_SessionHolder(map.token, map.expirationTime, cnt_AccountHolder.fromMap(map.accountHolder));
+    }
+    static fromBody(body) {
+        return new cnt_SessionHolder(body.token, body.expirationTime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder));
+    }
+    static fromRow(row) {
+        return new cnt_SessionHolder(row.token, row.expirationTime, cnt_AccountHolder.defaultAccountHolder());
+    }
+    ;
     isSessionValid() {
         return new Date() < this.expirationTime;
     }
@@ -104,3 +113,4 @@ class cnt_SessionHolder {
     }
 }
 exports.cnt_SessionHolder = cnt_SessionHolder;
+//#endregion "SessionHolder"
