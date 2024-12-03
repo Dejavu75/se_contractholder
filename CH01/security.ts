@@ -238,7 +238,34 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       row.devicehash
       )
     };
-
+  static fromHeader(req: any): cnt_SessionHolder {
+    let session = cnt_SessionHolder.defaultSession();
+    session.token = req.headers["x_session_token"] || "";
+    session.devicehash = req.headers["x_session_device_hash"] || "";
+    session.domain = req.headers["x_session_domain"] || "";   
+    return session;
+  }
+  static fromCookie(req: any): cnt_SessionHolder {
+    let session = cnt_SessionHolder.defaultSession();
+    session.token = req.cookies["session_token"] || "";
+    session.devicehash = req.cookies["session_device_hash"] || "";
+    session.domain = req.cookies["session_domain"] || "";   
+    return session;
+  }
+  static toHeader(res: any, session: cnt_SessionHolder): any {
+    res.setHeader("x_session_token", session.token);
+    return res
+  }
+  toHeader(res: any): any {
+    return cnt_SessionHolder.toHeader(res, this);
+  }
+  static toCookie(res: any, session: cnt_SessionHolder): any {
+    res.cookie("session_token", session.token, { httpOnly: true, secure: true });
+    return res
+  }
+  toCookie(res: any): any {
+    return cnt_SessionHolder.toCookie(res, this);
+  }
   isSessionValid(): boolean {
     return new Date() < this.expirationTime;
   }

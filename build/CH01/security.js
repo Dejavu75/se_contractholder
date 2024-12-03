@@ -121,6 +121,34 @@ class cnt_SessionHolder {
         return new cnt_SessionHolder(row.token, row.ages_token, row.expirationTime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, row.devicehash);
     }
     ;
+    static fromHeader(req) {
+        let session = cnt_SessionHolder.defaultSession();
+        session.token = req.headers["x_session_token"] || "";
+        session.devicehash = req.headers["x_session_device_hash"] || "";
+        session.domain = req.headers["x_session_domain"] || "";
+        return session;
+    }
+    static fromCookie(req) {
+        let session = cnt_SessionHolder.defaultSession();
+        session.token = req.cookies["session_token"] || "";
+        session.devicehash = req.cookies["session_device_hash"] || "";
+        session.domain = req.cookies["session_domain"] || "";
+        return session;
+    }
+    static toHeader(res, session) {
+        res.setHeader("x_session_token", session.token);
+        return res;
+    }
+    toHeader(res) {
+        return cnt_SessionHolder.toHeader(res, this);
+    }
+    static toCookie(res, session) {
+        res.cookie("session_token", session.token, { httpOnly: true, secure: true });
+        return res;
+    }
+    toCookie(res) {
+        return cnt_SessionHolder.toCookie(res, this);
+    }
     isSessionValid() {
         return new Date() < this.expirationTime;
     }
