@@ -44,16 +44,28 @@ export declare class cnt_AccountHolder implements sch_AccountHolder {
     verifyPassword(password: string): boolean;
     toString(): string;
 }
+export declare enum sessionStatus {
+    active = "active",
+    inactive = "inactive",
+    expired = "expired",
+    unknow = "unknow"
+}
 export type sch_SessionHolder = {
     token: string;
+    ages_token: string;
     expirationTime: Date;
     accountHolder: cnt_AccountHolder;
+    domain: string;
+    status: sessionStatus;
 };
 export declare class cnt_SessionHolder implements sch_SessionHolder {
     token: string;
+    ages_token: string;
     expirationTime: Date;
     accountHolder: cnt_AccountHolder;
-    constructor(token: string, expirationTime: Date, accountHolder: cnt_AccountHolder);
+    domain: string;
+    status: sessionStatus;
+    constructor(token: string, ages_token: string, expirationTime: Date, accountHolder: cnt_AccountHolder, domain?: string, status?: sessionStatus);
     static defaultSession(): cnt_SessionHolder;
     static fromMap(map: cnt_SessionHolder): cnt_SessionHolder;
     static fromBody(body: any): cnt_SessionHolder;

@@ -1,5 +1,6 @@
 import * as crypto from "crypto";
 
+
 //#region "Permission"
 // Define types with sch_ prefix
 export type sch_Permission = {
@@ -144,49 +145,86 @@ export class cnt_AccountHolder implements sch_AccountHolder {
 //#endregion "AccountHolder"
 
 //#region "SessionHolder"
+export enum sessionStatus
+{
+  active = "active",
+  inactive = "inactive",
+  expired = "expired",
+  unknow = "unknow"
+}
 export type sch_SessionHolder = {
   token: string;
+  ages_token: string;
   expirationTime: Date;
   accountHolder: cnt_AccountHolder;
+  domain: string;
+  status: sessionStatus
 };
 export class cnt_SessionHolder implements sch_SessionHolder {
   token: string;
+  ages_token: string;
   expirationTime: Date;
   accountHolder: cnt_AccountHolder;
+  domain: string
+  status: sessionStatus
 
-  constructor(token: string, expirationTime: Date, accountHolder: cnt_AccountHolder) {
+
+  constructor(
+    token: string,
+    ages_token: string,
+    expirationTime: Date,
+    accountHolder: cnt_AccountHolder,
+    domain: string = "",
+    status: sessionStatus=sessionStatus.unknow
+  )
+  {
     this.token = token;
+    this.ages_token = ages_token;
     this.expirationTime = expirationTime;
     this.accountHolder = accountHolder;
+    this.domain = domain || "global";
+    this.status = status || sessionStatus.unknow;
   }
 
   static defaultSession(): cnt_SessionHolder {
     return new cnt_SessionHolder(
-      "defaultToken",
+      "",
+      "",
       new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
-      cnt_AccountHolder.defaultAccountHolder()
+      cnt_AccountHolder.defaultAccountHolder(),
+      "global",
+      sessionStatus.unknow
     );
   }
 
   static fromMap(map: cnt_SessionHolder): cnt_SessionHolder {
     return new cnt_SessionHolder(
       map.token,
+      map.ages_token,
       map.expirationTime,
-      cnt_AccountHolder.fromMap(map.accountHolder)
+      cnt_AccountHolder.fromMap(map.accountHolder),
+      map.domain,
+      map.status
     );
   }
   static fromBody(body: any): cnt_SessionHolder {
     return new cnt_SessionHolder(
       body.token,
+      body.ages_token,
       body.expirationTime,
-      cnt_AccountHolder.fromBody(body?.accountHolder)
+      cnt_AccountHolder.fromBody(body?.accountHolder),
+      body.domain,
+      body.status
     );
   }
   static fromRow(row: any): cnt_SessionHolder {
     return new cnt_SessionHolder(
       row.token,
+      row.ages_token,
       row.expirationTime,
-      cnt_AccountHolder.defaultAccountHolder()
+      cnt_AccountHolder.defaultAccountHolder(),
+      row.domain,
+      row.status
       )
     };
 
