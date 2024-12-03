@@ -65,6 +65,9 @@ class cnt_AccountHolder {
         return new cnt_AccountHolder(0, 0, "", "", "", [], "");
     }
     generatePasswordHash(password) {
+        if (!password) {
+            return "";
+        }
         const salt = "solges";
         return crypto.createHash("sha256").update(password + salt).digest("base64");
     }

@@ -117,6 +117,9 @@ export class cnt_AccountHolder implements sch_AccountHolder {
   }
 
   private generatePasswordHash(password: string): string {
+    if (!password) {
+      return "";
+    }
     const salt = "solges";
     return crypto.createHash("sha256").update(password + salt).digest("base64");
   }
