@@ -121,20 +121,25 @@ class cnt_SessionHolder {
         return new cnt_SessionHolder(row.token, row.ages_token, row.expirationTime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, row.devicehash);
     }
     ;
-    static fromHeader(req) {
-        var _a, _b, _c;
-        let session = cnt_SessionHolder.defaultSession();
-        session.token = ((_a = req.headers) === null || _a === void 0 ? void 0 : _a["x_session_token"]) || session.token;
-        session.devicehash = ((_b = req.headers) === null || _b === void 0 ? void 0 : _b["x_session_device_hash"]) || session.devicehash;
-        session.domain = ((_c = req.headers) === null || _c === void 0 ? void 0 : _c["x_session_domain"]) || session.domain;
+    static fromRequest(req) {
+        let session = cnt_SessionHolder.fromHeader(req === null || req === void 0 ? void 0 : req.headers);
+        if (!session.token) {
+            session = cnt_SessionHolder.fromCookie(req.cookies);
+        }
         return session;
     }
-    static fromCookie(req) {
-        var _a, _b, _c;
+    static fromHeader(headers) {
         let session = cnt_SessionHolder.defaultSession();
-        session.token = ((_a = req.cookies) === null || _a === void 0 ? void 0 : _a["session_token"]) || session.token;
-        session.devicehash = ((_b = req.cookies) === null || _b === void 0 ? void 0 : _b["session_device_hash"]) || session.devicehash;
-        session.domain = ((_c = req.cookies) === null || _c === void 0 ? void 0 : _c["session_domain"]) || session.domain;
+        session.token = (headers === null || headers === void 0 ? void 0 : headers["x_session_token"]) || session.token;
+        session.devicehash = (headers === null || headers === void 0 ? void 0 : headers["x_session_device_hash"]) || session.devicehash;
+        session.domain = (headers === null || headers === void 0 ? void 0 : headers["x_session_domain"]) || session.domain;
+        return session;
+    }
+    static fromCookie(cookies) {
+        let session = cnt_SessionHolder.defaultSession();
+        session.token = (cookies === null || cookies === void 0 ? void 0 : cookies["session_token"]) || session.token;
+        session.devicehash = (cookies === null || cookies === void 0 ? void 0 : cookies["session_device_hash"]) || session.devicehash;
+        session.domain = (cookies === null || cookies === void 0 ? void 0 : cookies["session_domain"]) || session.domain;
         return session;
     }
     static toHeader(res, session) {

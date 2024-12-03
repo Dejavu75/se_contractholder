@@ -72,8 +72,9 @@ export declare class cnt_SessionHolder implements sch_SessionHolder {
     static fromMap(map: cnt_SessionHolder): cnt_SessionHolder;
     static fromBody(body: any): cnt_SessionHolder;
     static fromRow(row: any): cnt_SessionHolder;
-    static fromHeader(req: any): cnt_SessionHolder;
-    static fromCookie(req: any): cnt_SessionHolder;
+    static fromRequest(req: any): cnt_SessionHolder;
+    static fromHeader(headers: any): cnt_SessionHolder;
+    static fromCookie(cookies: any): cnt_SessionHolder;
     static toHeader(res: any, session: cnt_SessionHolder): any;
     toHeader(res: any): any;
     static toCookie(res: any, session: cnt_SessionHolder): any;

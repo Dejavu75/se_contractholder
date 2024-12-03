@@ -238,18 +238,25 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       row.devicehash
       )
     };
-  static fromHeader(req: any): cnt_SessionHolder {
-    let session = cnt_SessionHolder.defaultSession();
-    session.token = req.headers?.["x_session_token"] || session.token;
-    session.devicehash = req.headers?.["x_session_device_hash"] || session.devicehash;
-    session.domain = req.headers?.["x_session_domain"] || session.domain;
+  static fromRequest(req: any): cnt_SessionHolder {
+    let session = cnt_SessionHolder.fromHeader(req?.headers);
+    if (!session.token) {
+      session = cnt_SessionHolder.fromCookie(req.cookies);
+    }
     return session;
   }
-  static fromCookie(req: any): cnt_SessionHolder {
+  static fromHeader(headers: any): cnt_SessionHolder {
     let session = cnt_SessionHolder.defaultSession();
-    session.token = req.cookies?.["session_token"] || session.token;
-    session.devicehash = req.cookies?.["session_device_hash"] || session.devicehash;
-    session.domain = req.cookies?.["session_domain"] || session.domain;   
+    session.token = headers?.["x_session_token"] || session.token;
+    session.devicehash = headers?.["x_session_device_hash"] || session.devicehash;
+    session.domain = headers?.["x_session_domain"] || session.domain;
+    return session;
+  }
+  static fromCookie(cookies: any): cnt_SessionHolder {
+    let session = cnt_SessionHolder.defaultSession();
+    session.token = cookies?.["session_token"] || session.token;
+    session.devicehash = cookies?.["session_device_hash"] || session.devicehash;
+    session.domain = cookies?.["session_domain"] || session.domain;   
     return session;
   }
   static toHeader(res: any, session: cnt_SessionHolder): any {
