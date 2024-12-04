@@ -26,8 +26,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_SessionHolder = exports.sessionStatus = exports.cnt_AccountHolder = exports.cnt_Permission = void 0;
 const crypto = __importStar(require("crypto"));
 class cnt_Permission {
-    constructor(id, name, description, status = "default", type = "permissive", domain) {
+    constructor(id, domainId, name, description, status = "default", type = "permissive", domain) {
         this.id = id || 0;
+        this.domainId = domainId || "";
         this.name = name || "";
         this.description = description || "";
         this.status = status || "enabled";
@@ -38,7 +39,7 @@ class cnt_Permission {
         return `Permission{id: ${this.id}, description: ${this.description}, status: ${this.status}}`;
     }
     static fromMap(map) {
-        return new cnt_Permission((map === null || map === void 0 ? void 0 : map.id) || 0, (map === null || map === void 0 ? void 0 : map.name) || "", (map === null || map === void 0 ? void 0 : map.description) || "", (map === null || map === void 0 ? void 0 : map.status) || "default", (map === null || map === void 0 ? void 0 : map.type) || "permissive", (map === null || map === void 0 ? void 0 : map.domain) || "");
+        return new cnt_Permission((map === null || map === void 0 ? void 0 : map.id) || 0, (map === null || map === void 0 ? void 0 : map.domainId) || "", (map === null || map === void 0 ? void 0 : map.name) || "", (map === null || map === void 0 ? void 0 : map.description) || "", (map === null || map === void 0 ? void 0 : map.status) || "default", (map === null || map === void 0 ? void 0 : map.type) || "permissive", (map === null || map === void 0 ? void 0 : map.domain) || "");
     }
 }
 exports.cnt_Permission = cnt_Permission;
