@@ -19,11 +19,11 @@ export declare class cnt_Permission implements sch_Permission {
 }
 export type sch_AccountHolder = {
     id: number;
-    idges: number;
+    idGes: number;
     username: string;
     email: string;
     permissions: sch_Permission[];
-    password_ges: string;
+    passwordGes: string;
 };
 export declare class cnt_AccountHolder implements sch_AccountHolder {
     id: number;
@@ -32,9 +32,9 @@ export declare class cnt_AccountHolder implements sch_AccountHolder {
     private password;
     private passwordHash;
     permissions: cnt_Permission[];
-    idges: number;
-    password_ges: string;
-    constructor(id: number, idges: number, username: string, email: string, password: string, permissions: cnt_Permission[], password_ges: string);
+    idGes: number;
+    passwordGes: string;
+    constructor(id: number, idGes: number, username: string, email: string, password: string, permissions: cnt_Permission[], passwordGes: string);
     static fromBody(body: any): cnt_AccountHolder;
     static fromMap(map: cnt_AccountHolder): cnt_AccountHolder;
     static defaultAccountHolder(): cnt_AccountHolder;
@@ -52,22 +52,22 @@ export declare enum sessionStatus {
 }
 export type sch_SessionHolder = {
     token: string;
-    ages_token: string;
+    agesToken: string;
     expirationTime: Date;
     accountHolder: cnt_AccountHolder;
     domain: string;
     status: sessionStatus;
-    devicehash: string;
+    deviceHash: string;
 };
 export declare class cnt_SessionHolder implements sch_SessionHolder {
     token: string;
-    ages_token: string;
+    agesToken: string;
     expirationTime: Date;
     accountHolder: cnt_AccountHolder;
     domain: string;
     status: sessionStatus;
-    devicehash: string;
-    constructor(token: string, ages_token: string, expirationTime: Date, accountHolder: cnt_AccountHolder, domain?: string, status?: sessionStatus, devicehash?: string);
+    deviceHash: string;
+    constructor(token: string, agesToken: string, expirationTime: Date, accountHolder: cnt_AccountHolder, domain?: string, status?: sessionStatus, deviceHash?: string);
     static defaultSession(): cnt_SessionHolder;
     static fromMap(map: cnt_SessionHolder): cnt_SessionHolder;
     static fromBody(body: any): cnt_SessionHolder;

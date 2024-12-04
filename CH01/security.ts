@@ -50,17 +50,18 @@ export class cnt_Permission implements sch_Permission {
       map?.domain ||""
     );
   }
+
 }
 //#endregion "Permission"
 
 //#region "AccountHolder"
 export type sch_AccountHolder = {
   id: number;
-  idges: number;
+  idGes: number;
   username: string;
   email: string;
   permissions: sch_Permission[];
-  password_ges: string;
+  passwordGes: string;
 };
 
 export class cnt_AccountHolder implements sch_AccountHolder {
@@ -70,46 +71,46 @@ export class cnt_AccountHolder implements sch_AccountHolder {
   private password: string; // Original password (private)
   private passwordHash: string; // Hashed password
   permissions: cnt_Permission[];
-  idges: number;
-  password_ges: string;
+  idGes: number;
+  passwordGes: string;
   constructor(
     id: number,
-    idges: number,
+    idGes: number,
     username: string,
     email: string,
     password: string,
     permissions: cnt_Permission[],
-    password_ges: string
+    passwordGes: string
   ) {
     this.id = id;
-    this.idges = idges;
+    this.idGes = idGes;
     this.username = username;
     this.email = email;
     this.password = password;
     this.passwordHash = this.generatePasswordHash(password);
     this.permissions = permissions;
-    this.password_ges = password_ges;
+    this.passwordGes = passwordGes;
   }
   static fromBody(body: any): cnt_AccountHolder { 
     return new cnt_AccountHolder(
       body.id ||0,
-      body.idges||0,
+      body.idGes||0,
       body.username,
       body.email||"",
       body.password||"",
       body.permissions?.map((p: any) => cnt_Permission.fromMap(p)),
-      body.password_ges||""
+      body.passwordGes||""
     );
   }
   static fromMap(map: cnt_AccountHolder): cnt_AccountHolder {
     return new cnt_AccountHolder(
       map.id,
-      map.idges,
+      map.idGes,
       map.username,
       map.email,
       "",
       map.permissions?.map((p) => cnt_Permission.fromMap(p)),
-      map.password_ges
+      map.passwordGes
     );
   }
   static defaultAccountHolder(): cnt_AccountHolder {
@@ -157,40 +158,40 @@ export enum sessionStatus
 }
 export type sch_SessionHolder = {
   token: string;
-  ages_token: string;
+  agesToken: string;
   expirationTime: Date;
   accountHolder: cnt_AccountHolder;
   domain: string;
   status: sessionStatus
-  devicehash: string;
+  deviceHash: string;
 };
 export class cnt_SessionHolder implements sch_SessionHolder {
   token: string;
-  ages_token: string;
+  agesToken: string;
   expirationTime: Date;
   accountHolder: cnt_AccountHolder;
   domain: string
   status: sessionStatus
-  devicehash: string;
+  deviceHash: string;
 
 
   constructor(
     token: string,
-    ages_token: string,
+    agesToken: string,
     expirationTime: Date,
     accountHolder: cnt_AccountHolder,
     domain: string = "",
     status: sessionStatus=sessionStatus.unknow,
-    devicehash: string =""
+    deviceHash: string =""
   )
   {
     this.token = token;
-    this.ages_token = ages_token;
+    this.agesToken = agesToken;
     this.expirationTime = expirationTime;
     this.accountHolder = accountHolder;
     this.domain = domain || "global";
     this.status = status || sessionStatus.unknow;
-    this.devicehash = devicehash || "";
+    this.deviceHash = deviceHash || "";
   }
 
   static defaultSession(): cnt_SessionHolder {
@@ -208,29 +209,29 @@ export class cnt_SessionHolder implements sch_SessionHolder {
   static fromMap(map: cnt_SessionHolder): cnt_SessionHolder {
     return new cnt_SessionHolder(
       map.token,
-      map.ages_token,
+      map.agesToken,
       map.expirationTime,
       cnt_AccountHolder.fromMap(map.accountHolder),
       map.domain,
       map.status,
-      map.devicehash
+      map.deviceHash
     );
   }
   static fromBody(body: any): cnt_SessionHolder {
     return new cnt_SessionHolder(
       body.token,
-      body.ages_token,
+      body.agesToken,
       body.expirationTime,
       cnt_AccountHolder.fromBody(body?.accountHolder),
       body.domain,
       body.status,
-      body.devicehash
+      body.deviceHash
     );
   }
   static fromRow(row: any): cnt_SessionHolder {
     return new cnt_SessionHolder(
       row.token,
-      row.ages_token,
+      row.agestoken,
       row.expirationTime,
       cnt_AccountHolder.defaultAccountHolder(),
       row.domain,
@@ -248,14 +249,14 @@ export class cnt_SessionHolder implements sch_SessionHolder {
   static fromHeader(headers: any): cnt_SessionHolder {
     let session = cnt_SessionHolder.defaultSession();
     session.token = headers?.["x_session_token"] || session.token;
-    session.devicehash = headers?.["x_session_device_hash"] || session.devicehash;
+    session.deviceHash = headers?.["x_session_device_hash"] || session.deviceHash;
     session.domain = headers?.["x_session_domain"] || session.domain;
     return session;
   }
   static fromCookie(cookies: any): cnt_SessionHolder {
     let session = cnt_SessionHolder.defaultSession();
     session.token = cookies?.["session_token"] || session.token;
-    session.devicehash = cookies?.["session_device_hash"] || session.devicehash;
+    session.deviceHash = cookies?.["session_device_hash"] || session.deviceHash;
     session.domain = cookies?.["session_domain"] || session.domain;   
     return session;
   }
