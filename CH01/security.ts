@@ -3,13 +3,23 @@ import * as crypto from "crypto";
 
 //#region "Permission"
 // Define types with sch_ prefix
+export enum permissionStatus {
+  hide = "hide",
+  disabled = "disabled",
+  enabled = "enabled",
+  default = "default"
+}
+export enum permissionType {
+  permissive= "permissive",
+  restrictive= "restrictive"
+}
 export type sch_Permission = {
   id: number;
   domainId: string;
   name: string;
   description: string;
-  status: "hide" | "disabled" | "enabled" | "default";
-  type: "permissive" | "restrictive";
+  status: permissionStatus;
+  type: permissionType;
   domain: string;   
 };
 export class cnt_Permission implements sch_Permission {
@@ -17,8 +27,8 @@ export class cnt_Permission implements sch_Permission {
   domainId: string;
   name: string;
   description: string;
-  status: "hide" | "disabled" | "enabled" | "default";
-  type: "permissive" | "restrictive";
+  status: permissionStatus;
+  type: permissionType;
   domain: string;
 
 
@@ -27,8 +37,8 @@ export class cnt_Permission implements sch_Permission {
     domainId: string,
     name: string,
     description: string,
-    status: "hide" | "disabled" | "enabled" | "default" = "default" ,
-    type: "permissive" | "restrictive" = "permissive",
+    status: permissionStatus ,
+    type: permissionType = permissionType.permissive,
     domain: string
   )
   {
@@ -36,8 +46,8 @@ export class cnt_Permission implements sch_Permission {
     this.domainId = domainId || "";
     this.name = name || "";
     this.description = description || "";
-    this.status = status || "enabled";
-    this.type = type;
+    this.status = status || permissionStatus.enabled;
+    this.type = type || permissionType.permissive;
     this.domain = domain;
   }
 
@@ -50,8 +60,8 @@ export class cnt_Permission implements sch_Permission {
       map?.domainId ||"",
       map?.name ||"",
       map?.description ||"",
-      map?.status || "default",
-      map?.type || "permissive",
+      map?.status || permissionStatus.default,
+      map?.type || permissionType.permissive,
       map?.domain ||""
     );
   }

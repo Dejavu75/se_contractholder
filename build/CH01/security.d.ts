@@ -1,10 +1,20 @@
+export declare enum permissionStatus {
+    hide = "hide",
+    disabled = "disabled",
+    enabled = "enabled",
+    default = "default"
+}
+export declare enum permissionType {
+    permissive = "permissive",
+    restrictive = "restrictive"
+}
 export type sch_Permission = {
     id: number;
     domainId: string;
     name: string;
     description: string;
-    status: "hide" | "disabled" | "enabled" | "default";
-    type: "permissive" | "restrictive";
+    status: permissionStatus;
+    type: permissionType;
     domain: string;
 };
 export declare class cnt_Permission implements sch_Permission {
@@ -12,10 +22,10 @@ export declare class cnt_Permission implements sch_Permission {
     domainId: string;
     name: string;
     description: string;
-    status: "hide" | "disabled" | "enabled" | "default";
-    type: "permissive" | "restrictive";
+    status: permissionStatus;
+    type: permissionType;
     domain: string;
-    constructor(id: number, domainId: string, name: string, description: string, status: ("hide" | "disabled" | "enabled" | "default") | undefined, type: ("permissive" | "restrictive") | undefined, domain: string);
+    constructor(id: number, domainId: string, name: string, description: string, status: permissionStatus, type: permissionType | undefined, domain: string);
     toString(): string;
     static fromMap(map: sch_Permission): cnt_Permission;
 }
