@@ -3,13 +3,13 @@ import * as crypto from "crypto";
 
 //#region "Permission"
 // Define types with sch_ prefix
-export enum permissionStatus {
+export enum PermissionStatus {
   hide = "hide",
   disabled = "disabled",
   enabled = "enabled",
   default = "default"
 }
-export enum permissionType {
+export enum PermissionType {
   permissive= "permissive",
   restrictive= "restrictive"
 }
@@ -18,8 +18,8 @@ export type sch_Permission = {
   domainId: string;
   name: string;
   description: string;
-  status: permissionStatus;
-  type: permissionType;
+  status: PermissionStatus;
+  type: PermissionType;
   domain: string;   
 };
 export class cnt_Permission implements sch_Permission {
@@ -27,8 +27,8 @@ export class cnt_Permission implements sch_Permission {
   domainId: string;
   name: string;
   description: string;
-  status: permissionStatus;
-  type: permissionType;
+  status: PermissionStatus;
+  type: PermissionType;
   domain: string;
 
 
@@ -37,8 +37,8 @@ export class cnt_Permission implements sch_Permission {
     domainId: string,
     name: string,
     description: string,
-    status: permissionStatus ,
-    type: permissionType = permissionType.permissive,
+    status: PermissionStatus ,
+    type: PermissionType = PermissionType.permissive,
     domain: string
   )
   {
@@ -46,8 +46,8 @@ export class cnt_Permission implements sch_Permission {
     this.domainId = domainId || "";
     this.name = name || "";
     this.description = description || "";
-    this.status = status || permissionStatus.enabled;
-    this.type = type || permissionType.permissive;
+    this.status = status || PermissionStatus.enabled;
+    this.type = type || PermissionType.permissive;
     this.domain = domain;
   }
 
@@ -60,8 +60,8 @@ export class cnt_Permission implements sch_Permission {
       map?.domainId ||"",
       map?.name ||"",
       map?.description ||"",
-      map?.status || permissionStatus.default,
-      map?.type || permissionType.permissive,
+      map?.status || PermissionStatus.default,
+      map?.type || PermissionType.permissive,
       map?.domain ||""
     );
   }

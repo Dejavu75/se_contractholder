@@ -23,37 +23,37 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cnt_SessionHolder = exports.sessionStatus = exports.cnt_AccountHolder = exports.cnt_Permission = exports.permissionType = exports.permissionStatus = void 0;
+exports.cnt_SessionHolder = exports.sessionStatus = exports.cnt_AccountHolder = exports.cnt_Permission = exports.PermissionType = exports.PermissionStatus = void 0;
 const crypto = __importStar(require("crypto"));
 //#region "Permission"
 // Define types with sch_ prefix
-var permissionStatus;
-(function (permissionStatus) {
-    permissionStatus["hide"] = "hide";
-    permissionStatus["disabled"] = "disabled";
-    permissionStatus["enabled"] = "enabled";
-    permissionStatus["default"] = "default";
-})(permissionStatus || (exports.permissionStatus = permissionStatus = {}));
-var permissionType;
-(function (permissionType) {
-    permissionType["permissive"] = "permissive";
-    permissionType["restrictive"] = "restrictive";
-})(permissionType || (exports.permissionType = permissionType = {}));
+var PermissionStatus;
+(function (PermissionStatus) {
+    PermissionStatus["hide"] = "hide";
+    PermissionStatus["disabled"] = "disabled";
+    PermissionStatus["enabled"] = "enabled";
+    PermissionStatus["default"] = "default";
+})(PermissionStatus || (exports.PermissionStatus = PermissionStatus = {}));
+var PermissionType;
+(function (PermissionType) {
+    PermissionType["permissive"] = "permissive";
+    PermissionType["restrictive"] = "restrictive";
+})(PermissionType || (exports.PermissionType = PermissionType = {}));
 class cnt_Permission {
-    constructor(id, domainId, name, description, status, type = permissionType.permissive, domain) {
+    constructor(id, domainId, name, description, status, type = PermissionType.permissive, domain) {
         this.id = id || 0;
         this.domainId = domainId || "";
         this.name = name || "";
         this.description = description || "";
-        this.status = status || permissionStatus.enabled;
-        this.type = type || permissionType.permissive;
+        this.status = status || PermissionStatus.enabled;
+        this.type = type || PermissionType.permissive;
         this.domain = domain;
     }
     toString() {
         return `Permission{id: ${this.id}, description: ${this.description}, status: ${this.status}}`;
     }
     static fromMap(map) {
-        return new cnt_Permission((map === null || map === void 0 ? void 0 : map.id) || 0, (map === null || map === void 0 ? void 0 : map.domainId) || "", (map === null || map === void 0 ? void 0 : map.name) || "", (map === null || map === void 0 ? void 0 : map.description) || "", (map === null || map === void 0 ? void 0 : map.status) || permissionStatus.default, (map === null || map === void 0 ? void 0 : map.type) || permissionType.permissive, (map === null || map === void 0 ? void 0 : map.domain) || "");
+        return new cnt_Permission((map === null || map === void 0 ? void 0 : map.id) || 0, (map === null || map === void 0 ? void 0 : map.domainId) || "", (map === null || map === void 0 ? void 0 : map.name) || "", (map === null || map === void 0 ? void 0 : map.description) || "", (map === null || map === void 0 ? void 0 : map.status) || PermissionStatus.default, (map === null || map === void 0 ? void 0 : map.type) || PermissionType.permissive, (map === null || map === void 0 ? void 0 : map.domain) || "");
     }
 }
 exports.cnt_Permission = cnt_Permission;
