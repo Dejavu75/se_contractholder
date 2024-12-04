@@ -5,6 +5,7 @@ import * as crypto from "crypto";
 // Define types with sch_ prefix
 export type sch_Permission = {
   id: number;
+  domainId: string;
   name: string;
   description: string;
   status: "hide" | "disabled" | "enabled" | "default";
@@ -13,6 +14,7 @@ export type sch_Permission = {
 };
 export class cnt_Permission implements sch_Permission {
   id: number;
+  domainId: string;
   name: string;
   description: string;
   status: "hide" | "disabled" | "enabled" | "default";
@@ -22,6 +24,7 @@ export class cnt_Permission implements sch_Permission {
 
   constructor(
     id: number,
+    domainId: string,
     name: string,
     description: string,
     status: "hide" | "disabled" | "enabled" | "default" = "default" ,
@@ -30,6 +33,7 @@ export class cnt_Permission implements sch_Permission {
   )
   {
     this.id = id || 0;
+    this.domainId = domainId || "";
     this.name = name || "";
     this.description = description || "";
     this.status = status || "enabled";
@@ -43,6 +47,7 @@ export class cnt_Permission implements sch_Permission {
   static fromMap(map: sch_Permission): cnt_Permission {
     return new cnt_Permission(
       map?.id ||0,
+      map?.domainId ||"",
       map?.name ||"",
       map?.description ||"",
       map?.status || "default",
