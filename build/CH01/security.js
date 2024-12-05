@@ -113,7 +113,7 @@ var sessionStatus;
     sessionStatus["unknow"] = "unknow";
 })(sessionStatus || (exports.sessionStatus = sessionStatus = {}));
 class cnt_SessionHolder {
-    constructor(token, agesToken, expirationTime, accountHolder, domain = "", status = sessionStatus.unknow, deviceHash = "") {
+    constructor(token, agesToken, expirationTime, accountHolder, domain = "", status = sessionStatus.unknow, deviceHash = "", accountId = 0) {
         this.token = token;
         this.agesToken = agesToken;
         this.expirationTime = expirationTime;
@@ -121,19 +121,20 @@ class cnt_SessionHolder {
         this.domain = domain || "global";
         this.status = status || sessionStatus.unknow;
         this.deviceHash = deviceHash || "";
+        this.accountId = accountId || 0;
     }
     static defaultSession() {
         return new cnt_SessionHolder("", "", new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
-        cnt_AccountHolder.defaultAccountHolder(), "global", sessionStatus.unknow, "");
+        cnt_AccountHolder.defaultAccountHolder(), "global", sessionStatus.unknow, "", 0);
     }
     static fromMap(map) {
-        return new cnt_SessionHolder(map.token, map.agesToken, map.expirationTime, cnt_AccountHolder.fromMap(map.accountHolder), map.domain, map.status, map.deviceHash);
+        return new cnt_SessionHolder(map.token, map.agesToken, map.expirationTime, cnt_AccountHolder.fromMap(map.accountHolder), map.domain, map.status, map.deviceHash, (map === null || map === void 0 ? void 0 : map.accountId) || 0);
     }
     static fromBody(body) {
-        return new cnt_SessionHolder(body.token, body.agesToken, body.expirationTime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder), body.domain, body.status, body.deviceHash);
+        return new cnt_SessionHolder(body.token, body.agesToken, body.expirationTime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder), body.domain, body.status, body.deviceHash, (body === null || body === void 0 ? void 0 : body.accountId) || 0);
     }
     static fromRow(row) {
-        return new cnt_SessionHolder(row.token, row.agestoken, row.expirationTime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, row.devicehash);
+        return new cnt_SessionHolder(row.token, row.agestoken, row.expirationTime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, row.devicehash, row.accountid);
     }
     ;
     static fromRequest(req) {

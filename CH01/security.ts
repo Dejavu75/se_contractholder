@@ -179,6 +179,7 @@ export type sch_SessionHolder = {
   domain: string;
   status: sessionStatus
   deviceHash: string;
+  accountId: number;
 };
 export class cnt_SessionHolder implements sch_SessionHolder {
   token: string;
@@ -188,7 +189,7 @@ export class cnt_SessionHolder implements sch_SessionHolder {
   domain: string
   status: sessionStatus
   deviceHash: string;
-
+  accountId: number;
 
   constructor(
     token: string,
@@ -197,7 +198,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     accountHolder: cnt_AccountHolder,
     domain: string = "",
     status: sessionStatus=sessionStatus.unknow,
-    deviceHash: string =""
+    deviceHash: string ="",
+    accountId: number = 0
   )
   {
     this.token = token;
@@ -207,6 +209,7 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     this.domain = domain || "global";
     this.status = status || sessionStatus.unknow;
     this.deviceHash = deviceHash || "";
+    this.accountId = accountId || 0;
   }
 
   static defaultSession(): cnt_SessionHolder {
@@ -217,7 +220,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       cnt_AccountHolder.defaultAccountHolder(),
       "global",
       sessionStatus.unknow,
-      ""
+      "",
+      0
     );
   }
 
@@ -229,7 +233,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       cnt_AccountHolder.fromMap(map.accountHolder),
       map.domain,
       map.status,
-      map.deviceHash
+      map.deviceHash,
+      map?.accountId || 0
     );
   }
   static fromBody(body: any): cnt_SessionHolder {
@@ -240,7 +245,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       cnt_AccountHolder.fromBody(body?.accountHolder),
       body.domain,
       body.status,
-      body.deviceHash
+      body.deviceHash,
+      body?.accountId || 0
     );
   }
   static fromRow(row: any): cnt_SessionHolder {
@@ -251,7 +257,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       cnt_AccountHolder.defaultAccountHolder(),
       row.domain,
       row.status,
-      row.devicehash
+      row.devicehash,
+      row.accountid
       )
     };
   static fromRequest(req: any): cnt_SessionHolder {
