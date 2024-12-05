@@ -55,6 +55,9 @@ class cnt_Permission {
     static fromMap(map) {
         return new cnt_Permission((map === null || map === void 0 ? void 0 : map.id) || 0, (map === null || map === void 0 ? void 0 : map.domainId) || "", (map === null || map === void 0 ? void 0 : map.name) || "", (map === null || map === void 0 ? void 0 : map.description) || "", (map === null || map === void 0 ? void 0 : map.status) || PermissionStatus.default, (map === null || map === void 0 ? void 0 : map.type) || PermissionType.permissive, (map === null || map === void 0 ? void 0 : map.domain) || "");
     }
+    static fromRow(row) {
+        return new cnt_Permission((row === null || row === void 0 ? void 0 : row.id) || 0, (row === null || row === void 0 ? void 0 : row.domainId) || (row === null || row === void 0 ? void 0 : row.domainid) || "", (row === null || row === void 0 ? void 0 : row.name) || "", (row === null || row === void 0 ? void 0 : row.description) || "", (row === null || row === void 0 ? void 0 : row.status) || PermissionStatus.default, (row === null || row === void 0 ? void 0 : row.type) || PermissionType.permissive, (row === null || row === void 0 ? void 0 : row.domain) || "");
+    }
 }
 exports.cnt_Permission = cnt_Permission;
 class cnt_AccountHolder {

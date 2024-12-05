@@ -28,6 +28,7 @@ export declare class cnt_Permission implements sch_Permission {
     constructor(id: number, domainId: string, name: string, description: string, status: PermissionStatus, type: PermissionType | undefined, domain: string);
     toString(): string;
     static fromMap(map: sch_Permission): cnt_Permission;
+    static fromRow(row: any): cnt_Permission;
 }
 export type sch_AccountHolder = {
     id: number;

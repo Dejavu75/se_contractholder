@@ -57,7 +57,7 @@ export class cnt_Permission implements sch_Permission {
   static fromMap(map: sch_Permission): cnt_Permission {
     return new cnt_Permission(
       map?.id ||0,
-      map?.domainId ||"",
+      map?.domainId || "",
       map?.name ||"",
       map?.description ||"",
       map?.status || PermissionStatus.default,
@@ -65,7 +65,17 @@ export class cnt_Permission implements sch_Permission {
       map?.domain ||""
     );
   }
-
+  static fromRow(row: any): cnt_Permission {
+    return new cnt_Permission(
+      row?.id ||0,
+      row?.domainId || row?.domainid || "",
+      row?.name ||"",
+      row?.description ||"",
+      row?.status || PermissionStatus.default,
+      row?.type || PermissionType.permissive,
+      row?.domain ||""
+    );
+  }
 }
 //#endregion "Permission"
 
