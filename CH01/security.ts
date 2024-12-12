@@ -280,27 +280,27 @@ export class cnt_SessionHolder implements sch_SessionHolder {
   }
   static fromHeader(headers: any): cnt_SessionHolder {
     let session = cnt_SessionHolder.defaultSession();
-    session.token = headers?.["x_session_token"] || session.token;
-    session.deviceHash = headers?.["x_session_device_hash"] || session.deviceHash;
-    session.domain = headers?.["x_session_domain"] || session.domain;
+    session.token = headers?.["x_ha_session_token"] || session.token;
+    session.deviceHash = headers?.["x_ha_session_device_hash"] || session.deviceHash;
+    session.domain = headers?.["x_ha_session_domain"] || session.domain;
     return session;
   }
   static fromCookie(cookies: any): cnt_SessionHolder {
     let session = cnt_SessionHolder.defaultSession();
-    session.token = cookies?.["session_token"] || session.token;
-    session.deviceHash = cookies?.["session_device_hash"] || session.deviceHash;
-    session.domain = cookies?.["session_domain"] || session.domain;   
+    session.token = cookies?.["ha_session_token"] || session.token;
+    session.deviceHash = cookies?.["ha_session_device_hash"] || session.deviceHash;
+    session.domain = cookies?.["ha_session_domain"] || session.domain;   
     return session;
   }
   static toHeader(res: any, session: cnt_SessionHolder): any {
-    res.setHeader("x_session_token", session.token);
+    res.setHeader("x_ha_session_token", session.token);
     return res
   }
   toHeader(res: any): any {
     return cnt_SessionHolder.toHeader(res, this);
   }
   static toCookie(res: any, session: cnt_SessionHolder): any {
-    res.cookie("session_token", session.token, { httpOnly: true, secure: true });
+    res.cookie("ha_session_token", session.token, { httpOnly: true, secure: true });
     return res
   }
   toCookie(res: any): any {
