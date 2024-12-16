@@ -250,25 +250,25 @@ export class cnt_SessionHolder implements sch_SessionHolder {
   static fromBody(body: any): cnt_SessionHolder {
     return new cnt_SessionHolder(
       body.token,
-      body.agesToken,
-      body.expirationTime,
+      body.agesToken || body.agestoken,
+      body.expirationTime || body.expirationtime,
       cnt_AccountHolder.fromBody(body?.accountHolder),
       body.domain,
       body.status,
-      body.deviceHash,
+      body.deviceHash || body.devicehash,
       body?.accountId || 0
     );
   }
   static fromRow(row: any): cnt_SessionHolder {
     return new cnt_SessionHolder(
       row.token,
-      row.agestoken,
-      row.expirationTime,
+      row.agesToken ?? row.agestoken,
+      row.expirationTime ?? row.expirationtime,
       cnt_AccountHolder.defaultAccountHolder(),
       row.domain,
       row.status,
-      row.devicehash,
-      row.accountid
+      row.devicehash ?? row.deviceHash,
+      row.accountid ?? row.accountId
       )
     };
   static fromRequest(req: any): cnt_SessionHolder {

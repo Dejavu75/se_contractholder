@@ -134,10 +134,11 @@ class cnt_SessionHolder {
         return new cnt_SessionHolder(map.token, map.agesToken, map.expirationTime, cnt_AccountHolder.fromMap(map.accountHolder), map.domain, map.status, map.deviceHash, (map === null || map === void 0 ? void 0 : map.accountId) || 0);
     }
     static fromBody(body) {
-        return new cnt_SessionHolder(body.token, body.agesToken, body.expirationTime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder), body.domain, body.status, body.deviceHash, (body === null || body === void 0 ? void 0 : body.accountId) || 0);
+        return new cnt_SessionHolder(body.token, body.agesToken || body.agestoken, body.expirationTime || body.expirationtime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder), body.domain, body.status, body.deviceHash || body.devicehash, (body === null || body === void 0 ? void 0 : body.accountId) || 0);
     }
     static fromRow(row) {
-        return new cnt_SessionHolder(row.token, row.agestoken, row.expirationTime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, row.devicehash, row.accountid);
+        var _a, _b, _c, _d;
+        return new cnt_SessionHolder(row.token, (_a = row.agesToken) !== null && _a !== void 0 ? _a : row.agestoken, (_b = row.expirationTime) !== null && _b !== void 0 ? _b : row.expirationtime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, (_c = row.devicehash) !== null && _c !== void 0 ? _c : row.deviceHash, (_d = row.accountid) !== null && _d !== void 0 ? _d : row.accountId);
     }
     ;
     static fromRequest(req) {
@@ -149,27 +150,27 @@ class cnt_SessionHolder {
     }
     static fromHeader(headers) {
         let session = cnt_SessionHolder.defaultSession();
-        session.token = (headers === null || headers === void 0 ? void 0 : headers["x_session_token"]) || session.token;
-        session.deviceHash = (headers === null || headers === void 0 ? void 0 : headers["x_session_device_hash"]) || session.deviceHash;
-        session.domain = (headers === null || headers === void 0 ? void 0 : headers["x_session_domain"]) || session.domain;
+        session.token = (headers === null || headers === void 0 ? void 0 : headers["x_ha_session_token"]) || session.token;
+        session.deviceHash = (headers === null || headers === void 0 ? void 0 : headers["x_ha_session_device_hash"]) || session.deviceHash;
+        session.domain = (headers === null || headers === void 0 ? void 0 : headers["x_ha_session_domain"]) || session.domain;
         return session;
     }
     static fromCookie(cookies) {
         let session = cnt_SessionHolder.defaultSession();
-        session.token = (cookies === null || cookies === void 0 ? void 0 : cookies["session_token"]) || session.token;
-        session.deviceHash = (cookies === null || cookies === void 0 ? void 0 : cookies["session_device_hash"]) || session.deviceHash;
-        session.domain = (cookies === null || cookies === void 0 ? void 0 : cookies["session_domain"]) || session.domain;
+        session.token = (cookies === null || cookies === void 0 ? void 0 : cookies["ha_session_token"]) || session.token;
+        session.deviceHash = (cookies === null || cookies === void 0 ? void 0 : cookies["ha_session_device_hash"]) || session.deviceHash;
+        session.domain = (cookies === null || cookies === void 0 ? void 0 : cookies["ha_session_domain"]) || session.domain;
         return session;
     }
     static toHeader(res, session) {
-        res.setHeader("x_session_token", session.token);
+        res.setHeader("x_ha_session_token", session.token);
         return res;
     }
     toHeader(res) {
         return cnt_SessionHolder.toHeader(res, this);
     }
     static toCookie(res, session) {
-        res.cookie("session_token", session.token, { httpOnly: true, secure: true });
+        res.cookie("ha_session_token", session.token, { httpOnly: true, secure: true });
         return res;
     }
     toCookie(res) {
