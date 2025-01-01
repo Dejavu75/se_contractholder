@@ -280,6 +280,7 @@ export class cnt_SessionHolder implements sch_SessionHolder {
   }
   static fromHeader(headers: any): cnt_SessionHolder {
     let session = cnt_SessionHolder.defaultSession();
+    console.log("Headers: ",headers);
     for (let key in headers) {
       console.log("Key: "+key);
       if (key.toLowerCase() === "x_ha_session_token") {
