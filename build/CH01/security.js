@@ -150,8 +150,14 @@ class cnt_SessionHolder {
     }
     static fromHeader(headers) {
         let session = cnt_SessionHolder.defaultSession();
-        console.log("headers", headers);
-        session.token = (headers === null || headers === void 0 ? void 0 : headers["x_ha_session_token"]) || session.token;
+        for (let key in headers) {
+            console.log("Key: " + key);
+            if (key.toLowerCase() === "x_ha_session_token") {
+                console.log("Value: " + headers[key]);
+                session.token = headers[key];
+            }
+        }
+        //    session.token = headers?.["x_ha_session_token"] || session.token;
         session.deviceHash = (headers === null || headers === void 0 ? void 0 : headers["x_ha_session_device_hash"]) || session.deviceHash;
         session.domain = (headers === null || headers === void 0 ? void 0 : headers["x_ha_session_domain"]) || session.domain;
         return session;
