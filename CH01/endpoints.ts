@@ -1,10 +1,20 @@
+export type sch_MSEndpoints = {
+    heartbeatMonitor:string 
+  }
+  export type sch_HAEndpoints = {
+    foreign:string
+    credentials:string
+    information: string;
+  }
+
 export class GeneralEndpoints {
     localNotifyListeners(): void {
         // Implementa esta función si necesitas notificar cambios.
     }
 }
+ 
 
-export class HabitatEndpoints extends GeneralEndpoints {
+export class cnt_HAEndpoints extends GeneralEndpoints implements sch_HAEndpoints{
     foreign: string;
     credentials: string;
     information: string;
@@ -16,20 +26,20 @@ export class HabitatEndpoints extends GeneralEndpoints {
         this.information = information;
     }
 
-    static fromMap(map: Record<string, any>): HabitatEndpoints {
-        return new HabitatEndpoints(
+    static fromMap(map: Record<string, any>): cnt_HAEndpoints {
+        return new cnt_HAEndpoints(
             map['foreign'] ?? "",
             map['credentials'] ?? "",
             map['information'] ?? ""
         );
     }
 
-    static fromBody(body: Record<string, any>): HabitatEndpoints {
-        return HabitatEndpoints.fromMap(body);
+    static fromBody(body: Record<string, any>): cnt_HAEndpoints {
+        return cnt_HAEndpoints.fromMap(body);
     }
 
-    static defaultEndpoints(): HabitatEndpoints {
-        return new HabitatEndpoints("", "");
+    static defaultEndpoints(): cnt_HAEndpoints {
+        return new cnt_HAEndpoints("", "");
     }
 
     toString(): string {
@@ -37,7 +47,7 @@ export class HabitatEndpoints extends GeneralEndpoints {
     }
 }
 
-class InternalEndpoints extends GeneralEndpoints {
+class cnt_MSEndpoints  extends GeneralEndpoints implements sch_MSEndpoints {
     heartbeatMonitor: string;
 
     constructor(heartbeatMonitor: string) {
@@ -45,16 +55,16 @@ class InternalEndpoints extends GeneralEndpoints {
         this.heartbeatMonitor = heartbeatMonitor;
     }
 
-    static fromMap(map: Record<string, any>): InternalEndpoints {
-        return new InternalEndpoints(map['heartbeatMonitor'] ?? "");
+    static fromMap(map: Record<string, any>): cnt_MSEndpoints {
+        return new cnt_MSEndpoints(map['heartbeatMonitor'] ?? "");
     }
 
-    static fromBody(body: Record<string, any>): InternalEndpoints {
-        return InternalEndpoints.fromMap(body);
+    static fromBody(body: Record<string, any>): cnt_MSEndpoints {
+        return cnt_MSEndpoints.fromMap(body);
     }
 
-    static defaultEndpoints(): InternalEndpoints {
-        return new InternalEndpoints("");
+    static defaultEndpoints(): cnt_MSEndpoints {
+        return new cnt_MSEndpoints("");
     }
 
     toString(): string {
@@ -63,19 +73,19 @@ class InternalEndpoints extends GeneralEndpoints {
 }
 
 class EcosystemEndpoints {
-    habitatEndpoints: HabitatEndpoints;
-    internalEndpoints: InternalEndpoints;
+    habitatEndpoints: cnt_HAEndpoints;
+    internalEndpoints: cnt_MSEndpoints;
 
     constructor(
-        habitatEndpoints: HabitatEndpoints = HabitatEndpoints.defaultEndpoints(),
-        internalEndpoints: InternalEndpoints = InternalEndpoints.defaultEndpoints()
+        habitatEndpoints: cnt_HAEndpoints = cnt_HAEndpoints.defaultEndpoints(),
+        internalEndpoints: cnt_MSEndpoints = cnt_MSEndpoints.defaultEndpoints()
     ) {
         this.habitatEndpoints = habitatEndpoints;
         this.internalEndpoints = internalEndpoints;
     }
 
      asignarfromBody(body: Record<string, any>): void {
-        this.habitatEndpoints = HabitatEndpoints.fromBody(body['habitatEndpoints']);
-        this.internalEndpoints = InternalEndpoints.fromBody(body['internalEndpoints']);
+        this.habitatEndpoints = cnt_HAEndpoints.fromBody(body['habitatEndpoints']);
+        this.internalEndpoints = cnt_MSEndpoints.fromBody(body['internalEndpoints']);
     }
 }
