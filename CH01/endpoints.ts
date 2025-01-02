@@ -1,10 +1,10 @@
-class GeneralEndpoints {
+export class GeneralEndpoints {
     localNotifyListeners(): void {
         // Implementa esta función si necesitas notificar cambios.
     }
 }
 
-class HabitatEndpoints extends GeneralEndpoints {
+export class HabitatEndpoints extends GeneralEndpoints {
     foreign: string;
     credentials: string;
     information: string;
