@@ -275,8 +275,7 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       row.domain,
       row.status,
       row.devicehash ?? row.deviceHash,
-      row.accountid ?? row.accountId, 
-      cnt_ECEndpoints.fromRow(row?.endpoints)
+      row.accountid ?? row.accountId
       )
     };
   static fromRequest(req: any): cnt_SessionHolder {

@@ -141,7 +141,7 @@ class cnt_SessionHolder {
     }
     static fromRow(row) {
         var _a, _b, _c, _d;
-        return new cnt_SessionHolder(row.token, (_a = row.agesToken) !== null && _a !== void 0 ? _a : row.agestoken, (_b = row.expirationTime) !== null && _b !== void 0 ? _b : row.expirationtime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, (_c = row.devicehash) !== null && _c !== void 0 ? _c : row.deviceHash, (_d = row.accountid) !== null && _d !== void 0 ? _d : row.accountId, endpoints_1.cnt_ECEndpoints.fromRow(row === null || row === void 0 ? void 0 : row.endpoints));
+        return new cnt_SessionHolder(row.token, (_a = row.agesToken) !== null && _a !== void 0 ? _a : row.agestoken, (_b = row.expirationTime) !== null && _b !== void 0 ? _b : row.expirationtime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, (_c = row.devicehash) !== null && _c !== void 0 ? _c : row.deviceHash, (_d = row.accountid) !== null && _d !== void 0 ? _d : row.accountId);
     }
     ;
     static fromRequest(req) {
