@@ -1,7 +1,7 @@
 export type sch_MSEndpoints = {
     heartbeatMonitor:string 
   }
-export type sch_HAEndpoints = {
+export type sch_HAEndpoints = { 
     foreign:string
     credentials:string
     information: string;

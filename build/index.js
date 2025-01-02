@@ -22,3 +22,4 @@ __exportStar(require("./MS07/errorlog.js"), exports);
 __exportStar(require("./MS07/stocklog.js"), exports);
 __exportStar(require("./MS08/database.js"), exports);
 __exportStar(require("./CH01/security.js"), exports);
+__exportStar(require("./CH01/endpoints.js"), exports);
