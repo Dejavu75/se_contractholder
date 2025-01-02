@@ -1,4 +1,5 @@
 import * as crypto from "crypto";
+import { cnt_ECEndpoints } from "./endpoints";
 
 
 //#region "Permission"
@@ -190,6 +191,7 @@ export type sch_SessionHolder = {
   status: sessionStatus
   deviceHash: string;
   accountId: number;
+  endpoints: cnt_ECEndpoints
 };
 export class cnt_SessionHolder implements sch_SessionHolder {
   token: string;
@@ -200,6 +202,7 @@ export class cnt_SessionHolder implements sch_SessionHolder {
   status: sessionStatus
   deviceHash: string;
   accountId: number;
+  endpoints: cnt_ECEndpoints = new cnt_ECEndpoints();
 
   constructor(
     token: string,
@@ -209,7 +212,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     domain: string = "",
     status: sessionStatus=sessionStatus.unknow,
     deviceHash: string ="",
-    accountId: number = 0
+    accountId: number = 0,
+    endpoints: cnt_ECEndpoints = new cnt_ECEndpoints()
   )
   {
     this.token = token;
@@ -220,6 +224,7 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     this.status = status || sessionStatus.unknow;
     this.deviceHash = deviceHash || "";
     this.accountId = accountId || 0;
+    this.endpoints = endpoints;
   }
 
   static defaultSession(): cnt_SessionHolder {
@@ -244,7 +249,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       map.domain,
       map.status,
       map.deviceHash,
-      map?.accountId || 0
+      map?.accountId || 0,
+      cnt_ECEndpoints.fromMap(map?.endpoints)
     );
   }
   static fromBody(body: any): cnt_SessionHolder {
@@ -256,7 +262,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       body.domain,
       body.status,
       body.deviceHash || body.devicehash,
-      body?.accountId || 0
+      body?.accountId || 0, 
+      cnt_ECEndpoints.fromBody(body?.endpoints)
     );
   }
   static fromRow(row: any): cnt_SessionHolder {
@@ -268,7 +275,8 @@ export class cnt_SessionHolder implements sch_SessionHolder {
       row.domain,
       row.status,
       row.devicehash ?? row.deviceHash,
-      row.accountid ?? row.accountId
+      row.accountid ?? row.accountId, 
+      cnt_ECEndpoints.fromRow(row?.endpoints)
       )
     };
   static fromRequest(req: any): cnt_SessionHolder {

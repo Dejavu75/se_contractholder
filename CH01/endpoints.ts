@@ -6,7 +6,7 @@ export type sch_HAEndpoints = {
     credentials:string
     information: string;
   }
-export type sch_EcosystemEndpoints = {
+export type sch_ECEndpoints = {
     habitatEndpoints: sch_HAEndpoints;
     internalEndpoints: sch_MSEndpoints;
 }
@@ -75,11 +75,30 @@ export class cnt_MSEndpoints  extends GeneralEndpoints implements sch_MSEndpoint
     }
 }
 
-export class cnt_EcosystemEndpoints extends GeneralEndpoints implements sch_EcosystemEndpoints{
+export class cnt_ECEndpoints extends GeneralEndpoints implements sch_ECEndpoints{
     habitatEndpoints!: cnt_HAEndpoints
     internalEndpoints!: cnt_MSEndpoints
-
-     asignarfromBody(body: Record<string, any>): void {
+    constructor(habitatEndpoints: cnt_HAEndpoints=cnt_HAEndpoints.defaultEndpoints(), internalEndpoints: cnt_MSEndpoints=cnt_MSEndpoints.defaultEndpoints()) {
+        super();
+        this.habitatEndpoints = habitatEndpoints;
+        this.internalEndpoints = internalEndpoints;
+    }
+    static fromMap(map: Record<string, any>): cnt_ECEndpoints {
+        return new cnt_ECEndpoints(
+         cnt_HAEndpoints.fromMap(map['habitatEndpoints']), cnt_MSEndpoints.fromMap(map['internalEndpoints']))
+    }
+    static fromBody(body: Record<string, any>): cnt_ECEndpoints {
+        return new cnt_ECEndpoints(
+         cnt_HAEndpoints.fromBody(body['habitatEndpoints']), 
+         cnt_MSEndpoints.fromBody(body['internalEndpoints']))
+    }
+    static fromRow(row: any): cnt_ECEndpoints {
+        return new cnt_ECEndpoints(
+         cnt_HAEndpoints.fromBody(row['habitatEndpoints']), 
+         cnt_MSEndpoints.fromBody(row['internalEndpoints']))
+    }
+     
+    asignarfromBody(body: Record<string, any>): void {
         this.habitatEndpoints = cnt_HAEndpoints.fromBody(body['habitatEndpoints']);
         this.internalEndpoints = cnt_MSEndpoints.fromBody(body['internalEndpoints']);
     }
