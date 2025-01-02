@@ -1,12 +1,15 @@
 export type sch_MSEndpoints = {
     heartbeatMonitor:string 
   }
-  export type sch_HAEndpoints = {
+export type sch_HAEndpoints = {
     foreign:string
     credentials:string
     information: string;
   }
-
+export type sch_EcosystemEndpoints = {
+    habitatEndpoints: sch_HAEndpoints;
+    internalEndpoints: sch_MSEndpoints;
+}
 export class GeneralEndpoints {
     localNotifyListeners(): void {
         // Implementa esta función si necesitas notificar cambios.
@@ -47,7 +50,7 @@ export class cnt_HAEndpoints extends GeneralEndpoints implements sch_HAEndpoints
     }
 }
 
-class cnt_MSEndpoints  extends GeneralEndpoints implements sch_MSEndpoints {
+export class cnt_MSEndpoints  extends GeneralEndpoints implements sch_MSEndpoints {
     heartbeatMonitor: string;
 
     constructor(heartbeatMonitor: string) {
@@ -72,17 +75,9 @@ class cnt_MSEndpoints  extends GeneralEndpoints implements sch_MSEndpoints {
     }
 }
 
-class EcosystemEndpoints {
-    habitatEndpoints: cnt_HAEndpoints;
-    internalEndpoints: cnt_MSEndpoints;
-
-    constructor(
-        habitatEndpoints: cnt_HAEndpoints = cnt_HAEndpoints.defaultEndpoints(),
-        internalEndpoints: cnt_MSEndpoints = cnt_MSEndpoints.defaultEndpoints()
-    ) {
-        this.habitatEndpoints = habitatEndpoints;
-        this.internalEndpoints = internalEndpoints;
-    }
+export class cnt_EcosystemEndpoints extends GeneralEndpoints implements sch_EcosystemEndpoints{
+    habitatEndpoints!: cnt_HAEndpoints
+    internalEndpoints!: cnt_MSEndpoints
 
      asignarfromBody(body: Record<string, any>): void {
         this.habitatEndpoints = cnt_HAEndpoints.fromBody(body['habitatEndpoints']);
