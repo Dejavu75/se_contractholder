@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cnt_EcosystemEndpoints = exports.cnt_MSEndpoints = exports.cnt_HAEndpoints = exports.GeneralEndpoints = void 0;
+exports.cnt_ECEndpoints = exports.cnt_MSEndpoints = exports.cnt_HAEndpoints = exports.GeneralEndpoints = void 0;
 class GeneralEndpoints {
     localNotifyListeners() {
         // Implementa esta función si necesitas notificar cambios.
@@ -49,10 +49,24 @@ class cnt_MSEndpoints extends GeneralEndpoints {
     }
 }
 exports.cnt_MSEndpoints = cnt_MSEndpoints;
-class cnt_EcosystemEndpoints extends GeneralEndpoints {
+class cnt_ECEndpoints extends GeneralEndpoints {
+    constructor(habitatEndpoints = cnt_HAEndpoints.defaultEndpoints(), internalEndpoints = cnt_MSEndpoints.defaultEndpoints()) {
+        super();
+        this.habitatEndpoints = habitatEndpoints;
+        this.internalEndpoints = internalEndpoints;
+    }
+    static fromMap(map) {
+        return new cnt_ECEndpoints(cnt_HAEndpoints.fromMap(map['habitatEndpoints']), cnt_MSEndpoints.fromMap(map['internalEndpoints']));
+    }
+    static fromBody(body) {
+        return new cnt_ECEndpoints(cnt_HAEndpoints.fromBody(body['habitatEndpoints']), cnt_MSEndpoints.fromBody(body['internalEndpoints']));
+    }
+    static fromRow(row) {
+        return new cnt_ECEndpoints(cnt_HAEndpoints.fromBody(row['habitatEndpoints']), cnt_MSEndpoints.fromBody(row['internalEndpoints']));
+    }
     asignarfromBody(body) {
         this.habitatEndpoints = cnt_HAEndpoints.fromBody(body['habitatEndpoints']);
         this.internalEndpoints = cnt_MSEndpoints.fromBody(body['internalEndpoints']);
     }
 }
-exports.cnt_EcosystemEndpoints = cnt_EcosystemEndpoints;
+exports.cnt_ECEndpoints = cnt_ECEndpoints;

@@ -25,6 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_SessionHolder = exports.sessionStatus = exports.cnt_AccountHolder = exports.cnt_Permission = exports.PermissionType = exports.PermissionStatus = void 0;
 const crypto = __importStar(require("crypto"));
+const endpoints_1 = require("./endpoints");
 //#region "Permission"
 // Define types with sch_ prefix
 var PermissionStatus;
@@ -116,7 +117,8 @@ var sessionStatus;
     sessionStatus["unknow"] = "unknow";
 })(sessionStatus || (exports.sessionStatus = sessionStatus = {}));
 class cnt_SessionHolder {
-    constructor(token, agesToken, expirationTime, accountHolder, domain = "", status = sessionStatus.unknow, deviceHash = "", accountId = 0) {
+    constructor(token, agesToken, expirationTime, accountHolder, domain = "", status = sessionStatus.unknow, deviceHash = "", accountId = 0, endpoints = new endpoints_1.cnt_ECEndpoints()) {
+        this.endpoints = new endpoints_1.cnt_ECEndpoints();
         this.token = token;
         this.agesToken = agesToken;
         this.expirationTime = expirationTime;
@@ -125,20 +127,21 @@ class cnt_SessionHolder {
         this.status = status || sessionStatus.unknow;
         this.deviceHash = deviceHash || "";
         this.accountId = accountId || 0;
+        this.endpoints = endpoints;
     }
     static defaultSession() {
         return new cnt_SessionHolder("", "", new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
         cnt_AccountHolder.defaultAccountHolder(), "global", sessionStatus.unknow, "", 0);
     }
     static fromMap(map) {
-        return new cnt_SessionHolder(map.token, map.agesToken, map.expirationTime, cnt_AccountHolder.fromMap(map.accountHolder), map.domain, map.status, map.deviceHash, (map === null || map === void 0 ? void 0 : map.accountId) || 0);
+        return new cnt_SessionHolder(map.token, map.agesToken, map.expirationTime, cnt_AccountHolder.fromMap(map.accountHolder), map.domain, map.status, map.deviceHash, (map === null || map === void 0 ? void 0 : map.accountId) || 0, endpoints_1.cnt_ECEndpoints.fromMap(map === null || map === void 0 ? void 0 : map.endpoints));
     }
     static fromBody(body) {
-        return new cnt_SessionHolder(body.token, body.agesToken || body.agestoken, body.expirationTime || body.expirationtime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder), body.domain, body.status, body.deviceHash || body.devicehash, (body === null || body === void 0 ? void 0 : body.accountId) || 0);
+        return new cnt_SessionHolder(body.token, body.agesToken || body.agestoken, body.expirationTime || body.expirationtime, cnt_AccountHolder.fromBody(body === null || body === void 0 ? void 0 : body.accountHolder), body.domain, body.status, body.deviceHash || body.devicehash, (body === null || body === void 0 ? void 0 : body.accountId) || 0, endpoints_1.cnt_ECEndpoints.fromBody(body === null || body === void 0 ? void 0 : body.endpoints));
     }
     static fromRow(row) {
         var _a, _b, _c, _d;
-        return new cnt_SessionHolder(row.token, (_a = row.agesToken) !== null && _a !== void 0 ? _a : row.agestoken, (_b = row.expirationTime) !== null && _b !== void 0 ? _b : row.expirationtime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, (_c = row.devicehash) !== null && _c !== void 0 ? _c : row.deviceHash, (_d = row.accountid) !== null && _d !== void 0 ? _d : row.accountId);
+        return new cnt_SessionHolder(row.token, (_a = row.agesToken) !== null && _a !== void 0 ? _a : row.agestoken, (_b = row.expirationTime) !== null && _b !== void 0 ? _b : row.expirationtime, cnt_AccountHolder.defaultAccountHolder(), row.domain, row.status, (_c = row.devicehash) !== null && _c !== void 0 ? _c : row.deviceHash, (_d = row.accountid) !== null && _d !== void 0 ? _d : row.accountId, endpoints_1.cnt_ECEndpoints.fromRow(row === null || row === void 0 ? void 0 : row.endpoints));
     }
     ;
     static fromRequest(req) {

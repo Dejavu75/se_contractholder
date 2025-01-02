@@ -6,7 +6,7 @@ export type sch_HAEndpoints = {
     credentials: string;
     information: string;
 };
-export type sch_EcosystemEndpoints = {
+export type sch_ECEndpoints = {
     habitatEndpoints: sch_HAEndpoints;
     internalEndpoints: sch_MSEndpoints;
 };
@@ -31,8 +31,12 @@ export declare class cnt_MSEndpoints extends GeneralEndpoints implements sch_MSE
     static defaultEndpoints(): cnt_MSEndpoints;
     toString(): string;
 }
-export declare class cnt_EcosystemEndpoints extends GeneralEndpoints implements sch_EcosystemEndpoints {
+export declare class cnt_ECEndpoints extends GeneralEndpoints implements sch_ECEndpoints {
     habitatEndpoints: cnt_HAEndpoints;
     internalEndpoints: cnt_MSEndpoints;
+    constructor(habitatEndpoints?: cnt_HAEndpoints, internalEndpoints?: cnt_MSEndpoints);
+    static fromMap(map: Record<string, any>): cnt_ECEndpoints;
+    static fromBody(body: Record<string, any>): cnt_ECEndpoints;
+    static fromRow(row: any): cnt_ECEndpoints;
     asignarfromBody(body: Record<string, any>): void;
 }

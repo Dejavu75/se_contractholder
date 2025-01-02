@@ -1,3 +1,4 @@
+import { cnt_ECEndpoints } from "./endpoints";
 export declare enum PermissionStatus {
     hide = "hide",
     disabled = "disabled",
@@ -72,6 +73,7 @@ export type sch_SessionHolder = {
     status: sessionStatus;
     deviceHash: string;
     accountId: number;
+    endpoints: cnt_ECEndpoints;
 };
 export declare class cnt_SessionHolder implements sch_SessionHolder {
     token: string;
@@ -82,7 +84,8 @@ export declare class cnt_SessionHolder implements sch_SessionHolder {
     status: sessionStatus;
     deviceHash: string;
     accountId: number;
-    constructor(token: string, agesToken: string, expirationTime: Date, accountHolder: cnt_AccountHolder, domain?: string, status?: sessionStatus, deviceHash?: string, accountId?: number);
+    endpoints: cnt_ECEndpoints;
+    constructor(token: string, agesToken: string, expirationTime: Date, accountHolder: cnt_AccountHolder, domain?: string, status?: sessionStatus, deviceHash?: string, accountId?: number, endpoints?: cnt_ECEndpoints);
     static defaultSession(): cnt_SessionHolder;
     static fromMap(map: cnt_SessionHolder): cnt_SessionHolder;
     static fromBody(body: any): cnt_SessionHolder;
