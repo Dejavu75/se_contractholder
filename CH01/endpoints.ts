@@ -1,11 +1,11 @@
 export type sch_MSEndpoints = {
-    heartbeatMonitor:string 
-  }
-export type sch_HAEndpoints = { 
-    foreign:string
-    credentials:string
+    heartbeatMonitor: string
+}
+export type sch_HAEndpoints = {
+    foreign: string
+    credentials: string
     information: string;
-  }
+}
 export type sch_ECEndpoints = {
     habitatEndpoints: sch_HAEndpoints;
     internalEndpoints: sch_MSEndpoints;
@@ -15,9 +15,9 @@ export class GeneralEndpoints {
         // Implementa esta función si necesitas notificar cambios.
     }
 }
- 
 
-export class cnt_HAEndpoints extends GeneralEndpoints implements sch_HAEndpoints{
+
+export class cnt_HAEndpoints extends GeneralEndpoints implements sch_HAEndpoints {
     foreign: string;
     credentials: string;
     information: string;
@@ -50,7 +50,7 @@ export class cnt_HAEndpoints extends GeneralEndpoints implements sch_HAEndpoints
     }
 }
 
-export class cnt_MSEndpoints  extends GeneralEndpoints implements sch_MSEndpoints {
+export class cnt_MSEndpoints extends GeneralEndpoints implements sch_MSEndpoints {
     heartbeatMonitor: string;
 
     constructor(heartbeatMonitor: string) {
@@ -75,29 +75,66 @@ export class cnt_MSEndpoints  extends GeneralEndpoints implements sch_MSEndpoint
     }
 }
 
-export class cnt_ECEndpoints extends GeneralEndpoints implements sch_ECEndpoints{
+export class cnt_ECEndpoints extends GeneralEndpoints implements sch_ECEndpoints {
     habitatEndpoints!: cnt_HAEndpoints
     internalEndpoints!: cnt_MSEndpoints
-    constructor(habitatEndpoints: cnt_HAEndpoints=cnt_HAEndpoints.defaultEndpoints(), internalEndpoints: cnt_MSEndpoints=cnt_MSEndpoints.defaultEndpoints()) {
+    constructor(habitatEndpoints: cnt_HAEndpoints = cnt_HAEndpoints.defaultEndpoints(), internalEndpoints: cnt_MSEndpoints = cnt_MSEndpoints.defaultEndpoints()) {
         super();
         this.habitatEndpoints = habitatEndpoints;
         this.internalEndpoints = internalEndpoints;
     }
     static fromMap(map: Record<string, any>): cnt_ECEndpoints {
+        var haEP: cnt_HAEndpoints;
+        if (map['habitatEndpoints'] != null) {
+            haEP = cnt_HAEndpoints.fromMap(map['habitatEndpoints']);
+        } else {
+            haEP = cnt_HAEndpoints.defaultEndpoints();
+        }
+        var msEP: cnt_MSEndpoints;
+        if (map['internalEndpoints'] != null) {
+            msEP = cnt_MSEndpoints.fromMap(map['internalEndpoints']);
+        } else {
+            msEP = cnt_MSEndpoints.defaultEndpoints();
+        }
         return new cnt_ECEndpoints(
-         cnt_HAEndpoints.fromMap(map['habitatEndpoints']), cnt_MSEndpoints.fromMap(map['internalEndpoints']))
+            haEP,
+            msEP)
     }
     static fromBody(body: Record<string, any>): cnt_ECEndpoints {
+        var haEP: cnt_HAEndpoints;
+        if (body['habitatEndpoints'] != null) {
+            haEP = cnt_HAEndpoints.fromBody(body['habitatEndpoints']);
+        } else {
+            haEP = cnt_HAEndpoints.defaultEndpoints();
+        }
+        var msEP: cnt_MSEndpoints;
+        if (body['internalEndpoints'] != null) {
+            msEP = cnt_MSEndpoints.fromBody(body['internalEndpoints']);
+        } else {
+            msEP = cnt_MSEndpoints.defaultEndpoints();
+        }
         return new cnt_ECEndpoints(
-         cnt_HAEndpoints.fromBody(body['habitatEndpoints']), 
-         cnt_MSEndpoints.fromBody(body['internalEndpoints']))
+            haEP,
+            msEP)
     }
     static fromRow(row: any): cnt_ECEndpoints {
+        var haEP: cnt_HAEndpoints;
+        if (row['habitatEndpoints'] != null) {
+            haEP = cnt_HAEndpoints.fromMap(row['habitatEndpoints']);
+        } else {
+            haEP = cnt_HAEndpoints.defaultEndpoints();
+        }
+        var msEP: cnt_MSEndpoints;
+        if (row['internalEndpoints'] != null) {
+            msEP = cnt_MSEndpoints.fromMap(row['internalEndpoints']);
+        } else {
+            msEP = cnt_MSEndpoints.defaultEndpoints();
+        }
         return new cnt_ECEndpoints(
-         cnt_HAEndpoints.fromBody(row['habitatEndpoints']), 
-         cnt_MSEndpoints.fromBody(row['internalEndpoints']))
+            haEP,
+            msEP)
     }
-     
+
     asignarfromBody(body: Record<string, any>): void {
         this.habitatEndpoints = cnt_HAEndpoints.fromBody(body['habitatEndpoints']);
         this.internalEndpoints = cnt_MSEndpoints.fromBody(body['internalEndpoints']);

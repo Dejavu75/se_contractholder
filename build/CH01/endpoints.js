@@ -56,13 +56,55 @@ class cnt_ECEndpoints extends GeneralEndpoints {
         this.internalEndpoints = internalEndpoints;
     }
     static fromMap(map) {
-        return new cnt_ECEndpoints(cnt_HAEndpoints.fromMap(map['habitatEndpoints']), cnt_MSEndpoints.fromMap(map['internalEndpoints']));
+        var haEP;
+        if (map['habitatEndpoints'] != null) {
+            haEP = cnt_HAEndpoints.fromMap(map['habitatEndpoints']);
+        }
+        else {
+            haEP = cnt_HAEndpoints.defaultEndpoints();
+        }
+        var msEP;
+        if (map['internalEndpoints'] != null) {
+            msEP = cnt_MSEndpoints.fromMap(map['internalEndpoints']);
+        }
+        else {
+            msEP = cnt_MSEndpoints.defaultEndpoints();
+        }
+        return new cnt_ECEndpoints(haEP, msEP);
     }
     static fromBody(body) {
-        return new cnt_ECEndpoints(cnt_HAEndpoints.fromBody(body['habitatEndpoints']), cnt_MSEndpoints.fromBody(body['internalEndpoints']));
+        var haEP;
+        if (body['habitatEndpoints'] != null) {
+            haEP = cnt_HAEndpoints.fromBody(body['habitatEndpoints']);
+        }
+        else {
+            haEP = cnt_HAEndpoints.defaultEndpoints();
+        }
+        var msEP;
+        if (body['internalEndpoints'] != null) {
+            msEP = cnt_MSEndpoints.fromBody(body['internalEndpoints']);
+        }
+        else {
+            msEP = cnt_MSEndpoints.defaultEndpoints();
+        }
+        return new cnt_ECEndpoints(haEP, msEP);
     }
     static fromRow(row) {
-        return new cnt_ECEndpoints(cnt_HAEndpoints.fromBody(row['habitatEndpoints']), cnt_MSEndpoints.fromBody(row['internalEndpoints']));
+        var haEP;
+        if (row['habitatEndpoints'] != null) {
+            haEP = cnt_HAEndpoints.fromMap(row['habitatEndpoints']);
+        }
+        else {
+            haEP = cnt_HAEndpoints.defaultEndpoints();
+        }
+        var msEP;
+        if (row['internalEndpoints'] != null) {
+            msEP = cnt_MSEndpoints.fromMap(row['internalEndpoints']);
+        }
+        else {
+            msEP = cnt_MSEndpoints.defaultEndpoints();
+        }
+        return new cnt_ECEndpoints(haEP, msEP);
     }
     asignarfromBody(body) {
         this.habitatEndpoints = cnt_HAEndpoints.fromBody(body['habitatEndpoints']);
