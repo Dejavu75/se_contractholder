@@ -20,13 +20,11 @@
   },
   "homepage": "https://github.com/Dejavu75/se_contractholder#readme",
   "devDependencies": {
-    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/se_configbase": "github:Dejavu75/se_configbase",
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "cors": "^2.8.5", 
     "crypto-js": "^4.2.0",
     "express": "^4.21.0",
     "http": "^0.0.1-security",
