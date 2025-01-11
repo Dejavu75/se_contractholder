@@ -5,6 +5,7 @@ export type sch_HAEndpoints = {
     foreign: string
     credentials: string
     information: string;
+    ages: string;
 }
 export type sch_ECEndpoints = {
     habitatEndpoints: sch_HAEndpoints;
@@ -21,19 +22,21 @@ export class cnt_HAEndpoints extends GeneralEndpoints implements sch_HAEndpoints
     foreign: string;
     credentials: string;
     information: string;
-
-    constructor(foreign: string, credentials: string, information: string = "") {
+    ages: string;
+    constructor(foreign: string, credentials: string, information: string = "", ages: string="") {
         super();
         this.foreign = foreign;
         this.credentials = credentials;
         this.information = information;
+        this.ages = ages;
     }
 
     static fromMap(map: Record<string, any>): cnt_HAEndpoints {
         return new cnt_HAEndpoints(
             map['foreign'] ?? "",
             map['credentials'] ?? "",
-            map['information'] ?? ""
+            map['information'] ?? "",
+            map['ages'] ?? ""
         );
     }
 
@@ -46,7 +49,7 @@ export class cnt_HAEndpoints extends GeneralEndpoints implements sch_HAEndpoints
     }
 
     toString(): string {
-        return `HabitatEndpoints{foreign: ${this.foreign}, credentials: ${this.credentials}, information: ${this.information}}`;
+        return `HabitatEndpoints{foreign: ${this.foreign}, credentials: ${this.credentials}, information: ${this.information}, ages: ${this.ages}}`;
     }
 }
 

@@ -5,6 +5,7 @@ export type sch_HAEndpoints = {
     foreign: string;
     credentials: string;
     information: string;
+    ages: string;
 };
 export type sch_ECEndpoints = {
     habitatEndpoints: sch_HAEndpoints;
@@ -17,7 +18,8 @@ export declare class cnt_HAEndpoints extends GeneralEndpoints implements sch_HAE
     foreign: string;
     credentials: string;
     information: string;
-    constructor(foreign: string, credentials: string, information?: string);
+    ages: string;
+    constructor(foreign: string, credentials: string, information?: string, ages?: string);
     static fromMap(map: Record<string, any>): cnt_HAEndpoints;
     static fromBody(body: Record<string, any>): cnt_HAEndpoints;
     static defaultEndpoints(): cnt_HAEndpoints;

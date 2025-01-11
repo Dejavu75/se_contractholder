@@ -8,15 +8,16 @@ class GeneralEndpoints {
 }
 exports.GeneralEndpoints = GeneralEndpoints;
 class cnt_HAEndpoints extends GeneralEndpoints {
-    constructor(foreign, credentials, information = "") {
+    constructor(foreign, credentials, information = "", ages = "") {
         super();
         this.foreign = foreign;
         this.credentials = credentials;
         this.information = information;
+        this.ages = ages;
     }
     static fromMap(map) {
-        var _a, _b, _c;
-        return new cnt_HAEndpoints((_a = map['foreign']) !== null && _a !== void 0 ? _a : "", (_b = map['credentials']) !== null && _b !== void 0 ? _b : "", (_c = map['information']) !== null && _c !== void 0 ? _c : "");
+        var _a, _b, _c, _d;
+        return new cnt_HAEndpoints((_a = map['foreign']) !== null && _a !== void 0 ? _a : "", (_b = map['credentials']) !== null && _b !== void 0 ? _b : "", (_c = map['information']) !== null && _c !== void 0 ? _c : "", (_d = map['ages']) !== null && _d !== void 0 ? _d : "");
     }
     static fromBody(body) {
         return cnt_HAEndpoints.fromMap(body);
@@ -25,7 +26,7 @@ class cnt_HAEndpoints extends GeneralEndpoints {
         return new cnt_HAEndpoints("", "");
     }
     toString() {
-        return `HabitatEndpoints{foreign: ${this.foreign}, credentials: ${this.credentials}, information: ${this.information}}`;
+        return `HabitatEndpoints{foreign: ${this.foreign}, credentials: ${this.credentials}, information: ${this.information}, ages: ${this.ages}}`;
     }
 }
 exports.cnt_HAEndpoints = cnt_HAEndpoints;
