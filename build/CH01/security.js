@@ -183,6 +183,10 @@ class cnt_SessionHolder {
         session.domain = (cookies === null || cookies === void 0 ? void 0 : cookies["ha_session_domain"]) || session.domain;
         return session;
     }
+    static fromAgesToken(agesToken) {
+        return new cnt_SessionHolder("", agesToken, new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
+        cnt_AccountHolder.defaultAccountHolder(), "global", sessionStatus.unknow, "", 0);
+    }
     static toHeader(res, session) {
         res.setHeader("x_ha_session_token", session.token);
         return res;
