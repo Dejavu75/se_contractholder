@@ -307,6 +307,18 @@ export class cnt_SessionHolder implements sch_SessionHolder {
     session.domain = cookies?.["ha_session_domain"] || session.domain;   
     return session;
   }
+  static fromAgesToken(agesToken: string): cnt_SessionHolder {
+    return new cnt_SessionHolder(
+      "",
+      agesToken,
+      new Date(Date.now() + 60 * 60 * 1000), // 1 hour from now
+      cnt_AccountHolder.defaultAccountHolder(),
+      "global",
+      sessionStatus.unknow,
+      "",
+      0
+    );
+  }
   static toHeader(res: any, session: cnt_SessionHolder): any {
     res.setHeader("x_ha_session_token", session.token);
     return res
