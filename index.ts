@@ -8,3 +8,4 @@ export * from './MS07/stocklog.js';
 export * from './MS08/database.js';
 export * from './CH01/security.js';
 export * from './CH01/endpoints.js';
+export * from './Generic/process.js';
