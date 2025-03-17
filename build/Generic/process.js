@@ -41,26 +41,3 @@ class Cnt_ProcessResponse {
     }
 }
 exports.Cnt_ProcessResponse = Cnt_ProcessResponse;
-// Ejemplo de uso
-function realizarAccion(tipo) {
-    switch (tipo) {
-        case "ok":
-            return Cnt_ProcessResponse.okResponse();
-        case "noauth":
-            return Cnt_ProcessResponse.noAuthResponse();
-        case "error":
-            return Cnt_ProcessResponse.errorResponse();
-        default:
-            // Si el tipo es personalizado, se pasa como código
-            return Cnt_ProcessResponse.customResponse(tipo, "");
-    }
-}
-// Ejemplos de llamada
-console.log(realizarAccion("ok"));
-// { result: 'Ok', message: 'El proceso se realizó correctamente.', customCode: '' }
-console.log(realizarAccion("error"));
-// { result: 'Error', message: 'No se pudo realizar el proceso.', customCode: '' }
-console.log(realizarAccion("noauth"));
-// { result: 'NoAuth', message: 'No está autorizado para realizar esta acción.', customCode: '' }
-console.log(realizarAccion("otro-resultado"));
-// { result: 'Custom', message: 'Este es un resultado personalizado.', customCode: 'otro-resultado' }
