@@ -17,27 +17,27 @@ class Cnt_ProcessResponse {
         this.customCode = customCode;
     }
     // Crea una respuesta indicando que el proceso se realizó exitosamente
-    static okResponse() {
-        return new Cnt_ProcessResponse(ProcessResultType.Ok, "El proceso se realizó correctamente.", "");
+    static okResponse(message = "") {
+        return new Cnt_ProcessResponse(ProcessResultType.Ok, message, "");
     }
     // Crea una respuesta indicando que el proceso falló o no se realizó
-    static errorResponse() {
-        return new Cnt_ProcessResponse(ProcessResultType.Error, "No se pudo realizar el proceso.", "");
+    static errorResponse(message = "") {
+        return new Cnt_ProcessResponse(ProcessResultType.Error, message, "");
     }
     // Crea una respuesta indicando que no hay autorización
-    static noAuthResponse() {
-        return new Cnt_ProcessResponse(ProcessResultType.NoAuth, "No está autorizado para realizar esta acción.", "");
+    static noAuthResponse(message = "Not authorized") {
+        return new Cnt_ProcessResponse(ProcessResultType.NoAuth, message, "");
     }
     // Crea una respuesta para casos específicos o personalizados
     // Se le puede pasar un código y/o mensaje adicional que describa el resultado
     static customResponse(customCode, message) {
-        return new Cnt_ProcessResponse(ProcessResultType.Custom, message || "Resultado específico de la función.", customCode);
+        return new Cnt_ProcessResponse(ProcessResultType.Custom, message || "", customCode);
     }
     // Crea una respuesta a partir de un body genérico (por ejemplo, un request HTTP)
     static fromBody(body) {
         // Se espera que body tenga la estructura 
         // { result: ResultType, message: string, customCode: string }
-        return new Cnt_ProcessResponse((body === null || body === void 0 ? void 0 : body.result) || ProcessResultType.Error, (body === null || body === void 0 ? void 0 : body.message) || "Estado del proceso no especificado.", (body === null || body === void 0 ? void 0 : body.customCode) || "");
+        return new Cnt_ProcessResponse((body === null || body === void 0 ? void 0 : body.result) || ProcessResultType.Error, (body === null || body === void 0 ? void 0 : body.message) || "", (body === null || body === void 0 ? void 0 : body.customCode) || "");
     }
 }
 exports.Cnt_ProcessResponse = Cnt_ProcessResponse;
@@ -52,7 +52,7 @@ function realizarAccion(tipo) {
             return Cnt_ProcessResponse.errorResponse();
         default:
             // Si el tipo es personalizado, se pasa como código
-            return Cnt_ProcessResponse.customResponse(tipo, "Este es un resultado personalizado.");
+            return Cnt_ProcessResponse.customResponse(tipo, "");
     }
 }
 // Ejemplos de llamada

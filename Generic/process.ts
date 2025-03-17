@@ -31,28 +31,28 @@ export class Cnt_ProcessResponse implements Sch_ProcessResponse {
     }
 
     // Crea una respuesta indicando que el proceso se realizó exitosamente
-    static okResponse(): Cnt_ProcessResponse {
+    static okResponse(message: string=""): Cnt_ProcessResponse {
         return new Cnt_ProcessResponse(
             ProcessResultType.Ok,
-            "El proceso se realizó correctamente.",
+            message,
             ""
         );
     }
 
     // Crea una respuesta indicando que el proceso falló o no se realizó
-    static errorResponse(): Cnt_ProcessResponse {
+    static errorResponse(message: string=""): Cnt_ProcessResponse {
         return new Cnt_ProcessResponse(
             ProcessResultType.Error,
-            "No se pudo realizar el proceso.",
+            message,
             ""
         );
     }
 
     // Crea una respuesta indicando que no hay autorización
-    static noAuthResponse(): Cnt_ProcessResponse {
+    static noAuthResponse(message: string="Not authorized"): Cnt_ProcessResponse {
         return new Cnt_ProcessResponse(
             ProcessResultType.NoAuth,
-            "No está autorizado para realizar esta acción.",
+            message,
             ""
         );
     }
@@ -62,7 +62,7 @@ export class Cnt_ProcessResponse implements Sch_ProcessResponse {
     static customResponse(customCode: string, message?: string): Cnt_ProcessResponse {
         return new Cnt_ProcessResponse(
             ProcessResultType.Custom,
-            message || "Resultado específico de la función.",
+            message || "",
             customCode
         );
     }
@@ -73,7 +73,7 @@ export class Cnt_ProcessResponse implements Sch_ProcessResponse {
         // { result: ResultType, message: string, customCode: string }
         return new Cnt_ProcessResponse(
             body?.result || ProcessResultType.Error,
-            body?.message || "Estado del proceso no especificado.",
+            body?.message || "",
             body?.customCode || ""
         );
     }
@@ -90,7 +90,7 @@ function realizarAccion(tipo: string): Cnt_ProcessResponse {
             return Cnt_ProcessResponse.errorResponse();
         default:
             // Si el tipo es personalizado, se pasa como código
-            return Cnt_ProcessResponse.customResponse(tipo, "Este es un resultado personalizado.");
+            return Cnt_ProcessResponse.customResponse(tipo, "");
     }
 }
 

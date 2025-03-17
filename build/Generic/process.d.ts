@@ -14,9 +14,9 @@ export declare class Cnt_ProcessResponse implements Sch_ProcessResponse {
     message: string;
     customCode: string;
     constructor(result?: ProcessResultType, message?: string, customCode?: string);
-    static okResponse(): Cnt_ProcessResponse;
-    static errorResponse(): Cnt_ProcessResponse;
-    static noAuthResponse(): Cnt_ProcessResponse;
+    static okResponse(message?: string): Cnt_ProcessResponse;
+    static errorResponse(message?: string): Cnt_ProcessResponse;
+    static noAuthResponse(message?: string): Cnt_ProcessResponse;
     static customResponse(customCode: string, message?: string): Cnt_ProcessResponse;
     static fromBody(body: any): Cnt_ProcessResponse;
 }
