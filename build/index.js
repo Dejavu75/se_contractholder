@@ -25,3 +25,4 @@ __exportStar(require("./MS08/database.js"), exports);
 __exportStar(require("./CH01/security.js"), exports);
 __exportStar(require("./CH01/endpoints.js"), exports);
 __exportStar(require("./Generic/process.js"), exports);
+__exportStar(require("./Generic/modeltype.js"), exports);
