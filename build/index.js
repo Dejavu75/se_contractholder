@@ -15,6 +15,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./MS01/systems.js"), exports);
+__exportStar(require("./MS01/habitats.js"), exports);
 __exportStar(require("./MS06/backups.js"), exports);
 __exportStar(require("./MS07/healthmonitor.js"), exports);
 __exportStar(require("./MS07/uniqueness.js"), exports);

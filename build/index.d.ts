@@ -1,4 +1,5 @@
 export * from './MS01/systems.js';
+export * from './MS01/habitats.js';
 export * from './MS06/backups.js';
 export * from './MS07/healthmonitor.js';
 export * from './MS07/uniqueness.js';
