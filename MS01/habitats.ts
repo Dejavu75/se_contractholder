@@ -1,26 +1,28 @@
 import { v4 as uuidv4 } from 'uuid';
-export type AccessType = "local" | "external" | "vpn" | "api";
+export type APAccessType = "local" | "external" | "vpn" | "api";
+export type HAStatusType = "enabled" | "disabled";
+
 export type sch_habitat = {
     habitatUUID: string;
     systemUUID: string;
-    status: number;
+    status: HAStatusType;
     devEnviroment: number;
     habitatName: string;
     accessKey: string;
 };
-
 export type sch_accesspoint = {
     accessPointUUID: string;
     habitatUUID: string;
     url: string;
-    accessType: AccessType;
+    accessType: APAccessType;
     description: string;
+    status: HAStatusType;
 };
 
 export class cnt_habitat implements sch_habitat {
     habitatUUID: string = "";
     systemUUID: string = "";
-    status: number = 1;
+    status: HAStatusType = "disabled";
     devEnviroment: number = 0;
     habitatName: string = "";
     accessKey: string = "";
@@ -28,7 +30,7 @@ export class cnt_habitat implements sch_habitat {
     constructor(
         habitatUUID: string = "",
         systemUUID: string = "",
-        status: number = 1,
+        status: HAStatusType = "disabled",
         devEnviroment: number = 0,
         habitatName: string = "",
         accessKey: string = ""
@@ -45,7 +47,7 @@ export class cnt_habitat implements sch_habitat {
         return new cnt_habitat(
             row.habitatUUID || "",
             row.systemUUID || "",
-            row.status || 1,
+            row.status || "disabled",
             row.devEnviroment || 0,
             row.habitatName || "",
             row.accessKey || ""
@@ -60,7 +62,7 @@ export class cnt_habitat implements sch_habitat {
         return new cnt_habitat(
             body.habitatUUID || "",
             body.systemUUID || "",
-            body.status || 1,
+            body.status || "disabled",
             body.devEnviroment || 0,
             body.habitatName || "",
             body.accessKey || ""
@@ -76,21 +78,24 @@ export class cnt_accesspoint implements sch_accesspoint {
     accessPointUUID: string = "";
     habitatUUID: string = "";
     url: string = "";
-    accessType: AccessType = "external";
+    accessType: APAccessType = "external";
     description: string = "";
+    status: HAStatusType = "disabled";
 
     constructor(
         accessPointUUID: string = "",
         habitatUUID: string = "",
         url: string = "",
-        accessType: AccessType = "external",
-        description: string = ""
+        accessType: APAccessType = "external",
+        description: string = "",
+        status: HAStatusType = "disabled"
     ) {
         this.accessPointUUID = accessPointUUID;
         this.habitatUUID = habitatUUID;
         this.url = url;
         this.accessType = accessType;
         this.description = description;
+        this.status = status;
     }
 
     static fromRow(row: any): cnt_accesspoint {
@@ -99,7 +104,8 @@ export class cnt_accesspoint implements sch_accesspoint {
             row.habitatUUID || "",
             row.url || "",
             row.accessType || "external",
-            row.description || ""
+            row.description || "",
+            row.status || "disabled"
         );
     }
 
@@ -113,7 +119,8 @@ export class cnt_accesspoint implements sch_accesspoint {
             body.habitatUUID || "",
             body.url || "",
             body.accessType || "external",
-            body.description || ""
+            body.description || "",
+            body.status || "disabled"
         );
     }
 
@@ -122,3 +129,4 @@ export class cnt_accesspoint implements sch_accesspoint {
         return this.accessPointUUID;
     }
 }
+
