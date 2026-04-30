@@ -1,4 +1,14 @@
 
+export enum heartbeatServiceType {
+    UNKNOWN = "unknow",
+    MS = "ms",
+    NGEC = "ngec",
+    AGES = "ages",
+    MYSQL = "mysql",
+    MSSQL = "mssql",
+    MYSQLPROCESS = "mysqlprocess"
+}
+
 export type sch_heartbeat = {
     mscode: string;
     instance: string;
@@ -9,7 +19,7 @@ export type sch_heartbeat = {
     url?: string;
     expectedInterval: number;
     action: string;
-    serviceType: string;
+    serviceType: heartbeatServiceType;
     heartbeatAt?: Date;
     extraData?: string;
     downMissed?: number;
@@ -27,7 +37,7 @@ export class cnt_heartbeat implements sch_heartbeat {
     url?: string = "";
     expectedInterval: number = 0;
     action: string = "";
-    serviceType: string = "";
+    serviceType: heartbeatServiceType = heartbeatServiceType.UNKNOWN;
     heartbeatAt?: Date;
     extraData?: string = "";
     downMissed: number = 3;
@@ -55,7 +65,7 @@ export class cnt_heartbeat implements sch_heartbeat {
         url: string = "",
         expectedInterval: number = 0,
         action: string = "",
-        serviceType: string = "",
+        serviceType: heartbeatServiceType = heartbeatServiceType.UNKNOWN,
         heartbeatAt?: Date,
         extraData: string = ""
     ) {
@@ -81,7 +91,7 @@ export class cnt_heartbeat implements sch_heartbeat {
             expectedInterval: oRow.expectedInterval,
             url: oRow.url,
             action: "reading",
-            serviceType: oRow.serviceType,
+            serviceType: (oRow.serviceType as heartbeatServiceType) || heartbeatServiceType.UNKNOWN,
             createdAt: oRow.createdAt,
             updateAt: oRow.updatedAt,
             heartbeatAt: oRow.heartbeatAt,
@@ -107,7 +117,7 @@ export class cnt_heartbeat implements sch_heartbeat {
             url: body?.url || "",
             expectedInterval: body?.expectedInterval || 0,
             action: body.action || "",
-            serviceType: body.serviceType || "",
+            serviceType: (body.serviceType as heartbeatServiceType) || heartbeatServiceType.UNKNOWN,
             heartbeatAt: body?.heartbeatAt ? new Date(body.heartbeatAt) : undefined,
             extraData: body?.extraData || "",
             down: body?.down ?? null,
@@ -126,7 +136,7 @@ export class cnt_heartbeat implements sch_heartbeat {
             expectedInterval: msIdentity.expectedInterval || 0,
             action: "",
             status: "",
-            serviceType: msIdentity.serviceType || "",
+            serviceType: (msIdentity.serviceType as heartbeatServiceType) || heartbeatServiceType.UNKNOWN,
             extraData: msIdentity.extraData || "",
             down: msIdentity.down ?? null,
             downMissed: msIdentity.downMissed ?? 3,
