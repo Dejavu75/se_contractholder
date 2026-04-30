@@ -1,6 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cnt_heartbeat = void 0;
+exports.cnt_heartbeat = exports.heartbeatServiceType = void 0;
+var heartbeatServiceType;
+(function (heartbeatServiceType) {
+    heartbeatServiceType["UNKNOWN"] = "unknow";
+    heartbeatServiceType["MS"] = "ms";
+    heartbeatServiceType["NGEC"] = "ngec";
+    heartbeatServiceType["AGES"] = "ages";
+    heartbeatServiceType["MYSQL"] = "mysql";
+    heartbeatServiceType["MSSQL"] = "mssql";
+    heartbeatServiceType["MYSQLPROCESS"] = "mysqlprocess";
+})(heartbeatServiceType || (exports.heartbeatServiceType = heartbeatServiceType = {}));
 class cnt_heartbeat {
     get alert() {
         if (this.heartbeatAt && this.expectedInterval) {
@@ -15,14 +25,14 @@ class cnt_heartbeat {
         return null;
     }
     // Constructor con valores por defecto
-    constructor(mscode = "", instance = "", status = "", version, createdAt, updateAt, url = "", expectedInterval = 0, action = "", serviceType = "", heartbeatAt, extraData = "") {
+    constructor(mscode = "", instance = "", status = "", version, createdAt, updateAt, url = "", expectedInterval = 0, action = "", serviceType = heartbeatServiceType.UNKNOWN, heartbeatAt, extraData = "") {
         this.mscode = "";
         this.instance = "";
         this.status = "";
         this.url = "";
         this.expectedInterval = 0;
         this.action = "";
-        this.serviceType = "";
+        this.serviceType = heartbeatServiceType.UNKNOWN;
         this.extraData = "";
         this.downMissed = 3;
         this.alertMissed = 2;
@@ -49,7 +59,7 @@ class cnt_heartbeat {
             expectedInterval: oRow.expectedInterval,
             url: oRow.url,
             action: "reading",
-            serviceType: oRow.serviceType,
+            serviceType: oRow.serviceType || heartbeatServiceType.UNKNOWN,
             createdAt: oRow.createdAt,
             updateAt: oRow.updatedAt,
             heartbeatAt: oRow.heartbeatAt,
@@ -73,7 +83,7 @@ class cnt_heartbeat {
             url: (body === null || body === void 0 ? void 0 : body.url) || "",
             expectedInterval: (body === null || body === void 0 ? void 0 : body.expectedInterval) || 0,
             action: body.action || "",
-            serviceType: body.serviceType || "",
+            serviceType: body.serviceType || heartbeatServiceType.UNKNOWN,
             heartbeatAt: (body === null || body === void 0 ? void 0 : body.heartbeatAt) ? new Date(body.heartbeatAt) : undefined,
             extraData: (body === null || body === void 0 ? void 0 : body.extraData) || "",
             down: (_a = body === null || body === void 0 ? void 0 : body.down) !== null && _a !== void 0 ? _a : null,
@@ -93,7 +103,7 @@ class cnt_heartbeat {
             expectedInterval: msIdentity.expectedInterval || 0,
             action: "",
             status: "",
-            serviceType: msIdentity.serviceType || "",
+            serviceType: msIdentity.serviceType || heartbeatServiceType.UNKNOWN,
             extraData: msIdentity.extraData || "",
             down: (_a = msIdentity.down) !== null && _a !== void 0 ? _a : null,
             downMissed: (_b = msIdentity.downMissed) !== null && _b !== void 0 ? _b : 3,
