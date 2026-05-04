@@ -6,7 +6,8 @@ export enum heartbeatServiceType {
     AGES = "ages",
     MYSQL = "mysql",
     MSSQL = "mssql",
-    MYSQLPROCESS = "mysqlprocess"
+    MYSQLPROCESS = "mysqlprocess",
+    PROCESS = "process"    
 }
 
 export type sch_heartbeat = {
