@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from "crypto";
 
 export type sch_system = {
     systemUUID: string;
@@ -122,7 +122,7 @@ export class cnt_system implements sch_system {
         return this.systemUUID
     }
     static asignarUUID(systemType: string, instanceType:string): string {
-        return  uuidv4()
+        return randomUUID()
     }
 }
 

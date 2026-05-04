@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_system = void 0;
-const uuid_1 = require("uuid");
+const crypto_1 = require("crypto");
 class cnt_system {
     // Constructor with default values
     constructor(systemUUID = "", centralKey = "", systemKey = "", instance = "", localization = 0, systemName = "", systemType = "", instanceType = "", status = 0, devEnviroment = 0) {
@@ -65,7 +65,7 @@ class cnt_system {
         return this.systemUUID;
     }
     static asignarUUID(systemType, instanceType) {
-        return (0, uuid_1.v4)();
+        return (0, crypto_1.randomUUID)();
     }
 }
 exports.cnt_system = cnt_system;

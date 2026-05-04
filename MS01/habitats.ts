@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from "crypto";
 export type APAccessType = "local" | "external" | "vpn" | "api";
 export type HAStatusType = "enabled" | "disabled";
 
@@ -70,7 +70,7 @@ export class cnt_habitat implements sch_habitat {
     }
 
     asignarUUID(): string {
-        this.habitatUUID = uuidv4();
+        this.habitatUUID = randomUUID();
         return this.habitatUUID;
     }
 }
@@ -125,7 +125,7 @@ export class cnt_accesspoint implements sch_accesspoint {
     }
 
     asignarUUID(): string {
-        this.accessPointUUID = uuidv4();
+        this.accessPointUUID = randomUUID();
         return this.accessPointUUID;
     }
 }

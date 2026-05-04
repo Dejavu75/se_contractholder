@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cnt_accesspoint = exports.cnt_habitat = void 0;
-const uuid_1 = require("uuid");
+const crypto_1 = require("crypto");
 class cnt_habitat {
     constructor(habitatUUID = "", systemUUID = "", status = "disabled", devEnviroment = 0, habitatName = "", accessKey = "") {
         this.habitatUUID = "";
@@ -27,7 +27,7 @@ class cnt_habitat {
         return new cnt_habitat(body.habitatUUID || "", body.systemUUID || "", body.status || "disabled", body.devEnviroment || 0, body.habitatName || "", body.accessKey || "");
     }
     asignarUUID() {
-        this.habitatUUID = (0, uuid_1.v4)();
+        this.habitatUUID = (0, crypto_1.randomUUID)();
         return this.habitatUUID;
     }
 }
@@ -57,7 +57,7 @@ class cnt_accesspoint {
         return new cnt_accesspoint(body.accessPointUUID || "", body.habitatUUID || "", body.url || "", body.accessType || "external", body.description || "", body.status || "disabled");
     }
     asignarUUID() {
-        this.accessPointUUID = (0, uuid_1.v4)();
+        this.accessPointUUID = (0, crypto_1.randomUUID)();
         return this.accessPointUUID;
     }
 }
