@@ -101,7 +101,7 @@ function parseErrorMessage(errorText) {
     const executableVersion = parseDTFox(exever);
     const program = programMatch ? programMatch[1].trim() : "";
     const callStack = callStackMatch ? callStackMatch[1].trim() : "";
-    const hashtext = obtenerHash(callStack, messageMatch ? messageMatch[1].trim() : "", program);
+    const hashtext = obtenerHash(callStack, messageMatch ? messageMatch[1].trim() : "", program, errorText);
     return {
         user: userMatch ? userMatch[1].trim() : "",
         errorMessage: errorText,
@@ -135,8 +135,16 @@ function parseDTFox(dateString) {
     utcDate.setHours(utcDate.getHours() - 3);
     return utcDate;
 }
-function obtenerHash(callStack, message, program) {
-    const hash = CryptoJS.SHA256(callStack + message).toString(CryptoJS.enc.Hex);
+function normalizeErrorSignature(errorText) {
+    return (errorText || "")
+        .replace(/\r\n/g, "\n")
+        .replace(/Transacci[oó]n ID\s*:\s*ID:\s*[^\r\n]*/gi, "Transaccion ID: <omitted>")
+        .replace(/\s+$/gm, "")
+        .trim();
+}
+function obtenerHash(callStack, message, program, errorText = "") {
+    const signature = normalizeErrorSignature(errorText) || [program, callStack, message].join("\n");
+    const hash = CryptoJS.SHA256(signature).toString(CryptoJS.enc.Hex);
     const hashText = hash.slice(-16);
     return hashText;
 }
