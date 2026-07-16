@@ -24,6 +24,13 @@ npm test
 | Main | `build/index.js` |
 | Repositorio | `https://github.com/Dejavu75/se_contractholder` |
 
+### Clave de instalación de MS01
+
+`installationKey` no forma parte de `cnt_system`, para evitar que los endpoints generales de listado y registro la serialicen. El endpoint de resolución utiliza dos contratos específicos:
+
+- `cnt_installation_key_lookup`: body de entrada con `installationKey`.
+- `cnt_installation_system`: proyección estable de respuesta con `systemUUID`, `systemKey` y `systemName`.
+
 ## Fuente de verdad
 
 - Exports públicos: `index.ts`

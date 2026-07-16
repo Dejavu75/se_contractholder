@@ -1,7 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cnt_system = void 0;
+exports.cnt_system = exports.cnt_installation_system = exports.cnt_installation_key_lookup = void 0;
 const crypto_1 = require("crypto");
+class cnt_installation_key_lookup {
+    constructor(installationKey = "") {
+        this.installationKey = "";
+        this.installationKey = installationKey;
+    }
+    static fromBody(body) {
+        return new cnt_installation_key_lookup(typeof (body === null || body === void 0 ? void 0 : body.installationKey) === "string" ? body.installationKey : "");
+    }
+}
+exports.cnt_installation_key_lookup = cnt_installation_key_lookup;
+class cnt_installation_system {
+    constructor(systemUUID = "", systemKey = "", systemName = "") {
+        this.systemUUID = "";
+        this.systemKey = "";
+        this.systemName = "";
+        this.systemUUID = systemUUID;
+        this.systemKey = systemKey;
+        this.systemName = systemName;
+    }
+    static fromSystem(system) {
+        return new cnt_installation_system(system.systemUUID, system.systemKey, system.systemName);
+    }
+}
+exports.cnt_installation_system = cnt_installation_system;
 class cnt_system {
     // Constructor with default values
     constructor(systemUUID = "", centralKey = "", systemKey = "", instance = "", localization = 0, systemName = "", systemType = "", instanceType = "", status = 0, devEnviroment = 0) {

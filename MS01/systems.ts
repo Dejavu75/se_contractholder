@@ -13,6 +13,46 @@ export type sch_system = {
     devEnviroment: number;
 };
 
+export type sch_installation_key_lookup = {
+    installationKey: string;
+};
+
+export type sch_installation_system = {
+    systemUUID: string;
+    systemKey: string;
+    systemName: string;
+};
+
+export class cnt_installation_key_lookup implements sch_installation_key_lookup {
+    installationKey: string = "";
+
+    constructor(installationKey: string = "") {
+        this.installationKey = installationKey;
+    }
+
+    static fromBody(body: any): cnt_installation_key_lookup {
+        return new cnt_installation_key_lookup(
+            typeof body?.installationKey === "string" ? body.installationKey : ""
+        );
+    }
+}
+
+export class cnt_installation_system implements sch_installation_system {
+    systemUUID: string = "";
+    systemKey: string = "";
+    systemName: string = "";
+
+    constructor(systemUUID: string = "", systemKey: string = "", systemName: string = "") {
+        this.systemUUID = systemUUID;
+        this.systemKey = systemKey;
+        this.systemName = systemName;
+    }
+
+    static fromSystem(system: Pick<sch_system, "systemUUID" | "systemKey" | "systemName">): cnt_installation_system {
+        return new cnt_installation_system(system.systemUUID, system.systemKey, system.systemName);
+    }
+}
+
 export class cnt_system implements sch_system {
     systemUUID: string = "";
     centralKey: string = "";
